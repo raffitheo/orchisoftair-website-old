@@ -7,8 +7,8 @@ import { OrchiWebsite } from './components/OrchiWebsite';
 
 import reportWebVitals from './reportWebVitals';
 
-import GlobalCSS from './styles/global';
-import { defaultTheme } from './styles/defaultTheme';
+import GlobalCSS from './styles/global.style';
+import { defaultTheme } from './styles/defaultTheme.style';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
