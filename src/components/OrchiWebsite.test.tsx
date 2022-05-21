@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OrchiWebsite from './OrchiWebsite';
+import { OrchiWebsite } from './OrchiWebsite';
 
 import {
     render,

@@ -1,19 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import OrchiWebsite from './components/OrchiWebsite';
+import { ThemeProvider } from 'styled-components';
+
+import { OrchiWebsite } from './components/OrchiWebsite';
 
 import reportWebVitals from './reportWebVitals';
 
-import './index.css';
+import GlobalCSS from './styles/global';
+import { defaultTheme } from './styles/defaultTheme';
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
     <React.StrictMode>
-        <OrchiWebsite />
+        <ThemeProvider
+            theme={defaultTheme}
+        >
+            <GlobalCSS />
+            <OrchiWebsite />
+        </ThemeProvider>
     </React.StrictMode>
 );
 
