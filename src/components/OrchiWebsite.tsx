@@ -1,36 +1,46 @@
 import React from 'react';
 
-import logo from '../assets/logo.svg';
+import { Navbar } from './Navbar/Navbar';
 
-import './OrchiWebsite.css';
+import { Container } from './OrchiWebsite.style';
 
 export const OrchiWebsite: React.FC = () => {
+    var contacts: {
+        icon: string,
+        title: string,
+        info: string
+    }[] = [
+        {
+            icon: 'AtSign',
+            title: 'Scrivici',
+            info: 'info@orchisoftair.it'
+        },
+        {
+            icon: 'Phone',
+            title: 'Chiamaci',
+            info: '??? ??? ????'
+        }
+    ];
+    var socials: {
+        icon: string,
+        link: string
+    }[] = [
+        {
+            link: 'https://www.instagram.com/orchisoftair_official/',
+            icon: 'Instagram'
+        },
+        {
+            link: 'https://www.facebook.com/orchitrieste/',
+            icon: 'Facebook'
+        }
+    ];
+
     return (
-        <div
-            className='App'
-        >
-            <header
-                className='App-header'
-            >
-                <img
-                    src={logo}
-                    className='App-logo'
-                    alt='logo'
-                />
-
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-
-                <a
-                    className='App-link'
-                    href='https://reactjs.org'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <Container>
+            <Navbar 
+                contacts={contacts}
+                socials={socials}
+            />
+        </Container>
     );
 }
