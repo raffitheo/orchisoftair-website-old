@@ -6,6 +6,7 @@ export interface INavbarProps {
     }[];
     socials: {
         icon: string,
-        link: string
+        link: string,
+        hoverColor: string
     }[];
 };
