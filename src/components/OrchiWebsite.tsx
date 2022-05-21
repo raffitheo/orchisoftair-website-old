@@ -1,8 +1,12 @@
-import React from 'react';
+import React,
+    {
+        useEffect,
+        useState
+    }
+from 'react';
+import { NavbarSticky } from './NavbarSticky/NavbarSticky';
 
-import { Navbar } from './Navbar/Navbar';
-
-import { Container } from './OrchiWebsite.style';
+import { NavbarTop } from './NavbarTop/NavbarTop';
 
 export const OrchiWebsite: React.FC = () => {
     var contacts: {
@@ -38,12 +42,94 @@ export const OrchiWebsite: React.FC = () => {
         }
     ];
 
+    var navigation: {
+        text: string,
+        link: string,
+        subMenu?: {
+            text: string,
+            link: string
+        }[]
+    }[] = [
+        {
+            text: 'Home',
+            link: '#'
+        },
+        {
+            text: 'Chi siamo',
+            link: '#',
+            subMenu: [
+                {
+                    text: 'L\'associazione',
+                    link: '#'
+                },
+                {
+                    text: 'Il team',
+                    link: '#'
+                }
+            ]
+        },
+        {
+            text: 'Il gioco',
+            link: '#',
+            subMenu: [
+                {
+                    text: 'Softair',
+                    link: '#'
+                },
+                {
+                    text: 'Il nostro campo',
+                    link: '#'
+                }
+            ]
+        },
+        {
+            text: 'Contattaci',
+            link: '#'
+        }
+    ];
+    
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [topNavElement, setTopNavElement] = useState<Element>();
+
+    const handleScroll = () => {
+        var position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, {
+            passive: true
+        });
+
+        var topNav = document.getElementById('top-bar');
+        if (topNav)
+            setTopNavElement(topNav);
+    
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <Container>
-            <Navbar 
+        <>
+            <NavbarTop
                 contacts={contacts}
                 socials={socials}
+                id={'top-bar'}
             />
-        </Container>
+
+            <NavbarSticky
+                navigation={navigation}
+                style={{
+                    top: topNavElement ? scrollPosition > (topNavElement as unknown as HTMLElement).clientHeight ? '0' : '-100%' : '-100%'
+                }}
+            />
+
+            <div
+                style={{
+                    height: '200vh'
+                }}
+            ></div>
+        </>
     );
 }

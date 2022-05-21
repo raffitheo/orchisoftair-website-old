@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { INavbarProps } from './INavbarProps';
+import { INavbarTopProps } from './INavbarTopProps';
 
 import { IconExtension } from '../IconExtension/IconExtension';
 import { IconName } from '../IconExtension/IIconExtensionProps';
@@ -22,11 +22,15 @@ import {
     Socials,
     SocialsWrapper,
     Wrapper
-} from './Navbar.style';
+} from './NavbarTop.style';
 
-export const Navbar: React.FC<INavbarProps> = ({contacts, socials}: INavbarProps) => {
+export const NavbarTop: React.FC<INavbarTopProps> = ({contacts, socials, className, id, style}) => {
     return (
-        <Wrapper>
+        <Wrapper
+            className={className}
+            id={id}
+            style={style}
+        >
             <Container>
                 <Row>
                     <LogoWrapper>
