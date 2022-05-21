@@ -62,6 +62,7 @@ export const Navbar: React.FC<INavbarProps> = ({contacts, socials}: INavbarProps
                                             <ContactTitle>
                                                 {contact.title}
                                             </ContactTitle>
+
                                             <ContactInfo>
                                                 {contact.info}
                                             </ContactInfo>
@@ -79,6 +80,8 @@ export const Navbar: React.FC<INavbarProps> = ({contacts, socials}: INavbarProps
                                     return (
                                         <SocialLink
                                             href={social.link}
+                                            key={`Social${index}`}
+                                            hoverColor={social.hoverColor}
                                         >
                                             <IconExtension
                                                 name={social.icon as IconName}

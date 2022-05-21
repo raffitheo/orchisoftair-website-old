@@ -94,6 +94,7 @@ export const ContactsWrapper = styled.div`
 export const ContactsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
     padding: 30px 0 22px;
 
     @media (min-width: 320px) and (max-width: 767px) {
@@ -104,7 +105,7 @@ export const ContactsContainer = styled.div`
 export const Contacts = styled.div`
     color: ${(props) => props.theme.textPrimary};
     display: inline-block;
-    margin-right: 40px;
+    margin-right: 30px;
     padding-left: 30px;
     position: relative;
     text-align: left;
@@ -165,7 +166,7 @@ export const Socials = styled.div`
     }
 `;
 
-export const SocialLink = styled.a`
+export const SocialLink = styled.a<{ hoverColor: string }>`
     align-items: center;
     border: 2px solid ${(props) => props.theme.textPrimary};
     border-radius: 50%;
@@ -176,9 +177,15 @@ export const SocialLink = styled.a`
     line-height: 1;
     margin-right: 10px;
     text-align: center;
+    transition: all 200ms ease-in-out;
     width: 40px;
 
     &:last-of-type {
         margin-right: 0;
+    }
+
+    &:hover {
+        border-color: ${(props) => props.hoverColor};
+        color: ${(props) => props.hoverColor};
     }
 `;
