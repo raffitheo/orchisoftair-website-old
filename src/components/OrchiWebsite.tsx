@@ -4,7 +4,7 @@ import logo from '../assets/logo.svg';
 
 import './OrchiWebsite.css';
 
-function OrchiWebsite() {
+export const OrchiWebsite: React.FC = () => {
     return (
         <div
             className='App'
@@ -34,5 +34,3 @@ function OrchiWebsite() {
         </div>
     );
 }
-
-export default OrchiWebsite;
