@@ -1,12 +1,11 @@
-import React,
-    {
-        useEffect,
-        useState
-    }
-from 'react';
-import { NavbarSticky } from './NavbarSticky/NavbarSticky';
+import React, {
+    useEffect,
+    useState
+} from 'react';
 
 import { NavbarTop } from './NavbarTop/NavbarTop';
+
+import { PageContent } from './OrchiWebsite.style';
 
 export const OrchiWebsite: React.FC = () => {
     var contacts: {
@@ -25,6 +24,59 @@ export const OrchiWebsite: React.FC = () => {
             info: '+39 348 469 1962'
         }
     ];
+    var navigation: {
+        text: string,
+        link: string,
+        subMenu?: {
+            text: string,
+            link: string
+        }[]
+    }[] = [
+        {
+            text: 'Home',
+            link: '#home'
+        },
+        {
+            text: 'Chi siamo',
+            link: '#chi-siamo',
+            subMenu: [
+                {
+                    text: 'L\'associazione',
+                    link: '#chi-siamo-l-associazione'
+                },
+                {
+                    text: 'Il team',
+                    link: '#chi-siamo-il-team'
+                },
+                {
+                    text: 'Deve giochiamo',
+                    link: '#chi-siamo-dove-giochiamo'
+                }
+            ]
+        },
+        {
+            text: 'Eventi',
+            link: '#event',
+            subMenu: [
+                {
+                    text: 'In arrivo',
+                    link: '#eventi-in-arrivo'
+                },
+                {
+                    text: 'Storico',
+                    link: '#eventi-storico'
+                }
+            ]
+        },
+        {
+            text: 'Contatti',
+            link: '#contatti'
+        },
+        {
+            text: 'Area riservata',
+            link: '#area-riservata'
+        },
+    ];
     var socials: {
         icon: string,
         link: string,
@@ -42,71 +94,44 @@ export const OrchiWebsite: React.FC = () => {
         }
     ];
 
-    var navigation: {
-        text: string,
-        link: string,
-        subMenu?: {
-            text: string,
-            link: string
-        }[]
-    }[] = [
-        {
-            text: 'Home',
-            link: '#'
-        },
-        {
-            text: 'Chi siamo',
-            link: '#',
-            subMenu: [
-                {
-                    text: 'L\'associazione',
-                    link: '#'
-                },
-                {
-                    text: 'Il team',
-                    link: '#'
-                }
-            ]
-        },
-        {
-            text: 'Il gioco',
-            link: '#',
-            subMenu: [
-                {
-                    text: 'Softair',
-                    link: '#'
-                },
-                {
-                    text: 'Il nostro campo',
-                    link: '#'
-                }
-            ]
-        },
-        {
-            text: 'Contattaci',
-            link: '#'
-        }
-    ];
-    
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [topNavElement, setTopNavElement] = useState<Element>();
+    const [isMobile, setIsMobile] = useState<boolean>(false);
 
-    const handleScroll = () => {
-        var position = window.pageYOffset;
-        setScrollPosition(position);
-    };
+    const onMobileMenuChange = (newValue: boolean): void => {
+        var navbar: HTMLElement = document.getElementById('navbar') as HTMLElement;
+        var navbarMobile: HTMLElement = document.getElementById('navbar-mobile') as HTMLElement;
+        var pageContent: HTMLElement = document.getElementById('page-content') as HTMLElement;
+
+        if (navbar && navbarMobile && pageContent) {
+            if (newValue) {
+                navbar.style.left = '250px';
+                navbar.style.right = '-250px';
+                navbarMobile.style.left = '0';
+                pageContent.style.transform = 'translateX(250px)';
+            } else {
+                navbar.style.left = '0';
+                navbar.style.right = '0';
+                navbarMobile.style.left = '-250px';
+                pageContent.style.transform = 'translateX(0)';
+            }
+        }
+    }
     
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll, {
-            passive: true
-        });
+        const handleResize = (): void => {
+            var width = document.documentElement.offsetWidth;
+    
+            setIsMobile(!(width >= 768 || width <= 320));
+    
+            if (width >= 768 || width <= 320) {
+                onMobileMenuChange(false);
+            }
+        };
 
-        var topNav = document.getElementById('top-bar');
-        if (topNav)
-            setTopNavElement(topNav);
+        handleResize();
+        window.addEventListener('resize', handleResize);
     
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
@@ -114,22 +139,21 @@ export const OrchiWebsite: React.FC = () => {
         <>
             <NavbarTop
                 contacts={contacts}
-                socials={socials}
-                id={'top-bar'}
-            />
-
-            <NavbarSticky
                 navigation={navigation}
-                style={{
-                    top: topNavElement ? scrollPosition > (topNavElement as unknown as HTMLElement).clientHeight ? '0' : '-100%' : '-100%'
-                }}
+                socials={socials}
+                onMobileMenuChange={onMobileMenuChange}
+                isMobile={isMobile}
             />
 
-            <div
-                style={{
-                    height: '200vh'
-                }}
-            ></div>
+            <PageContent
+                id='page-content'
+            >
+                <div
+                    style={{
+                        height: '200vh'
+                    }}
+                ></div>
+            </PageContent>
         </>
     );
 }
