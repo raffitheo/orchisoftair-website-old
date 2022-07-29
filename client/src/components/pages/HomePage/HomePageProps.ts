@@ -1,3 +1,3 @@
 export default interface IHomePageProps {
-    navbarHeight: number;
+	navbarHeight: number;
 }

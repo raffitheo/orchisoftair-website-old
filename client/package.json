@@ -1,79 +1,79 @@
 {
-    "name": "orchisoftair-website-client",
-    "version": "0.1.6-alpha.1",
-    "description": "UI (front-end) for the official website for the italian softair team A.S.D. \"Gli Orchi Softair\"",
-    "keywords": [
-        "airsoft",
-        "club",
-        "italian",
-        "italy",
-        "orchi",
-        "react",
-        "softair",
-        "team",
-        "trieste",
-        "typescript",
-        "yarn",
-        "website"
-    ],
-    "homepage": "http://raffitheo.github.io/orchisoftair-website",
-    "license": "MIT",
-    "author": {
-        "email": "raffaele-valenti@libero.it",
-        "name": "Raffaele Valenti"
-    },
-    "main": "src/index.tsx",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/raffitheo/orchisoftair-website/"
-    },
-    "private": true,
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "deploy": "gh-pages -d build"
-    },
-    "dependencies": {
-        "@testing-library/jest-dom": "^5.16.4",
-        "@testing-library/react": "^13.3.0",
-        "@testing-library/user-event": "^14.3.0",
-        "dayjs": "^1.11.4",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-feather": "^2.0.10",
-        "react-router-dom": "^6.3.0",
-        "react-scripts": "5.0.1",
-        "styled-components": "^5.3.5",
-        "web-vitals": "^2.1.4"
-    },
-    "devDependencies": {
-        "@types/jest": "^28.1.6",
-        "@types/node": "^18.6.2",
-        "@types/react": "^18.0.15",
-        "@types/react-dom": "^18.0.6",
-        "@types/react-router-dom": "^5.3.3",
-        "@types/styled-components": "^5.1.25",
-        "gh-pages": "^4.0.0",
-        "typescript": "^4.7.4"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+	"name": "orchisoftair-website-client",
+	"version": "0.1.6-alpha.1",
+	"description": "UI (front-end) for the official website for the italian softair team A.S.D. \"Gli Orchi Softair\"",
+	"keywords": [
+		"airsoft",
+		"club",
+		"italian",
+		"italy",
+		"orchi",
+		"react",
+		"softair",
+		"team",
+		"trieste",
+		"typescript",
+		"yarn",
+		"website"
+	],
+	"homepage": "http://raffitheo.github.io/orchisoftair-website",
+	"license": "MIT",
+	"author": {
+		"email": "raffaele-valenti@libero.it",
+		"name": "Raffaele Valenti"
+	},
+	"main": "src/index.tsx",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/raffitheo/orchisoftair-website/"
+	},
+	"private": true,
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"deploy": "gh-pages -d build"
+	},
+	"dependencies": {
+		"@testing-library/jest-dom": "^5.16.4",
+		"@testing-library/react": "^13.3.0",
+		"@testing-library/user-event": "^14.3.0",
+		"dayjs": "^1.11.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-feather": "^2.0.10",
+		"react-router-dom": "^6.3.0",
+		"react-scripts": "5.0.1",
+		"styled-components": "^5.3.5",
+		"web-vitals": "^2.1.4"
+	},
+	"devDependencies": {
+		"@types/jest": "^28.1.6",
+		"@types/node": "^18.6.2",
+		"@types/react": "^18.0.15",
+		"@types/react-dom": "^18.0.6",
+		"@types/react-router-dom": "^5.3.3",
+		"@types/styled-components": "^5.1.25",
+		"gh-pages": "^4.0.0",
+		"typescript": "^4.7.4"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
 }
