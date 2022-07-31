@@ -146,12 +146,10 @@ export const Navbar: FC<INavbarProps> = ({
 				}
 			} else navbar.style.top = '0';
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isMobile]);
 
 	return (
