@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import INavbarProps from './INavbarProps';
 
-import { IconExtension } from '../IconExtension/IconExtension';
+import IconExtension from '../IconExtension/IconExtension';
 import { IconName } from '../IconExtension/IIconExtensionProps';
 
 import logo from '../../assets/logo.png';
@@ -53,7 +53,7 @@ import {
 	Wrapper,
 } from './Navbar.style';
 
-export const Navbar: FC<INavbarProps> = ({
+const Navbar: FC<INavbarProps> = ({
 	contacts,
 	navigation,
 	socials,
@@ -146,11 +146,12 @@ export const Navbar: FC<INavbarProps> = ({
 				}
 			} else navbar.style.top = '0';
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false);
-	}, [isMobile]);
+	}, [isMobile, isMobileMenuOpen]);
 
 	return (
 		<>
@@ -538,3 +539,5 @@ export const Navbar: FC<INavbarProps> = ({
 		</>
 	);
 };
+
+export default Navbar;

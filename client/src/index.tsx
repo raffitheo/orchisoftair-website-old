@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 
 import { ThemeProvider } from 'styled-components';
 
-import { OrchiWebsite } from './components/OrchiWebsite';
+import OrchiWebsite from './components/OrchiWebsite';
 
 import reportWebVitals from './reportWebVitals';
 
-import { defaultTheme } from './styles/defaultTheme.style';
+import DefaultTheme from './styles/defaultTheme.style';
 import GlobalCSS from './styles/global.style';
 
 const root = ReactDOM.createRoot(
@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<ThemeProvider theme={defaultTheme}>
+		<ThemeProvider theme={DefaultTheme}>
 			<GlobalCSS />
 			<OrchiWebsite />
 		</ThemeProvider>

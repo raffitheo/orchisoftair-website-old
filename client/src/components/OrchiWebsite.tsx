@@ -2,15 +2,15 @@ import { FC, useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Navbar } from './Navbar/Navbar';
+import Navbar from './Navbar/Navbar';
 
 import { Contacts, Navigation, Social } from '../data/navbar';
 
-import { HomePage } from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 
 import { PageContent } from './OrchiWebsite.style';
 
-export const OrchiWebsite: FC = () => {
+const OrchiWebsite: FC = () => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 	const [navbarHeight, setNavbarHeight] = useState<number>(0);
 
@@ -85,3 +85,5 @@ export const OrchiWebsite: FC = () => {
 		</Router>
 	);
 };
+
+export default OrchiWebsite;
