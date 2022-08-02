@@ -1,4 +1,4 @@
-import { OrchiWebsite } from './OrchiWebsite';
+import OrchiWebsite from './OrchiWebsite';
 
 import { render, screen } from '@testing-library/react';
 
