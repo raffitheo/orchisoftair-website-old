@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import HomePage from './pages/HomePage/HomePage';
 
 import { PageContent } from './OrchiWebsite.style';
 
-const OrchiWebsite: FC = () => {
+const OrchiWebsite = (): JSX.Element => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 	const [navbarHeight, setNavbarHeight] = useState<number>(0);
 

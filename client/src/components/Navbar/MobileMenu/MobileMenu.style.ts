@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-export const MobileWrapper = styled.section`
+const Wrapper = styled.section`
 	background-color: ${(props) => props.theme.dark};
 	display: none;
 	height: 100vh;
@@ -19,7 +19,7 @@ export const MobileWrapper = styled.section`
 	}
 `;
 
-export const MobileContainer = styled.div`
+const Container = styled.div`
 	margin: 0 auto;
 	padding: 0 15px;
 
@@ -43,7 +43,7 @@ export const MobileContainer = styled.div`
 	}
 `;
 
-export const MobileRow = styled.div`
+const Row = styled.div`
 	margin: 0 -15px;
 
 	&::before,
@@ -56,7 +56,7 @@ export const MobileRow = styled.div`
 	}
 `;
 
-export const MobileNavigationWrapper = styled.div`
+const NavigationWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -67,17 +67,17 @@ export const MobileNavigationWrapper = styled.div`
 	}
 `;
 
-export const MobileNavigationContainer = styled.div`
+const NavigationContainer = styled.div`
 	display: block;
 `;
 
-export const MobileNavigationList = styled.ul`
+const NavigationList = styled.ul`
 	list-style: none;
 	margin: 0;
 	padding: 0;
 `;
 
-export const MobileNavigationListElementLink = styled(Link)`
+const NavigationListElementLink = styled(Link)`
 	color: ${(props) => props.theme.textPrimary};
 	display: block;
 	font-size: 16px;
@@ -91,20 +91,20 @@ export const MobileNavigationListElementLink = styled(Link)`
 	}
 `;
 
-export const MobileNavigationListElement = styled.li`
+const NavigationListElement = styled.li`
 	display: inline-block;
 	line-height: 1.2;
 	position: relative;
 	width: 100%;
 
 	&.active {
-		${MobileNavigationListElementLink} {
+		${NavigationListElementLink} {
 			color: ${(props) => props.theme.textAccent};
 		}
 	}
 `;
 
-export const MobileNavigationSubMenuListExpand = styled.div`
+const NavigationSubMenuListExpand = styled.div`
 	align-items: center;
 	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
@@ -121,7 +121,7 @@ export const MobileNavigationSubMenuListExpand = styled.div`
 	}
 `;
 
-export const MobileNavigationSubMenuList = styled.ul`
+const NavigationSubMenuList = styled.ul`
 	background-color: ${(props) => props.theme.dark};
 	cursor: default;
 	display: block;
@@ -143,7 +143,7 @@ export const MobileNavigationSubMenuList = styled.ul`
 	}
 `;
 
-export const MobileNavigationSubMenuListElementLink = styled(Link)`
+const NavigationSubMenuListElementLink = styled(Link)`
 	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
 	display: block;
@@ -153,7 +153,7 @@ export const MobileNavigationSubMenuListElementLink = styled(Link)`
 	transition: all 200ms linear;
 `;
 
-export const MobileNavigationSubMenuListElement = styled.li`
+const NavigationSubMenuListElement = styled.li`
 	color: black;
 	display: block;
 	line-height: 1.2;
@@ -166,8 +166,23 @@ export const MobileNavigationSubMenuListElement = styled.li`
 
 	&:hover,
 	&.active {
-		${MobileNavigationSubMenuListElementLink} {
+		${NavigationSubMenuListElementLink} {
 			color: ${(props) => props.theme.textAccent};
 		}
 	}
 `;
+
+export {
+	Wrapper,
+	Container,
+	Row,
+	NavigationWrapper,
+	NavigationContainer,
+	NavigationList,
+	NavigationListElementLink,
+	NavigationListElement,
+	NavigationSubMenuListExpand,
+	NavigationSubMenuList,
+	NavigationSubMenuListElementLink,
+	NavigationSubMenuListElement,
+};

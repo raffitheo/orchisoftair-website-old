@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import ISearchbarProps from './ISearchBarProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 
-import {
-	SearchBarButton,
-	SearchBarContainer,
-	SearchBarForm,
-	SearchBarInput,
-	SearchBarWrapper,
-} from './SeachBar.style';
+import { Button, Container, Form, Input, Wrapper } from './SeachBar.style';
 
-const SearchBar: React.FC<ISearchbarProps> = (
-	componentProps: ISearchbarProps
-) => {
+const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 	const [searchActive, setSearchActive] = useState<boolean>(
 		componentProps.openOnStart ? true : false
 	);
 
 	return (
-		<SearchBarWrapper>
-			<SearchBarContainer>
-				<SearchBarForm action="#" method="get" role="search">
-					<SearchBarInput
+		<Wrapper>
+			<Container>
+				<Form action="#" method="get" role="search">
+					<Input
 						className={searchActive ? 'active' : ''}
 						name="s"
 						placeholder="Cerca nel sito..."
 						type="search"
 					/>
-					<SearchBarButton
+					<Button
 						className={searchActive ? 'active' : ''}
 						type="button"
 						onClick={() => {
@@ -44,10 +36,10 @@ const SearchBar: React.FC<ISearchbarProps> = (
 								margin: 'auto',
 							}}
 						/>
-					</SearchBarButton>
-				</SearchBarForm>
-			</SearchBarContainer>
-		</SearchBarWrapper>
+					</Button>
+				</Form>
+			</Container>
+		</Wrapper>
 	);
 };
 

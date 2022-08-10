@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import INavbarProps from './INavbarProps';
 
@@ -38,16 +38,7 @@ import MobileMenu from './MobileMenu/MobileMenu';
 import Logo from './Logo/Logo';
 import SearchBar from './SearchBar/SearchBar';
 
-const Navbar: React.FC<INavbarProps> = ({
-	contacts,
-	navigation,
-	socials,
-	onMobileMenuChange,
-	isMobile,
-	className,
-	style,
-	small,
-}: INavbarProps) => {
+const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
 	const [currentlySelectedSubMenu, setCurrentlySelectedSubMenu] =
 		useState<number>(-1);
@@ -84,7 +75,7 @@ const Navbar: React.FC<INavbarProps> = ({
 				let selection: string = url.split('#')[1];
 
 				if (selection) {
-					navigation.forEach((element, index) => {
+					componentProps.navigation.forEach((element, index) => {
 						if (`#${selection}` === element.link) setCurrentlySelected(index);
 						else {
 							if (element.subMenu && element.subMenu.length >= 1) {
@@ -106,7 +97,7 @@ const Navbar: React.FC<INavbarProps> = ({
 
 		handleInitialSelection();
 
-		if (!small) {
+		if (!componentProps.small) {
 			window.addEventListener('scroll', handleScroll);
 
 			return () => {
@@ -133,15 +124,16 @@ const Navbar: React.FC<INavbarProps> = ({
 	}, []);
 
 	useEffect(() => {
-		if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false);
-	}, [isMobile, isMobileMenuOpen]);
+		if (!componentProps.isMobile && isMobileMenuOpen)
+			setIsMobileMenuOpen(false);
+	}, [componentProps.isMobile, isMobileMenuOpen]);
 
 	return (
 		<>
 			<Wrapper
-				className={`${className ? className : ''}`}
+				className={componentProps.className}
 				id={`navbar`}
-				style={style ? style : {}}
+				style={componentProps.style}
 			>
 				<Container>
 					<Row id={'desktop-contacts'}>
@@ -155,7 +147,7 @@ const Navbar: React.FC<INavbarProps> = ({
 						<ContactsWrapper>
 							<ContactsContainer>
 								<>
-									{contacts.map((contact, index) => {
+									{componentProps.contacts.map((contact, index) => {
 										return (
 											<Contacts key={`Contact${index}`}>
 												<IconExtension
@@ -181,7 +173,7 @@ const Navbar: React.FC<INavbarProps> = ({
 						<SocialsWrapper>
 							<SocialsContainer>
 								<>
-									{socials.map((social, index) => {
+									{componentProps.socials.map((social, index) => {
 										return (
 											<SocialLink
 												key={`Social${index}`}
@@ -206,9 +198,14 @@ const Navbar: React.FC<INavbarProps> = ({
 							<MobileHamburgerContainer>
 								<MobileHamburger>
 									<MobileHamburgerCheckbox
-										checked={!isMobile ? false : isMobileMenuOpen}
+										checked={
+											!componentProps.isMobile ? false : isMobileMenuOpen
+										}
 										onChange={(event) => {
-											onMobileMenuChange(!isMobileMenuOpen, event);
+											componentProps.onMobileMenuChange(
+												!isMobileMenuOpen,
+												event
+											);
 											setIsMobileMenuOpen(!isMobileMenuOpen);
 											setMobileSubMenuOpen(-1);
 										}}
@@ -227,13 +224,13 @@ const Navbar: React.FC<INavbarProps> = ({
 
 					<Row
 						style={{
-							display: !isMobile ? 'block' : 'none',
+							display: !componentProps.isMobile ? 'block' : 'none',
 						}}
 					>
 						<NavigationWrapper>
 							<NavigationContainer>
 								<NavigationList>
-									{navigation.map((element, elementIndex) => {
+									{componentProps.navigation.map((element, elementIndex) => {
 										return (
 											<NavigationListElement
 												className={
@@ -324,13 +321,13 @@ const Navbar: React.FC<INavbarProps> = ({
 				currentlySelectedSubMenu={currentlySelectedSubMenu}
 				logo={logo}
 				mobileSubMenuOpen={mobileSubMenuOpen}
-				navigation={navigation}
+				navigation={componentProps.navigation}
 				onClickElement={(elementIndex, subMenuElementIndex) => {
 					setCurrentlySelected(elementIndex);
 					setCurrentlySelectedSubMenu(subMenuElementIndex);
 
 					setTimeout(() => {
-						onMobileMenuChange(false);
+						componentProps.onMobileMenuChange(false);
 						setIsMobileMenuOpen(false);
 						setMobileSubMenuOpen(-1);
 					}, 250);

@@ -1,10 +1,8 @@
-import React from 'react';
-
-import IHomePageProps from './HomePageProps';
+import IHomePageProps from './IHomePageProps';
 
 import { LandingWrapper } from './HomePage.style';
 
-const HomePage: React.FC<IHomePageProps> = ({ navbarHeight }) => {
+const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 	return (
 		<>
 			<LandingWrapper></LandingWrapper>

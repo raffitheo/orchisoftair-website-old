@@ -1,4 +1,4 @@
-export default interface INavbarProps {
+interface INavbarProps {
 	contacts: {
 		icon: string;
 		title: string;
@@ -27,3 +27,5 @@ export default interface INavbarProps {
 	style?: React.CSSProperties | undefined;
 	small?: boolean;
 }
+
+export default INavbarProps;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchBarWrapper = styled.div`
+const Wrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -11,7 +11,7 @@ export const SearchBarWrapper = styled.div`
 	}
 `;
 
-export const SearchBarContainer = styled.div`
+const Container = styled.div`
 	float: right;
 	overflow: hidden;
 	padding: 20px 0 19px;
@@ -20,12 +20,12 @@ export const SearchBarContainer = styled.div`
 	width: 180px;
 `;
 
-export const SearchBarForm = styled.form`
+const Form = styled.form`
 	display: block;
 	margin-top: 0em;
 `;
 
-export const SearchBarInput = styled.input`
+const Input = styled.input`
 	background-color: transparent;
 	border: none;
 	border-bottom: 1px solid ${(props) => props.theme.textPrimary};
@@ -49,7 +49,7 @@ export const SearchBarInput = styled.input`
 	}
 `;
 
-export const SearchBarButton = styled.button`
+const Button = styled.button`
 	background-color: transparent;
 	border: none;
 	color: ${(props) => props.theme.textPrimary};
@@ -65,3 +65,5 @@ export const SearchBarButton = styled.button`
 		color: ${(props) => props.theme.textAccent};
 	}
 `;
+
+export { Wrapper, Container, Form, Input, Button };

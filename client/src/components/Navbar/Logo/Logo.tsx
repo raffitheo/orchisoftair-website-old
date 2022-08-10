@@ -1,21 +1,20 @@
-import React from 'react';
 import ILogoProps from './ILogoProps';
 
-import { LogoWrapper, LogoImage, LogoContainer } from './Logo.style';
+import { Wrapper, Image, Container } from './Logo.style';
 
-const Logo: React.FC<ILogoProps> = (componentProps: ILogoProps) => {
+const Logo = (componentProps: ILogoProps): JSX.Element => {
 	return (
-		<LogoWrapper>
-			<LogoContainer>
+		<Wrapper>
+			<Container>
 				<a href="#home">
-					<LogoImage
+					<Image
 						alt="logo"
 						src={componentProps.image}
 						style={componentProps.style}
 					/>
 				</a>
-			</LogoContainer>
-		</LogoWrapper>
+			</Container>
+		</Wrapper>
 	);
 };
 

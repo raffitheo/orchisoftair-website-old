@@ -1,4 +1,4 @@
-export default interface IMobileMenuProps {
+interface IMobileMenuProps {
 	currentlySelected: number;
 	currentlySelectedSubMenu: number;
 	logo: string;
@@ -14,3 +14,5 @@ export default interface IMobileMenuProps {
 	onClickElement: (elementIndex: number, subMenuElementIndex: number) => void;
 	onDismiss: (elementIndex: number) => void;
 }
+
+export default IMobileMenuProps;

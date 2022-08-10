@@ -1,7 +1,9 @@
 import { CSSProperties } from 'styled-components';
 
-export default interface ILogoProps {
+interface ILogoProps {
 	image: string;
 
 	style?: CSSProperties;
 }
+
+export default ILogoProps;

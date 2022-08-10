@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-export const Wrapper = styled.section`
+const Wrapper = styled.section`
 	background-color: ${(props) => props.theme.main};
 	left: 0;
 	padding: 7px 0 0 0;
@@ -13,7 +13,7 @@ export const Wrapper = styled.section`
 	z-index: 99;
 `;
 
-export const Container = styled.div`
+const Container = styled.div`
 	margin: 0 auto;
 	padding: 0 15px;
 
@@ -50,7 +50,7 @@ export const Row = styled.div`
 	}
 `;
 
-export const ContactsWrapper = styled.div`
+const ContactsWrapper = styled.div`
 	float: left;
 	min-height: 1px;
 	padding: 0 15px;
@@ -64,7 +64,7 @@ export const ContactsWrapper = styled.div`
 	}
 `;
 
-export const ContactsContainer = styled.div`
+const ContactsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
@@ -75,7 +75,7 @@ export const ContactsContainer = styled.div`
 	}
 `;
 
-export const Contacts = styled.div`
+const Contacts = styled.div`
 	color: ${(props) => props.theme.textPrimary};
 	display: inline-block;
 	margin-right: 30px;
@@ -89,7 +89,7 @@ export const Contacts = styled.div`
 	}
 `;
 
-export const ContactTitle = styled.h4`
+const ContactTitle = styled.h4`
 	color: ${(props) => props.theme.textAccent};
 	line-height: 1;
 	margin-bottom: 7px;
@@ -99,7 +99,7 @@ export const ContactTitle = styled.h4`
 	}
 `;
 
-export const ContactInfo = styled.h1`
+const ContactInfo = styled.h1`
 	line-height: 1;
 
 	@media (min-width: 768px) and (max-width: 990px) {
@@ -107,7 +107,7 @@ export const ContactInfo = styled.h1`
 	}
 `;
 
-export const SocialsWrapper = styled.div`
+const SocialsWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -122,7 +122,7 @@ export const SocialsWrapper = styled.div`
 	}
 `;
 
-export const SocialsContainer = styled.div`
+const SocialsContainer = styled.div`
 	padding: 33px 0;
 	text-align: right;
 
@@ -135,7 +135,7 @@ export const SocialsContainer = styled.div`
 	}
 `;
 
-export const SocialLink = styled.a<{ hovercolor: string }>`
+const SocialLink = styled.a<{ hovercolor: string }>`
 	align-items: center;
 	border: 2px solid ${(props) => props.theme.textPrimary};
 	border-radius: 50%;
@@ -159,7 +159,7 @@ export const SocialLink = styled.a<{ hovercolor: string }>`
 	}
 `;
 
-export const MobileHamburgerWrapper = styled.div`
+const MobileHamburgerWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -174,7 +174,7 @@ export const MobileHamburgerWrapper = styled.div`
 	}
 `;
 
-export const MobileHamburgerContainer = styled.div`
+const MobileHamburgerContainer = styled.div`
 	display: none;
 	padding: 33px 0;
 	text-align: left;
@@ -189,7 +189,7 @@ export const MobileHamburgerContainer = styled.div`
 	}
 `;
 
-export const MobileHamburgerCheckbox = styled.input`
+const MobileHamburgerCheckbox = styled.input`
 	cursor: pointer;
 	display: block;
 	height: 100%;
@@ -200,7 +200,7 @@ export const MobileHamburgerCheckbox = styled.input`
 	-webkit-touch-callout: none;
 `;
 
-export const MobileHamburgerLineContainer = styled.div`
+const MobileHamburgerLineContainer = styled.div`
 	bottom: 0;
 	height: 22px;
 	left: 0;
@@ -211,7 +211,7 @@ export const MobileHamburgerLineContainer = styled.div`
 	width: 32px;
 `;
 
-export const MobileHamburgerLine = styled.span`
+const MobileHamburgerLine = styled.span`
 	background-color: ${(props) => props.theme.textAccent};
 	border-radius: 2px;
 	display: block;
@@ -233,7 +233,7 @@ export const MobileHamburgerLine = styled.span`
 	}
 `;
 
-export const MobileHamburger = styled.div`
+const MobileHamburger = styled.div`
 	cursor: pointer;
 	height: 40px;
 	position: relative;
@@ -257,7 +257,7 @@ export const MobileHamburger = styled.div`
 	}
 `;
 
-export const NavigationWrapper = styled.div`
+const NavigationWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -268,17 +268,17 @@ export const NavigationWrapper = styled.div`
 	}
 `;
 
-export const NavigationContainer = styled.div`
+const NavigationContainer = styled.div`
 	display: block;
 `;
 
-export const NavigationList = styled.ul`
+const NavigationList = styled.ul`
 	list-style: none;
 	margin: 0;
 	padding: 0;
 `;
 
-export const NavigationListElementLink = styled(Link)`
+const NavigationListElementLink = styled(Link)`
 	color: ${(props) => props.theme.textPrimary};
 	display: block;
 	font-size: 16px;
@@ -287,7 +287,7 @@ export const NavigationListElementLink = styled(Link)`
 	transition: all 200ms linear;
 `;
 
-export const NavigationSubMenuList = styled.ul`
+const NavigationSubMenuList = styled.ul`
 	background-color: ${(props) => props.theme.dark};
 	border-radius: 2px;
 	cursor: default;
@@ -303,7 +303,7 @@ export const NavigationSubMenuList = styled.ul`
 	z-index: 9;
 `;
 
-export const NavigationListElement = styled.li`
+const NavigationListElement = styled.li`
 	display: inline-block;
 	line-height: 1.2;
 	margin-right: 78px;
@@ -348,7 +348,7 @@ export const NavigationListElement = styled.li`
 	}
 `;
 
-export const NavigationSubMenuListElementLink = styled(Link)`
+const NavigationSubMenuListElementLink = styled(Link)`
 	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
 	display: block;
@@ -358,7 +358,7 @@ export const NavigationSubMenuListElementLink = styled(Link)`
 	transition: all 200ms linear;
 `;
 
-export const NavigationSubMenuListElement = styled.li`
+const NavigationSubMenuListElement = styled.li`
 	color: black;
 	display: block;
 	line-height: 1.2;
@@ -372,3 +372,30 @@ export const NavigationSubMenuListElement = styled.li`
 		}
 	}
 `;
+
+export {
+	Wrapper,
+	Container,
+	ContactsWrapper,
+	ContactsContainer,
+	Contacts,
+	ContactTitle,
+	ContactInfo,
+	SocialsWrapper,
+	SocialsContainer,
+	SocialLink,
+	MobileHamburgerWrapper,
+	MobileHamburgerContainer,
+	MobileHamburgerCheckbox,
+	MobileHamburgerLineContainer,
+	MobileHamburgerLine,
+	MobileHamburger,
+	NavigationWrapper,
+	NavigationContainer,
+	NavigationList,
+	NavigationListElementLink,
+	NavigationSubMenuList,
+	NavigationListElement,
+	NavigationSubMenuListElementLink,
+	NavigationSubMenuListElement,
+};

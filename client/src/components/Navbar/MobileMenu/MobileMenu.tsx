@@ -1,45 +1,41 @@
-import React from 'react';
-
 import IMobileMenuProps from './IMobileMenuProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 import Logo from '../Logo/Logo';
 
 import {
-	MobileContainer,
-	MobileNavigationContainer,
-	MobileNavigationList,
-	MobileNavigationListElement,
-	MobileNavigationListElementLink,
-	MobileNavigationSubMenuList,
-	MobileNavigationSubMenuListElement,
-	MobileNavigationSubMenuListElementLink,
-	MobileNavigationSubMenuListExpand,
-	MobileNavigationWrapper,
-	MobileRow,
-	MobileWrapper,
+	Container,
+	NavigationContainer,
+	NavigationList,
+	NavigationListElement,
+	NavigationListElementLink,
+	NavigationSubMenuList,
+	NavigationSubMenuListElement,
+	NavigationSubMenuListElementLink,
+	NavigationSubMenuListExpand,
+	NavigationWrapper,
+	Row,
+	Wrapper,
 } from './MobileMenu.style';
 import SearchBar from '../SearchBar/SearchBar';
 
-const MobileMenu: React.FC<IMobileMenuProps> = (
-	componentProps: IMobileMenuProps
-) => {
+const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 	return (
-		<MobileWrapper id="navbar-mobile">
-			<MobileContainer>
-				<MobileRow>
+		<Wrapper id="navbar-mobile">
+			<Container>
+				<Row>
 					<Logo image={componentProps.logo} />
-				</MobileRow>
+				</Row>
 
-				<MobileRow>
-					<MobileNavigationWrapper>
-						<MobileNavigationContainer>
+				<Row>
+					<NavigationWrapper>
+						<NavigationContainer>
 							<SearchBar openOnStart={true} preventCollapse={true} />
 
-							<MobileNavigationList>
+							<NavigationList>
 								{componentProps.navigation.map((element, elementIndex) => {
 									return (
-										<MobileNavigationListElement
+										<NavigationListElement
 											className={
 												componentProps.currentlySelected === elementIndex
 													? 'active'
@@ -47,7 +43,7 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 											}
 											key={`ListElement${elementIndex}`}
 										>
-											<MobileNavigationListElementLink
+											<NavigationListElementLink
 												className="navbar-list-element"
 												onClick={(event) => {
 													let pressedElement: HTMLElement =
@@ -64,11 +60,11 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 												to={element.link}
 											>
 												{element.text}
-											</MobileNavigationListElementLink>
+											</NavigationListElementLink>
 
 											{element.subMenu ? (
 												<>
-													<MobileNavigationSubMenuList
+													<NavigationSubMenuList
 														className={
 															componentProps.mobileSubMenuOpen === elementIndex
 																? 'visible'
@@ -78,7 +74,7 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 														{element.subMenu.map(
 															(subMenuElement, subMenuElementIndex) => {
 																return (
-																	<MobileNavigationSubMenuListElement
+																	<NavigationSubMenuListElement
 																		className={`${
 																			componentProps.currentlySelected ===
 																				elementIndex &&
@@ -94,7 +90,7 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 																		}`}
 																		key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
 																	>
-																		<MobileNavigationSubMenuListElementLink
+																		<NavigationSubMenuListElementLink
 																			className="submenu-list-element"
 																			onClick={(event) => {
 																				let pressedElement: HTMLElement =
@@ -114,14 +110,14 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 																			to={subMenuElement.link}
 																		>
 																			{subMenuElement.text}
-																		</MobileNavigationSubMenuListElementLink>
-																	</MobileNavigationSubMenuListElement>
+																		</NavigationSubMenuListElementLink>
+																	</NavigationSubMenuListElement>
 																);
 															}
 														)}
-													</MobileNavigationSubMenuList>
+													</NavigationSubMenuList>
 
-													<MobileNavigationSubMenuListExpand>
+													<NavigationSubMenuListExpand>
 														<IconExtension
 															name={
 																componentProps.mobileSubMenuOpen ===
@@ -134,20 +130,20 @@ const MobileMenu: React.FC<IMobileMenuProps> = (
 															}}
 															size={16}
 														/>
-													</MobileNavigationSubMenuListExpand>
+													</NavigationSubMenuListExpand>
 												</>
 											) : (
 												<></>
 											)}
-										</MobileNavigationListElement>
+										</NavigationListElement>
 									);
 								})}
-							</MobileNavigationList>
-						</MobileNavigationContainer>
-					</MobileNavigationWrapper>
-				</MobileRow>
-			</MobileContainer>
-		</MobileWrapper>
+							</NavigationList>
+						</NavigationContainer>
+					</NavigationWrapper>
+				</Row>
+			</Container>
+		</Wrapper>
 	);
 };
 
