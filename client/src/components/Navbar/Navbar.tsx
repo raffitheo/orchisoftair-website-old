@@ -29,14 +29,12 @@ import {
 	NavigationSubMenuListElementLink,
 	NavigationWrapper,
 	Row,
-	SocialLink,
-	SocialsContainer,
-	SocialsWrapper,
 	Wrapper,
 } from './Navbar.style';
 import MobileMenu from './MobileMenu/MobileMenu';
 import Logo from './Logo/Logo';
 import SearchBar from './SearchBar/SearchBar';
+import Socials from './Socials/Socials';
 
 const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
@@ -170,29 +168,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 							</ContactsContainer>
 						</ContactsWrapper>
 
-						<SocialsWrapper>
-							<SocialsContainer>
-								<>
-									{componentProps.socials.map((social, index) => {
-										return (
-											<SocialLink
-												key={`Social${index}`}
-												hovercolor={social.hoverColor}
-												href={social.link}
-											>
-												<IconExtension
-													name={social.icon as IconName}
-													size={18}
-													style={{
-														margin: 'auto',
-													}}
-												/>
-											</SocialLink>
-										);
-									})}
-								</>
-							</SocialsContainer>
-						</SocialsWrapper>
+						<Socials socials={componentProps.socials} />
 
 						<MobileHamburgerWrapper>
 							<MobileHamburgerContainer>

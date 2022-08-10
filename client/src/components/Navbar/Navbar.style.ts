@@ -107,58 +107,6 @@ const ContactInfo = styled.h1`
 	}
 `;
 
-const SocialsWrapper = styled.div`
-	min-height: 1px;
-	padding: 0 15px;
-	position: relative;
-
-	@media (min-width: 768px) {
-		float: left;
-		width: 25%;
-	}
-	@media (min-width: 1200px) {
-		float: left;
-		width: 16.66666667%;
-	}
-`;
-
-const SocialsContainer = styled.div`
-	padding: 33px 0;
-	text-align: right;
-
-	@media (min-width: 320px) and (max-width: 767px) {
-		padding: 0;
-		position: absolute;
-		right: 15px;
-		text-align: right;
-		top: -63px;
-	}
-`;
-
-const SocialLink = styled.a<{ hovercolor: string }>`
-	align-items: center;
-	border: 2px solid ${(props) => props.theme.textPrimary};
-	border-radius: 50%;
-	color: ${(props) => props.theme.textPrimary};
-	display: inline-flex;
-	height: 40px;
-	justify-content: center;
-	line-height: 1;
-	margin-right: 10px;
-	text-align: center;
-	transition: all 200ms linear;
-	width: 40px;
-
-	&:last-of-type {
-		margin-right: 0;
-	}
-
-	&:hover {
-		border-color: ${(props) => props.hovercolor};
-		color: ${(props) => props.hovercolor};
-	}
-`;
-
 const MobileHamburgerWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
@@ -381,9 +329,6 @@ export {
 	Contacts,
 	ContactTitle,
 	ContactInfo,
-	SocialsWrapper,
-	SocialsContainer,
-	SocialLink,
 	MobileHamburgerWrapper,
 	MobileHamburgerContainer,
 	MobileHamburgerCheckbox,
