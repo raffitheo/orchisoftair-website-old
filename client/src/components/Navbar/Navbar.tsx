@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import INavbarProps from './INavbarProps';
 
 import IconExtension from '../IconExtension/IconExtension';
 import { IconName } from '../IconExtension/IIconExtensionProps';
 
-import logo from '../../assets/logo.png';
+import logo from '../../assets/images/logo.png';
 
 import {
 	ContactInfo,
@@ -14,25 +14,12 @@ import {
 	ContactsWrapper,
 	ContactTitle,
 	Container,
-	Logo,
-	LogoImage,
-	LogoWrapper,
 	MobileHamburger,
 	MobileHamburgerCheckbox,
 	MobileHamburgerContainer,
 	MobileHamburgerLine,
 	MobileHamburgerLineContainer,
 	MobileHamburgerWrapper,
-	MobileNavigationContainer,
-	MobileNavigationList,
-	MobileNavigationListElement,
-	MobileNavigationListElementLink,
-	MobileNavigationSubMenuList,
-	MobileNavigationSubMenuListElement,
-	MobileNavigationSubMenuListElementLink,
-	MobileNavigationSubMenuListExpand,
-	MobileNavigationWrapper,
-	MobileWrapper,
 	NavigationContainer,
 	NavigationList,
 	NavigationListElement,
@@ -42,18 +29,16 @@ import {
 	NavigationSubMenuListElementLink,
 	NavigationWrapper,
 	Row,
-	SearchbarButton,
-	SearchbarContainer,
-	SearchbarForm,
-	SearchbarInput,
-	SearchbarWrapper,
 	SocialLink,
 	SocialsContainer,
 	SocialsWrapper,
 	Wrapper,
 } from './Navbar.style';
+import MobileMenu from './MobileMenu/MobileMenu';
+import Logo from './Logo/Logo';
+import SearchBar from './SearchBar/SearchBar';
 
-const Navbar: FC<INavbarProps> = ({
+const Navbar: React.FC<INavbarProps> = ({
 	contacts,
 	navigation,
 	socials,
@@ -69,8 +54,6 @@ const Navbar: FC<INavbarProps> = ({
 
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<number>(-1);
-
-	const [searchActive, setSearchActive] = useState<boolean>(false);
 
 	useEffect(() => {
 		const handleScroll = (): void => {
@@ -162,19 +145,12 @@ const Navbar: FC<INavbarProps> = ({
 			>
 				<Container>
 					<Row id={'desktop-contacts'}>
-						<LogoWrapper>
-							<Logo>
-								<a href="#home">
-									<LogoImage
-										alt="logo"
-										src={logo}
-										style={{
-											opacity: isMobileMenuOpen ? '0' : '1',
-										}}
-									/>
-								</a>
-							</Logo>
-						</LogoWrapper>
+						<Logo
+							image={logo}
+							style={{
+								opacity: isMobileMenuOpen ? '0' : '1',
+							}}
+						/>
 
 						<ContactsWrapper>
 							<ContactsContainer>
@@ -338,204 +314,33 @@ const Navbar: FC<INavbarProps> = ({
 							</NavigationContainer>
 						</NavigationWrapper>
 
-						<SearchbarWrapper>
-							<SearchbarContainer>
-								<SearchbarForm action="#" method="get" role="search">
-									<SearchbarInput
-										className={searchActive ? 'active' : ''}
-										name="s"
-										placeholder="Cerca nel sito..."
-										type="search"
-									/>
-									<SearchbarButton
-										className={searchActive ? 'active' : ''}
-										type="button"
-										onClick={() => {
-											setSearchActive(!searchActive);
-										}}
-									>
-										<IconExtension
-											name={'Search'}
-											size={19}
-											style={{
-												margin: 'auto',
-											}}
-										/>
-									</SearchbarButton>
-								</SearchbarForm>
-							</SearchbarContainer>
-						</SearchbarWrapper>
+						<SearchBar />
 					</Row>
 				</Container>
 			</Wrapper>
 
-			<MobileWrapper id="navbar-mobile">
-				<Container>
-					<Row>
-						<LogoWrapper>
-							<Logo>
-								<a href="#home">
-									<LogoImage alt="logo" src={logo} />
-								</a>
-							</Logo>
-						</LogoWrapper>
-					</Row>
+			<MobileMenu
+				currentlySelected={currentlySelected}
+				currentlySelectedSubMenu={currentlySelectedSubMenu}
+				logo={logo}
+				mobileSubMenuOpen={mobileSubMenuOpen}
+				navigation={navigation}
+				onClickElement={(elementIndex, subMenuElementIndex) => {
+					setCurrentlySelected(elementIndex);
+					setCurrentlySelectedSubMenu(subMenuElementIndex);
 
-					<Row>
-						<MobileNavigationWrapper>
-							<MobileNavigationContainer>
-								<SearchbarWrapper>
-									<SearchbarContainer>
-										<SearchbarForm action="#" method="get" role="search">
-											<SearchbarInput
-												className={'active'}
-												name="s"
-												placeholder="Cerca nel sito..."
-												type="search"
-											/>
-											<SearchbarButton
-												className={'no-interaction'}
-												type="button"
-											>
-												<IconExtension
-													name={'Search'}
-													size={19}
-													style={{
-														margin: 'auto',
-													}}
-												/>
-											</SearchbarButton>
-										</SearchbarForm>
-									</SearchbarContainer>
-								</SearchbarWrapper>
-
-								<MobileNavigationList>
-									{navigation.map((element, elementIndex) => {
-										return (
-											<MobileNavigationListElement
-												className={
-													currentlySelected === elementIndex ? 'active' : ''
-												}
-												key={`ListElement${elementIndex}`}
-											>
-												<MobileNavigationListElementLink
-													className="navbar-list-element"
-													onClick={(event) => {
-														let pressedElement: HTMLElement =
-															event.target as HTMLElement;
-
-														if (
-															pressedElement &&
-															pressedElement?.classList.contains(
-																'navbar-list-element'
-															)
-														) {
-															setCurrentlySelected(elementIndex);
-															setCurrentlySelectedSubMenu(0);
-
-															setTimeout(() => {
-																onMobileMenuChange(false);
-																setIsMobileMenuOpen(false);
-																setMobileSubMenuOpen(-1);
-															}, 250);
-														}
-													}}
-													to={element.link}
-												>
-													{element.text}
-												</MobileNavigationListElementLink>
-
-												{element.subMenu ? (
-													<>
-														<MobileNavigationSubMenuList
-															className={
-																mobileSubMenuOpen === elementIndex
-																	? 'visible'
-																	: ''
-															}
-														>
-															{element.subMenu.map(
-																(subMenuElement, subMenuElementIndex) => {
-																	return (
-																		<MobileNavigationSubMenuListElement
-																			className={`${
-																				currentlySelected === elementIndex &&
-																				currentlySelectedSubMenu ===
-																					subMenuElementIndex
-																					? 'active'
-																					: ''
-																			} ${
-																				subMenuElementIndex + 1 ===
-																				element.subMenu?.length
-																					? 'last-child'
-																					: ''
-																			}`}
-																			key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
-																		>
-																			<MobileNavigationSubMenuListElementLink
-																				className="submenu-list-element"
-																				onClick={(event) => {
-																					let pressedElement: HTMLElement =
-																						event.target as HTMLElement;
-
-																					if (
-																						pressedElement &&
-																						pressedElement?.classList.contains(
-																							'submenu-list-element'
-																						)
-																					) {
-																						setCurrentlySelected(elementIndex);
-																						setCurrentlySelectedSubMenu(
-																							subMenuElementIndex
-																						);
-
-																						setTimeout(() => {
-																							onMobileMenuChange(false);
-																							setIsMobileMenuOpen(false);
-																							setMobileSubMenuOpen(-1);
-																						}, 250);
-																					}
-																				}}
-																				to={subMenuElement.link}
-																			>
-																				{subMenuElement.text}
-																			</MobileNavigationSubMenuListElementLink>
-																		</MobileNavigationSubMenuListElement>
-																	);
-																}
-															)}
-														</MobileNavigationSubMenuList>
-
-														<MobileNavigationSubMenuListExpand>
-															<IconExtension
-																name={
-																	mobileSubMenuOpen === elementIndex
-																		? 'Minus'
-																		: 'Plus'
-																}
-																onClick={() => {
-																	setMobileSubMenuOpen(
-																		mobileSubMenuOpen === elementIndex
-																			? -1
-																			: elementIndex
-																	);
-																}}
-																size={16}
-															/>
-														</MobileNavigationSubMenuListExpand>
-													</>
-												) : (
-													<></>
-												)}
-											</MobileNavigationListElement>
-										);
-									})}
-								</MobileNavigationList>
-							</MobileNavigationContainer>
-						</MobileNavigationWrapper>
-					</Row>
-				</Container>
-			</MobileWrapper>
+					setTimeout(() => {
+						onMobileMenuChange(false);
+						setIsMobileMenuOpen(false);
+						setMobileSubMenuOpen(-1);
+					}, 250);
+				}}
+				onDismiss={(elementIndex) => {
+					setMobileSubMenuOpen(
+						mobileSubMenuOpen === elementIndex ? -1 : elementIndex
+					);
+				}}
+			/>
 		</>
 	);
 };
