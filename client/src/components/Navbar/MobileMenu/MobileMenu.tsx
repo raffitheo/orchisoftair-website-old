@@ -46,7 +46,7 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 											<NavigationListElementLink
 												className="navbar-list-element"
 												onClick={(event) => {
-													let pressedElement: HTMLElement =
+													const pressedElement: HTMLElement =
 														event.target as HTMLElement;
 
 													if (
@@ -93,7 +93,7 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 																		<NavigationSubMenuListElementLink
 																			className="submenu-list-element"
 																			onClick={(event) => {
-																				let pressedElement: HTMLElement =
+																				const pressedElement: HTMLElement =
 																					event.target as HTMLElement;
 
 																				if (

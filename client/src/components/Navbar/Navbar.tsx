@@ -39,18 +39,18 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 
 	useEffect(() => {
 		const handleScroll = (): void => {
-			let desktopContacts: HTMLElement = document.getElementById(
+			const desktopContacts: HTMLElement = document.getElementById(
 				'desktop-contacts'
 			) as HTMLElement;
-			let navbar: HTMLElement = document.getElementById(
+			const navbar: HTMLElement = document.getElementById(
 				'navbar'
 			) as HTMLElement;
-			let width = document.documentElement.offsetWidth;
+			const width = document.documentElement.offsetWidth;
 
 			if (width >= 768 || width <= 320) {
 				if (desktopContacts && navbar) {
-					let pageScroll: number = window.pageYOffset;
-					let desktopContactsHeight: number = desktopContacts.offsetHeight;
+					const pageScroll: number = window.pageYOffset;
+					const desktopContactsHeight: number = desktopContacts.offsetHeight;
 
 					if (pageScroll > 10)
 						navbar.style.top = `-${desktopContactsHeight + 7}px`;
@@ -60,10 +60,10 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 		};
 
 		const handleInitialSelection = (): void => {
-			let url: string = window.location.toString();
+			const url: string = window.location.toString();
 
 			if (url.indexOf('#') !== -1) {
-				let selection: string = url.split('#')[1];
+				const selection: string = url.split('#')[1];
 
 				if (selection) {
 					componentProps.navigation.forEach((element, index) => {
@@ -95,17 +95,17 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 				window.removeEventListener('scroll', handleScroll);
 			};
 		} else {
-			let desktopContacts: HTMLElement = document.getElementById(
+			const desktopContacts: HTMLElement = document.getElementById(
 				'desktop-contacts'
 			) as HTMLElement;
-			let navbar: HTMLElement = document.getElementById(
+			const navbar: HTMLElement = document.getElementById(
 				'navbar'
 			) as HTMLElement;
-			let width = document.documentElement.offsetWidth;
+			const width = document.documentElement.offsetWidth;
 
 			if (width >= 768 || width <= 320) {
 				if (desktopContacts && navbar) {
-					let desktopContactsHeight: number = desktopContacts.offsetHeight;
+					const desktopContactsHeight: number = desktopContacts.offsetHeight;
 
 					navbar.style.top = `-${desktopContactsHeight + 7}px`;
 				}
@@ -186,7 +186,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 												<NavigationListElementLink
 													className="navbar-list-element"
 													onClick={(event) => {
-														let pressedElement: HTMLElement =
+														const pressedElement: HTMLElement =
 															event.target as HTMLElement;
 
 														if (
@@ -222,7 +222,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 																		<NavigationSubMenuListElementLink
 																			className="submenu-list-element"
 																			onClick={(event) => {
-																				let pressedElement: HTMLElement =
+																				const pressedElement: HTMLElement =
 																					event.target as HTMLElement;
 
 																				if (
