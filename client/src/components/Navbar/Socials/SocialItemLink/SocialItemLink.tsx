@@ -7,11 +7,7 @@ import { Link } from './SocialItemLink.style';
 
 const SocialItemLink = (componentProps: ISocialItemLinkProps): JSX.Element => {
 	return (
-		<Link
-			key={`Social${componentProps.index}`}
-			hovercolor={componentProps.hoverColor}
-			href={componentProps.link}
-		>
+		<Link hovercolor={componentProps.hoverColor} href={componentProps.link}>
 			<IconExtension
 				name={componentProps.icon as IconName}
 				size={18}

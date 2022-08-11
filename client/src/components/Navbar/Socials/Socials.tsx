@@ -12,6 +12,7 @@ const Socials = (componentProps: ISocialsProps): JSX.Element => {
 					{componentProps.socials.map((social, index) => {
 						return (
 							<SocialItemLink
+								key={`SocialItemLink${index}`}
 								index={index}
 								icon={social.icon}
 								link={social.link}

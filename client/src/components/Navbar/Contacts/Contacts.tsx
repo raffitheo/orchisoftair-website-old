@@ -11,6 +11,7 @@ const Contacts = (componentProps: IContactsProps): JSX.Element => {
 					{componentProps.contacts.map((contact, index) => {
 						return (
 							<ContactElement
+								key={`ContactElement${index}`}
 								index={index}
 								icon={contact.icon}
 								info={contact.info}

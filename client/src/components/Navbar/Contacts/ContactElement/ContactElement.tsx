@@ -7,7 +7,7 @@ import { Element, ElementTitle, ElementInfo } from './ContactElement.style';
 
 const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
 	return (
-		<Element key={`Contact${componentProps.index}`}>
+		<Element>
 			<IconExtension
 				name={componentProps.icon as IconName}
 				size={16}
