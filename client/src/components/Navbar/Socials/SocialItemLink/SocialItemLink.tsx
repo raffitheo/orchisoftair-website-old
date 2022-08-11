@@ -1,13 +1,11 @@
-import ISocialsItemLinkProps from './ISocialsItemLinkProps';
+import ISocialItemLinkProps from './ISocialItemLinkProps';
 
 import IconExtension from '../../../IconExtension/IconExtension';
 import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
-import { Link } from './SocialsItemLink.style';
+import { Link } from './SocialItemLink.style';
 
-const SocialsItemLink = (
-	componentProps: ISocialsItemLinkProps
-): JSX.Element => {
+const SocialItemLink = (componentProps: ISocialItemLinkProps): JSX.Element => {
 	return (
 		<Link
 			key={`Social${componentProps.index}`}
@@ -25,4 +23,4 @@ const SocialsItemLink = (
 	);
 };
 
-export default SocialsItemLink;
+export default SocialItemLink;

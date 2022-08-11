@@ -2,17 +2,9 @@ import { useEffect, useState } from 'react';
 
 import INavbarProps from './INavbarProps';
 
-import IconExtension from '../IconExtension/IconExtension';
-import { IconName } from '../IconExtension/IIconExtensionProps';
-
 import logo from '../../assets/images/logo.png';
 
 import {
-	ContactInfo,
-	Contacts,
-	ContactsContainer,
-	ContactsWrapper,
-	ContactTitle,
 	Container,
 	MobileHamburger,
 	MobileHamburgerCheckbox,
@@ -35,6 +27,7 @@ import MobileMenu from './MobileMenu/MobileMenu';
 import Logo from './Logo/Logo';
 import SearchBar from './SearchBar/SearchBar';
 import Socials from './Socials/Socials';
+import Contacts from './Contacts/Contacts';
 
 const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
@@ -142,31 +135,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 							}}
 						/>
 
-						<ContactsWrapper>
-							<ContactsContainer>
-								<>
-									{componentProps.contacts.map((contact, index) => {
-										return (
-											<Contacts key={`Contact${index}`}>
-												<IconExtension
-													name={contact.icon as IconName}
-													size={16}
-													style={{
-														left: '8px',
-														position: 'absolute',
-														top: '-3px',
-													}}
-												/>
-
-												<ContactTitle>{contact.title}</ContactTitle>
-
-												<ContactInfo>{contact.info}</ContactInfo>
-											</Contacts>
-										);
-									})}
-								</>
-							</ContactsContainer>
-						</ContactsWrapper>
+						<Contacts contacts={componentProps.contacts} />
 
 						<Socials socials={componentProps.socials} />
 

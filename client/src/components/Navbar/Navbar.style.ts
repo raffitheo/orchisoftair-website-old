@@ -50,63 +50,6 @@ export const Row = styled.div`
 	}
 `;
 
-const ContactsWrapper = styled.div`
-	float: left;
-	min-height: 1px;
-	padding: 0 15px;
-	position: relative;
-
-	@media (min-width: 768px) {
-		width: 58.33333333%;
-	}
-	@media (min-width: 1200px) {
-		width: 66.6%;
-	}
-`;
-
-const ContactsContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	padding: 30px 0 22px;
-
-	@media (min-width: 320px) and (max-width: 767px) {
-		display: none;
-	}
-`;
-
-const Contacts = styled.div`
-	color: ${(props) => props.theme.textPrimary};
-	display: inline-block;
-	margin-right: 30px;
-	padding-left: 30px;
-	position: relative;
-	text-align: left;
-	text-transform: uppercase;
-
-	&:last-of-type {
-		margin-right: 0;
-	}
-`;
-
-const ContactTitle = styled.h4`
-	color: ${(props) => props.theme.textAccent};
-	line-height: 1;
-	margin-bottom: 7px;
-
-	@media (min-width: 768px) and (max-width: 990px) {
-		font-size: 12px;
-	}
-`;
-
-const ContactInfo = styled.h1`
-	line-height: 1;
-
-	@media (min-width: 768px) and (max-width: 990px) {
-		font-size: 16px;
-	}
-`;
-
 const MobileHamburgerWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
@@ -324,11 +267,6 @@ const NavigationSubMenuListElement = styled.li`
 export {
 	Wrapper,
 	Container,
-	ContactsWrapper,
-	ContactsContainer,
-	Contacts,
-	ContactTitle,
-	ContactInfo,
 	MobileHamburgerWrapper,
 	MobileHamburgerContainer,
 	MobileHamburgerCheckbox,

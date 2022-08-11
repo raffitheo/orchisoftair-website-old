@@ -1,6 +1,6 @@
 import ISocialsProps from './ISocialsProps';
 
-import SocialsItemLink from './SocialsItemLink/SocialsItemLink';
+import SocialItemLink from './SocialItemLink/SocialItemLink';
 
 import { Container, Wrapper } from './Socials.style';
 
@@ -11,7 +11,7 @@ const Socials = (componentProps: ISocialsProps): JSX.Element => {
 				<>
 					{componentProps.socials.map((social, index) => {
 						return (
-							<SocialsItemLink
+							<SocialItemLink
 								index={index}
 								icon={social.icon}
 								link={social.link}

@@ -1,9 +1,8 @@
+import IContact from '../../interfaces/IContact';
+import ISocial from '../../interfaces/ISocial';
+
 interface INavbarProps {
-	contacts: {
-		icon: string;
-		title: string;
-		info: string;
-	}[];
+	contacts: IContact[];
 	navigation: {
 		text: string;
 		link: string;
@@ -12,11 +11,7 @@ interface INavbarProps {
 			link: string;
 		}[];
 	}[];
-	socials: {
-		icon: string;
-		link: string;
-		hoverColor: string;
-	}[];
+	socials: ISocial[];
 	onMobileMenuChange: (
 		newValue: boolean,
 		event?: React.ChangeEvent<HTMLInputElement>
