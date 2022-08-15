@@ -1,16 +1,10 @@
 import IContact from '../../interfaces/IContact';
+import INavigation from '../../interfaces/INavigation';
 import ISocial from '../../interfaces/ISocial';
 
 interface INavbarProps {
 	contacts: IContact[];
-	navigation: {
-		text: string;
-		link: string;
-		subMenu?: {
-			text: string;
-			link: string;
-		}[];
-	}[];
+	navigation: INavigation[];
 	socials: ISocial[];
 	onMobileMenuChange: (
 		newValue: boolean,

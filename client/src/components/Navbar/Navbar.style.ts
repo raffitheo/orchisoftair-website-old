@@ -10,7 +10,7 @@ const Wrapper = styled.section`
 	right: 0;
 	transition: all 200ms linear;
 	width: 100%;
-	z-index: 99;
+	z-index: 1000;
 `;
 
 const Container = styled.div`
@@ -174,7 +174,6 @@ const NavigationListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 20px 0 22px;
-	text-transform: uppercase;
 	transition: all 200ms linear;
 `;
 
@@ -182,12 +181,11 @@ const NavigationSubMenuList = styled.ul`
 	background-color: ${(props) => props.theme.dark};
 	border-radius: 2px;
 	cursor: default;
-	left: 50%;
 	margin-left: -61px;
 	opacity: 0;
 	padding: 16px 0 16px 40px;
 	position: absolute;
-	top: 74px;
+	top: 61px;
 	transition: all 200ms linear;
 	visibility: hidden;
 	width: 250px;
@@ -200,42 +198,45 @@ const NavigationListElement = styled.li`
 	margin-right: 78px;
 	position: relative;
 
-	&::before {
+	&:not(:last-child):after {
 		background-color: ${(props) => props.theme.textAccent};
-		border-radius: 2px;
-		bottom: 0;
+		border-radius: 50%;
 		content: '';
-		height: 2px;
-		left: 0;
+		height: 5px;
 		position: absolute;
-		right: 0;
-		transition: all 200ms linear;
-		width: 0;
+		right: calc(-78px / 2);
+		top: 50%;
+		transform: translate(50%, -50%);
+		width: 5px;
 	}
 
+	&:hover,
 	&.active {
-		&::before {
-			width: 100%;
+		${NavigationListElementLink} {
+			color: ${(props) => props.theme.textAccent};
 		}
 	}
 
 	&:hover {
-		${NavigationListElementLink} {
-			color: ${(props) => props.theme.textAccent};
-		}
-
 		${NavigationSubMenuList} {
 			opacity: 1;
-			top: 61px;
 			visibility: visible;
 		}
 	}
 
 	@media (min-width: 991px) and (max-width: 1024px) {
 		margin-right: 45px;
+
+		&:not(:last-child):after {
+			right: calc(-45px / 2);
+		}
 	}
 	@media (min-width: 768px) and (max-width: 990px) {
 		margin-right: 30px;
+
+		&:not(:last-child):after {
+			right: calc(-30px / 2);
+		}
 	}
 `;
 
@@ -245,7 +246,6 @@ const NavigationSubMenuListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 0;
-	text-transform: uppercase;
 	transition: all 200ms linear;
 `;
 

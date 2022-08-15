@@ -83,7 +83,6 @@ const NavigationListElementLink = styled(Link)`
 	font-size: 16px;
 	margin-right: 40px;
 	padding: 20px 0 5px;
-	text-transform: uppercase;
 	transition: all 200ms linear;
 
 	&:hover {
@@ -149,7 +148,6 @@ const NavigationSubMenuListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 0;
-	text-transform: uppercase;
 	transition: all 200ms linear;
 `;
 

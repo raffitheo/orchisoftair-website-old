@@ -1,5 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
+import AntonWOFF from '../assets/fonts/Anton/anton-v23-latin-regular.woff';
+import AntonWOFF2 from '../assets/fonts/Anton/anton-v23-latin-regular.woff2';
+
 import SatoshiBlackTTF from '../assets/fonts/Satoshi/Satoshi-Black.ttf';
 import SatoshiBlackWOFF from '../assets/fonts/Satoshi/Satoshi-Black.woff';
 import SatoshiBlackWOFF2 from '../assets/fonts/Satoshi/Satoshi-Black.woff2';
@@ -45,23 +48,30 @@ import SatoshiVariableItalicWOFF2 from '../assets/fonts/Satoshi/Satoshi-Variable
 
 export default createGlobalStyle`
     @font-face {
-        font-family: 'Satoshi-Variable';
-        src: url(${SatoshiVariableTTF}) format('truetype'),
-            url(${SatoshiVariableWOFF}) format('woff'),
-            url(${SatoshiVariableWOFF2}) format('woff2');
-            font-weight: 300 900;
-            font-display: swap;
-            font-style: normal;
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: url(${AntonWOFF}) format('woff'), url(${AntonWOFF2}) format('woff2');
     }
 
     @font-face {
+        font-display: swap;
+        font-family: 'Satoshi-Variable';
+        font-style: normal;
+        font-weight: 300 900;
+        src: url(${SatoshiVariableTTF}) format('truetype'),
+            url(${SatoshiVariableWOFF}) format('woff'),
+            url(${SatoshiVariableWOFF2}) format('woff2');
+    }
+
+    @font-face {
+        font-display: swap;
         font-family: 'Satoshi-VariableItalic';
+        font-style: italic;
+        font-weight: 300 900;
         src: url(${SatoshiVariableItalicTTF}) format('truetype'),
             url(${SatoshiVariableItalicWOFF}) format('woff'),
             url(${SatoshiVariableItalicWOFF2}) format('woff2');
-            font-weight: 300 900;
-            font-display: swap;
-            font-style: italic;
     }
 
     @font-face {

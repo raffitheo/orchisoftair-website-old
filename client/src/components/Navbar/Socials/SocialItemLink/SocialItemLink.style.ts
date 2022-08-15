@@ -11,7 +11,8 @@ const Link = styled.a<{ hovercolor: string }>`
 	line-height: 1;
 	margin-right: 10px;
 	text-align: center;
-	transition: all 200ms linear;
+	transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out,
+		color 400ms ease-in-out;
 	width: 40px;
 
 	&:last-of-type {
@@ -19,8 +20,9 @@ const Link = styled.a<{ hovercolor: string }>`
 	}
 
 	&:hover {
+		background-color: ${(props) => props.hovercolor};
 		border-color: ${(props) => props.hovercolor};
-		color: ${(props) => props.hovercolor};
+		color: white;
 	}
 `;
 

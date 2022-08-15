@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Navbar from './Navbar/Navbar';
 
-import { Contacts, Navigation, Social } from '../data/navbar';
+import { Sliders } from '../data/landing';
+import { Contacts, Navigation, Socials } from '../data/navbar';
 
 import HomePage from './pages/HomePage/HomePage';
 
@@ -12,6 +13,7 @@ import { PageContent } from './OrchiWebsite.style';
 
 const OrchiWebsite = (): JSX.Element => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
+	const [pageWidth, setPageWidth] = useState<number>(0);
 	const [navbarHeight, setNavbarHeight] = useState<number>(0);
 
 	const baseURL: string = window.location.href.indexOf('github')
@@ -19,11 +21,13 @@ const OrchiWebsite = (): JSX.Element => {
 		: '/';
 
 	const onMobileMenuChange = (newValue: boolean): void => {
-		let navbar: HTMLElement = document.getElementById('navbar') as HTMLElement;
-		let navbarMobile: HTMLElement = document.getElementById(
+		const navbar: HTMLElement = document.getElementById(
+			'navbar'
+		) as HTMLElement;
+		const navbarMobile: HTMLElement = document.getElementById(
 			'navbar-mobile'
 		) as HTMLElement;
-		let pageContent: HTMLElement = document.getElementById(
+		const pageContent: HTMLElement = document.getElementById(
 			'page-content'
 		) as HTMLElement;
 
@@ -44,15 +48,12 @@ const OrchiWebsite = (): JSX.Element => {
 
 	useEffect(() => {
 		const handleResize = (): void => {
-			let width = document.documentElement.offsetWidth;
+			const width = window.innerWidth;
 
-			setIsMobile(!(width >= 768 || width <= 320));
+			setIsMobile(!(width > 767 || width < 319));
+			setPageWidth(width);
 
-			if (width >= 768 || width <= 320) onMobileMenuChange(false);
-
-			let navbar = document.getElementById('navbar');
-
-			if (navbar) setNavbarHeight(navbar.offsetHeight);
+			if (width > 767 || width < 319) onMobileMenuChange(false);
 		};
 
 		handleResize();
@@ -64,12 +65,18 @@ const OrchiWebsite = (): JSX.Element => {
 		};
 	}, []);
 
+	useEffect(() => {
+		const navbar = document.getElementById('navbar');
+
+		if (navbar) setNavbarHeight(navbar.offsetHeight);
+	}, [pageWidth]);
+
 	return (
 		<Router>
 			<Navbar
 				contacts={Contacts()}
 				navigation={Navigation()}
-				socials={Social()}
+				socials={Socials()}
 				onMobileMenuChange={onMobileMenuChange}
 				isMobile={isMobile}
 			/>
@@ -77,7 +84,13 @@ const OrchiWebsite = (): JSX.Element => {
 			<PageContent id="page-content">
 				<Routes>
 					<Route
-						element={<HomePage navbarHeight={navbarHeight} />}
+						element={
+							<HomePage
+								isMobile={isMobile}
+								navbarHeight={navbarHeight}
+								sliders={Sliders()}
+							/>
+						}
 						path={baseURL}
 					/>
 				</Routes>

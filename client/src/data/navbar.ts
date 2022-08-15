@@ -1,7 +1,8 @@
 import IContact from '../interfaces/IContact';
+import INavigation from '../interfaces/INavigation';
 import ISocial from '../interfaces/ISocial';
 
-export const Contacts = (): IContact[] => {
+const Contacts = (): IContact[] => {
 	return [
 		{
 			icon: 'AtSign',
@@ -16,14 +17,7 @@ export const Contacts = (): IContact[] => {
 	];
 };
 
-export const Navigation = (): {
-	text: string;
-	link: string;
-	subMenu?: {
-		text: string;
-		link: string;
-	}[];
-}[] => {
+const Navigation = (): INavigation[] => {
 	return [
 		{
 			text: 'Home',
@@ -42,7 +36,7 @@ export const Navigation = (): {
 					link: '#chi-siamo-il-team',
 				},
 				{
-					text: 'Deve giochiamo',
+					text: 'Dove giochiamo',
 					link: '#chi-siamo-dove-giochiamo',
 				},
 			],
@@ -72,17 +66,19 @@ export const Navigation = (): {
 	];
 };
 
-export const Social = (): ISocial[] => {
+const Socials = (): ISocial[] => {
 	return [
 		{
 			link: 'https://www.instagram.com/orchisoftair_official/',
 			icon: 'Instagram',
-			hoverColor: 'hsl(349, 75%, 31%)',
+			hoverColor: 'hsl(326, 57%, 48%)',
 		},
 		{
 			link: 'https://www.facebook.com/orchitrieste/',
 			icon: 'Facebook',
-			hoverColor: 'hsl(349, 75%, 31%)',
+			hoverColor: 'hsl(214, 89%, 52%)',
 		},
 	];
 };
+
+export { Contacts, Navigation, Socials };
