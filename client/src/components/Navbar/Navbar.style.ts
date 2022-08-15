@@ -6,9 +6,9 @@ const Wrapper = styled.section`
 	background-color: ${(props) => props.theme.main};
 	left: 0;
 	padding: 7px 0 0 0;
-	position: fixed;
+	position: absolute;
 	right: 0;
-	transition: all 200ms linear;
+	top: 0;
 	width: 100%;
 	z-index: 1000;
 `;

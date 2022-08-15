@@ -48,7 +48,7 @@ const OrchiWebsite = (): JSX.Element => {
 
 	useEffect(() => {
 		const handleResize = (): void => {
-			const width = window.innerWidth;
+			const width = document.documentElement.clientHeight;
 
 			setIsMobile(!(width > 767 || width < 319));
 			setPageWidth(width);

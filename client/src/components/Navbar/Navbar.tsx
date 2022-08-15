@@ -45,16 +45,20 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 			const navbar: HTMLElement = document.getElementById(
 				'navbar'
 			) as HTMLElement;
-			const width = window.innerWidth;
+			const width = document.documentElement.clientHeight;
 
 			if (width > 767 || width < 319) {
 				if (desktopContacts && navbar) {
 					const pageScroll: number = window.pageYOffset;
 					const desktopContactsHeight: number = desktopContacts.offsetHeight;
 
-					if (pageScroll > 10)
+					if (pageScroll > 114) {
 						navbar.style.top = `-${desktopContactsHeight + 7}px`;
-					else navbar.style.top = '0';
+						navbar.style.position = 'fixed';
+					} else {
+						navbar.style.top = '0';
+						navbar.style.position = 'absolute';
+					}
 				}
 			} else navbar.style.top = '0';
 		};
@@ -101,7 +105,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 			const navbar: HTMLElement = document.getElementById(
 				'navbar'
 			) as HTMLElement;
-			const width = window.innerWidth;
+			const width = document.documentElement.clientHeight;
 
 			if (width > 767 || width < 319) {
 				if (desktopContacts && navbar) {

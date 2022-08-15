@@ -35,7 +35,8 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 				currentImages.forEach((image) => {
 					const imageElement: HTMLElement = image as HTMLElement;
 					if (event.target.id === 'LandingImagesWrapper') {
-						const x: number = (window.innerWidth - event.pageX) / 70;
+						const x: number =
+							(document.documentElement.clientHeight - event.pageX) / 70;
 						const y: number = (window.innerHeight - event.pageY) / 70;
 
 						imageElement.style.transform = `translate(${x}px, ${y}px)`;
@@ -59,7 +60,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			currentDescriptionTexts.forEach((text) => {
 				const difW = 1285 - 150;
 				const difT = 200 - 30;
-				const rapW = window.innerWidth - 150;
+				const rapW = document.documentElement.clientHeight - 150;
 				const out = (difT / 100) * (rapW / (difW / 100)) + 30;
 				const normalizedOut = inRange(out, 30, 200);
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
@@ -71,7 +72,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			currentDescriptionTitles.forEach((text) => {
 				const difW = 1285 - 475;
 				const difT = 20 - 8;
-				const rapW = window.innerWidth - 475;
+				const rapW = document.documentElement.clientHeight - 475;
 				const out = (difT / 100) * (rapW / (difW / 100)) + 8;
 				const normalizedOut = inRange(out, 8, 20);
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
