@@ -132,10 +132,10 @@ const LandingImageElementContainer = styled.div`
 			opacity: 1;
 		}
 		${LandingImageDescription} {
-			transition: opacity 400ms ease-in-out 8 00ms;
+			transition: opacity 400ms ease-in-out 600ms;
 		}
 		${LandingImageForegroundElement} {
-			transition: opacity 400ms ease-in-out 2000ms, transform 1000ms ease-in-out;
+			transition: opacity 400ms ease-in-out 1000ms, transform 1000ms ease-in-out;
 		}
 	}
 `;
