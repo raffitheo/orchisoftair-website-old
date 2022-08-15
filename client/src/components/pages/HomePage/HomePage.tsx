@@ -29,12 +29,13 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 	useEffect(() => {
 		const imageParallax = (event: any): void => {
 			if (!window.matchMedia('(pointer: coarse)').matches) {
-				const currentImages: NodeListOf<Element> =
-					document.querySelectorAll('.ImageForeground');
+				const currentImages: NodeListOf<Element> = document.querySelectorAll(
+					'.image-element-foreground'
+				);
 
 				currentImages.forEach((image) => {
 					const imageElement: HTMLElement = image as HTMLElement;
-					if (event.target.id === 'LandingImagesWrapper') {
+					if (event.target.id === 'images-wrapper') {
 						const x: number =
 							(document.documentElement.clientWidth - event.pageX) / 70;
 						const y: number =
@@ -55,20 +56,8 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 		};
 
 		const resizeTextInRange = (): void => {
-			const currentDescriptionTexts: NodeListOf<Element> =
-				document.querySelectorAll('.LandingImageElementDescriptionText');
-
-			currentDescriptionTexts.forEach((text) => {
-				const difW = 1285 - 150;
-				const difT = 200 - 30;
-				const rapW = document.documentElement.clientHeight - 150;
-				const out = (difT / 100) * (rapW / (difW / 100)) + 30;
-				const normalizedOut = inRange(out, 30, 200);
-				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
-			});
-
 			const currentDescriptionTitles: NodeListOf<Element> =
-				document.querySelectorAll('.LandingImageElementDescriptionTitle');
+				document.querySelectorAll('.image-element-description-title');
 
 			currentDescriptionTitles.forEach((text) => {
 				const difW = 1285 - 475;
@@ -76,6 +65,18 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 				const rapW = document.documentElement.clientHeight - 475;
 				const out = (difT / 100) * (rapW / (difW / 100)) + 8;
 				const normalizedOut = inRange(out, 8, 20);
+				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+			});
+
+			const currentDescriptionTexts: NodeListOf<Element> =
+				document.querySelectorAll('.image-element-description-text');
+
+			currentDescriptionTexts.forEach((text) => {
+				const difW = 1285 - 150;
+				const difT = 200 - 30;
+				const rapW = document.documentElement.clientHeight - 150;
+				const out = (difT / 100) * (rapW / (difW / 100)) + 30;
+				const normalizedOut = inRange(out, 30, 200);
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
 			});
 		};
@@ -98,7 +99,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			<LandingWrapper navbarHeight={componentProps.navbarHeight}>
 				<LandingImagesWrapper
 					currentSlider={currentSlider}
-					id="LandingImagesWrapper"
+					id="images-wrapper"
 					slidersLength={componentProps.sliders.length}
 				>
 					{componentProps.sliders.map((slider, index) => {
@@ -111,15 +112,15 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 
 								<LandingImageElementColorPanel color={slider.color} />
 								<LandingImageDescription>
-									<h2 className="LandingImageElementDescriptionTitle">
+									<h2 className="image-element-description-title">
 										{slider.title}
 									</h2>
-									<p className="LandingImageElementDescriptionText">
+									<p className="image-element-description-text">
 										{slider.text}
 									</p>
 								</LandingImageDescription>
 
-								<LandingImageForegroundElementWrapper className="ImageForeground">
+								<LandingImageForegroundElementWrapper className="image-element-foreground">
 									<LandingImageForegroundElement
 										image={slider.foregroundImage}
 									/>
