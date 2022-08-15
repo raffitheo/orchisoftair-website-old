@@ -62,7 +62,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			currentDescriptionTitles.forEach((text) => {
 				const difW = 1285 - 475;
 				const difT = 20 - 8;
-				const rapW = document.documentElement.clientHeight - 475;
+				const rapW = document.documentElement.clientWidth - 475;
 				const out = (difT / 100) * (rapW / (difW / 100)) + 8;
 				const normalizedOut = inRange(out, 8, 20);
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
@@ -74,7 +74,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			currentDescriptionTexts.forEach((text) => {
 				const difW = 1285 - 150;
 				const difT = 200 - 30;
-				const rapW = document.documentElement.clientHeight - 150;
+				const rapW = document.documentElement.clientWidth - 150;
 				const out = (difT / 100) * (rapW / (difW / 100)) + 30;
 				const normalizedOut = inRange(out, 30, 200);
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
@@ -113,10 +113,10 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 								<LandingImageElementColorPanel color={slider.color} />
 								<LandingImageDescription>
 									<h2 className="image-element-description-title">
-										{slider.title}
+										{slider.title.replace(/<nbs>/g, '\u00A0')}
 									</h2>
 									<p className="image-element-description-text">
-										{slider.text}
+										{slider.text.replace(/<nbs>/g, '\u00A0')}
 									</p>
 								</LandingImageDescription>
 

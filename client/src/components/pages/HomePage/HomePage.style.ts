@@ -84,11 +84,16 @@ const LandingImageDescription = styled.div`
 	h2,
 	p {
 		color: white;
+		display: -webkit-box;
 		line-height: 1;
+		overflow: hidden;
 		text-transform: uppercase;
 		user-select: none;
+		white-space: pre-line;
 		-moz-user-select: none;
 		-ms-user-select: none;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
 		-webkit-user-select: none;
 	}
 
