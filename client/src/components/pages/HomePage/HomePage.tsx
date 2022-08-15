@@ -28,7 +28,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 
 	useEffect(() => {
 		const imageParallax = (event: any): void => {
-			if (!componentProps.isMobile) {
+			if (!window.matchMedia('(pointer: coarse)').matches) {
 				const currentImages: NodeListOf<Element> =
 					document.querySelectorAll('.ImageForeground');
 
@@ -36,8 +36,9 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 					const imageElement: HTMLElement = image as HTMLElement;
 					if (event.target.id === 'LandingImagesWrapper') {
 						const x: number =
-							(document.documentElement.clientHeight - event.pageX) / 70;
-						const y: number = (window.innerHeight - event.pageY) / 70;
+							(document.documentElement.clientWidth - event.pageX) / 70;
+						const y: number =
+							(document.documentElement.clientHeight - event.pageY) / 70;
 
 						imageElement.style.transform = `translate(${x}px, ${y}px)`;
 						imageElement.style.transition = '';

@@ -48,12 +48,13 @@ const OrchiWebsite = (): JSX.Element => {
 
 	useEffect(() => {
 		const handleResize = (): void => {
-			const width = document.documentElement.clientHeight;
+			const width: number = document.documentElement.clientWidth;
+			const mobile: boolean = width > 767 || width < 319 ? false : true;
 
-			setIsMobile(!(width > 767 || width < 319));
+			setIsMobile(mobile);
 			setPageWidth(width);
 
-			if (width > 767 || width < 319) onMobileMenuChange(false);
+			if (!mobile) onMobileMenuChange(false);
 		};
 
 		handleResize();
