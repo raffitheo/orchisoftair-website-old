@@ -8,6 +8,7 @@ const Wrapper = styled.section`
 	padding: 7px 0 0 0;
 	position: absolute;
 	right: 0;
+	transition: left 200ms linear, right 200ms linear;
 	top: 0;
 	width: 100%;
 	z-index: 1000;
