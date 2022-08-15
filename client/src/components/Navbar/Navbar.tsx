@@ -60,7 +60,10 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 						navbar.style.position = 'absolute';
 					}
 				}
-			} else navbar.style.top = '0';
+			} else {
+				navbar.style.top = '0';
+				navbar.style.position = 'fixed';
+			}
 		};
 
 		const handleInitialSelection = (): void => {
