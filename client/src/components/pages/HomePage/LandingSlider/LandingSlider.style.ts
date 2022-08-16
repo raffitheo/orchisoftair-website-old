@@ -1,13 +1,26 @@
 import styled from 'styled-components';
 
-const LandingWrapper = styled.div<{ navbarHeight: number }>`
+const Wrapper = styled.div<{ navbarHeight: number }>`
 	height: calc(100vh - ${(props) => props.navbarHeight}px);
 	margin-top: ${(props) => props.navbarHeight}px;
 	position: relative;
 	width: 100%;
 `;
 
-const LandingAdvancePillsWrapper = styled.div`
+const ImagesWrapper = styled.div<{
+	currentSlider: number;
+	slidersLength: number;
+}>`
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	left: -${(props) => props.currentSlider * 100}vw;
+	position: absolute;
+	transition: left 400ms ease-in-out 200ms;
+	width: ${(props) => props.slidersLength * 100}vw;
+`;
+
+const AdvancePillsWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
@@ -27,7 +40,7 @@ const LandingAdvancePillsWrapper = styled.div`
 	}
 `;
 
-const LandingAdvancePillElement = styled.div<{ active?: boolean }>`
+const AdvancePillElement = styled.div<{ active?: boolean }>`
 	border: 1px solid ${(props) => props.theme.dark};
 	border-radius: 50%;
 	color: ${(props) => props.theme.dark};
@@ -55,20 +68,7 @@ const LandingAdvancePillElement = styled.div<{ active?: boolean }>`
 	}
 `;
 
-const LandingImagesWrapper = styled.div<{
-	currentSlider: number;
-	slidersLength: number;
-}>`
-	display: flex;
-	flex-direction: row;
-	height: 100%;
-	left: -${(props) => props.currentSlider * 100}vw;
-	position: absolute;
-	transition: left 400ms ease-in-out 200ms;
-	width: ${(props) => props.slidersLength * 100}vw;
-`;
-
-const LandingImageDescription = styled.div`
+const ImageDescription = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
@@ -108,7 +108,7 @@ const LandingImageDescription = styled.div`
 	}
 `;
 
-const LandingImageForegroundElement = styled.div<{ image: string }>`
+const ImageForegroundElement = styled.div<{ image: string }>`
 	background-image: url(data:image/png;base64,${(props) => props.image});
 	background-position: center;
 	background-repeat: no-repeat;
@@ -121,7 +121,7 @@ const LandingImageForegroundElement = styled.div<{ image: string }>`
 	width: 100vw;
 `;
 
-const LandingImageElementContainer = styled.div`
+const ImageElementContainer = styled.div`
 	height: 100%;
 	overflow: hidden;
 	pointer-events: none;
@@ -129,19 +129,19 @@ const LandingImageElementContainer = styled.div`
 	width: 100vw;
 
 	&.active {
-		${LandingImageDescription}, ${LandingImageForegroundElement} {
+		${ImageDescription}, ${ImageForegroundElement} {
 			opacity: 1;
 		}
-		${LandingImageDescription} {
+		${ImageDescription} {
 			transition: opacity 400ms ease-in-out 600ms;
 		}
-		${LandingImageForegroundElement} {
+		${ImageForegroundElement} {
 			transition: opacity 400ms ease-in-out 1000ms, transform 1000ms ease-in-out;
 		}
 	}
 `;
 
-const LandingImageBackgroundElement = styled.div<{ image: string }>`
+const ImageBackgroundElement = styled.div<{ image: string }>`
 	background-image: url(data:image/png;base64,${(props) => props.image});
 	background-position: center;
 	background-repeat: no-repeat;
@@ -156,7 +156,7 @@ const LandingImageBackgroundElement = styled.div<{ image: string }>`
 	z-index: 498;
 `;
 
-const LandingImageElementColorPanel = styled.div<{ color: string }>`
+const ImageElementColorPanel = styled.div<{ color: string }>`
 	background-color: ${(props) => props.color};
 	height: 300vh;
 	left: 54%;
@@ -168,7 +168,7 @@ const LandingImageElementColorPanel = styled.div<{ color: string }>`
 	z-index: 499;
 `;
 
-const LandingImageForegroundElementWrapper = styled.div`
+const ImageForegroundElementWrapper = styled.div`
 	display: flex;
 	height: 100%;
 	left: 0;
@@ -180,14 +180,14 @@ const LandingImageForegroundElementWrapper = styled.div`
 `;
 
 export {
-	LandingWrapper,
-	LandingAdvancePillsWrapper,
-	LandingAdvancePillElement,
-	LandingImagesWrapper,
-	LandingImageDescription,
-	LandingImageElementContainer,
-	LandingImageForegroundElement,
-	LandingImageBackgroundElement,
-	LandingImageElementColorPanel,
-	LandingImageForegroundElementWrapper,
+	Wrapper,
+	ImagesWrapper,
+	AdvancePillsWrapper,
+	AdvancePillElement,
+	ImageDescription,
+	ImageForegroundElement,
+	ImageElementContainer,
+	ImageBackgroundElement,
+	ImageElementColorPanel,
+	ImageForegroundElementWrapper,
 };
