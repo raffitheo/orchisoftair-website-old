@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import ILandingSliderProps from './ILandingSliderProps';
+
 import {
 	AdvancePillElement,
 	AdvancePillsWrapper,
@@ -22,6 +23,8 @@ interface ITouchInput {
 const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
 
+	const switchTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
+		useRef<NodeJS.Timeout>();
 	const resizeTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
 		useRef<NodeJS.Timeout>();
 	const touch = useRef<ITouchInput>({
@@ -131,6 +134,7 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 					currentSlider !== 0
 						? currentSlider - 1
 						: componentProps.sliders.length - 1;
+
 				setCurrentSlider(prevIndex);
 			}
 
@@ -139,6 +143,7 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 					currentSlider !== componentProps.sliders.length - 1
 						? currentSlider + 1
 						: 0;
+
 				setCurrentSlider(nextIndex);
 			}
 		};
@@ -183,6 +188,18 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 		imagesWrapper.addEventListener('touchstart', touchStart);
 		imagesWrapper.addEventListener('mouseup', mouseUp);
 		imagesWrapper.addEventListener('touchend', touchEnd);
+
+		if (componentProps.sliders.length > 1) {
+			clearTimeout(switchTimeout.current);
+			switchTimeout.current = setTimeout(() => {
+				const nextIndex: number =
+					currentSlider !== componentProps.sliders.length - 1
+						? currentSlider + 1
+						: 0;
+
+				setCurrentSlider(nextIndex);
+			}, 5000);
+		}
 
 		return () => {
 			imagesWrapper.removeEventListener('mousedown', mouseDown);
