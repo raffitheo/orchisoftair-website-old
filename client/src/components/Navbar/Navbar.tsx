@@ -38,6 +38,34 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<number>(-1);
 
 	useEffect(() => {
+		const url: string = window.location.toString();
+
+		if (url.indexOf('#') !== -1) {
+			const selection: string = url.split('#')[1];
+
+			if (selection) {
+				componentProps.navigation.forEach((element, index) => {
+					if (`#${selection}` === element.link) setCurrentlySelected(index);
+					else {
+						if (element.subMenu && element.subMenu.length >= 1) {
+							element.subMenu.forEach((subElement, subIndex) => {
+								if (`#${selection}` === subElement.link) {
+									setCurrentlySelected(index);
+									setCurrentlySelectedSubMenu(subIndex);
+								}
+							});
+						}
+					}
+				});
+			} else {
+				setCurrentlySelected(0);
+				setCurrentlySelectedSubMenu(-1);
+			}
+		} else setCurrentlySelected(0);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
 		const handleScroll = (): void => {
 			const desktopContacts: HTMLElement = document.getElementById(
 				'desktop-contacts'
@@ -60,64 +88,21 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 					}
 				}
 			} else {
-				navbar.style.top = '0';
-				navbar.style.position = 'fixed';
+				if (navbar) {
+					navbar.style.top = '0';
+					navbar.style.position = 'fixed';
+				}
 			}
 		};
 
-		const handleInitialSelection = (): void => {
-			const url: string = window.location.toString();
+		handleScroll();
 
-			if (url.indexOf('#') !== -1) {
-				const selection: string = url.split('#')[1];
+		window.addEventListener('scroll', handleScroll);
 
-				if (selection) {
-					componentProps.navigation.forEach((element, index) => {
-						if (`#${selection}` === element.link) setCurrentlySelected(index);
-						else {
-							if (element.subMenu && element.subMenu.length >= 1) {
-								element.subMenu.forEach((subElement, subIndex) => {
-									if (`#${selection}` === subElement.link) {
-										setCurrentlySelected(index);
-										setCurrentlySelectedSubMenu(subIndex);
-									}
-								});
-							}
-						}
-					});
-				} else {
-					setCurrentlySelected(0);
-					setCurrentlySelectedSubMenu(-1);
-				}
-			} else setCurrentlySelected(0);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
 		};
-
-		handleInitialSelection();
-
-		if (!componentProps.small) {
-			window.addEventListener('scroll', handleScroll);
-
-			return () => {
-				window.removeEventListener('scroll', handleScroll);
-			};
-		} else {
-			const desktopContacts: HTMLElement = document.getElementById(
-				'desktop-contacts'
-			) as HTMLElement;
-			const navbar: HTMLElement = document.getElementById(
-				'navbar'
-			) as HTMLElement;
-
-			if (componentProps.isMobile) {
-				if (desktopContacts && navbar) {
-					const desktopContactsHeight: number = desktopContacts.offsetHeight;
-
-					navbar.style.top = `-${desktopContactsHeight + 7}px`;
-				}
-			} else navbar.style.top = '0';
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [componentProps.isMobile]);
 
 	useEffect(() => {
 		if (!componentProps.isMobile && isMobileMenuOpen)

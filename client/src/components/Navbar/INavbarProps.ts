@@ -14,7 +14,6 @@ interface INavbarProps {
 
 	className?: string | undefined;
 	style?: React.CSSProperties | undefined;
-	small?: boolean;
 }
 
 export default INavbarProps;
