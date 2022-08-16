@@ -46,6 +46,8 @@ import SatoshiVariableItalicTTF from '../assets/fonts/Satoshi/Satoshi-VariableIt
 import SatoshiVariableItalicWOFF from '../assets/fonts/Satoshi/Satoshi-VariableItalic.woff';
 import SatoshiVariableItalicWOFF2 from '../assets/fonts/Satoshi/Satoshi-VariableItalic.woff2';
 
+import DefaultTheme from './defaultTheme.style';
+
 export default createGlobalStyle`
     @font-face {
         font-family: 'Anton';
@@ -183,7 +185,12 @@ export default createGlobalStyle`
     }
 
     a {
+        color: ${DefaultTheme.text.primary};
         text-decoration: none;
+    }
+
+    body {
+        color: ${DefaultTheme.text.primary};
     }
 
     #root {

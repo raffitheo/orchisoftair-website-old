@@ -1,12 +1,12 @@
 import IContactsProps from './IContactsProps';
 
-import { Container, Wrapper } from './Contacts.style';
+import { ContactsContainer, ContactsWrapper } from './Contacts.style';
 import ContactElement from './ContactElement/ContactElement';
 
 const Contacts = (componentProps: IContactsProps): JSX.Element => {
 	return (
-		<Wrapper>
-			<Container>
+		<ContactsWrapper>
+			<ContactsContainer>
 				<>
 					{componentProps.contacts.map((contact, index) => {
 						return (
@@ -20,8 +20,8 @@ const Contacts = (componentProps: IContactsProps): JSX.Element => {
 						);
 					})}
 				</>
-			</Container>
-		</Wrapper>
+			</ContactsContainer>
+		</ContactsWrapper>
 	);
 };
 

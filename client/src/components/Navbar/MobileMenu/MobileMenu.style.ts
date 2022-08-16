@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-const Wrapper = styled.section`
-	background-color: ${(props) => props.theme.dark};
+const MobileMenuWrapper = styled.section`
+	background-color: ${(props) => props.theme.color.secondary};
 	display: none;
 	height: 100vh;
 	left: -250px;
@@ -19,7 +19,7 @@ const Wrapper = styled.section`
 	}
 `;
 
-const Container = styled.div`
+const MobileMenuContainer = styled.div`
 	margin: 0 auto;
 	padding: 0 15px;
 
@@ -43,7 +43,7 @@ const Container = styled.div`
 	}
 `;
 
-const Row = styled.div`
+const MobileMenuRow = styled.div`
 	margin: 0 -15px;
 
 	&::before,
@@ -78,15 +78,13 @@ const NavigationList = styled.ul`
 `;
 
 const NavigationListElementLink = styled(Link)`
-	color: ${(props) => props.theme.textPrimary};
 	display: block;
-	font-size: 16px;
 	margin-right: 40px;
 	padding: 20px 0 5px;
 	transition: all 200ms ease-in-out;
 
 	&:hover {
-		color: ${(props) => props.theme.textAccent};
+		color: ${(props) => props.theme.text.secondary};
 	}
 `;
 
@@ -98,14 +96,13 @@ const NavigationListElement = styled.li`
 
 	&.active {
 		${NavigationListElementLink} {
-			color: ${(props) => props.theme.textAccent};
+			color: ${(props) => props.theme.text.secondary};
 		}
 	}
 `;
 
 const NavigationSubMenuListExpand = styled.div`
 	align-items: center;
-	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
 	display: flex;
 	height: 19px;
@@ -116,12 +113,12 @@ const NavigationSubMenuListExpand = styled.div`
 	width: 19px;
 
 	&:hover {
-		color: ${(props) => props.theme.textAccent};
+		color: ${(props) => props.theme.text.secondary};
 	}
 `;
 
 const NavigationSubMenuList = styled.ul`
-	background-color: ${(props) => props.theme.dark};
+	background-color: ${(props) => props.theme.color.secondary};
 	cursor: default;
 	display: block;
 	height: auto;
@@ -143,10 +140,8 @@ const NavigationSubMenuList = styled.ul`
 `;
 
 const NavigationSubMenuListElementLink = styled(Link)`
-	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
 	display: block;
-	font-size: 16px;
 	padding: 0;
 	transition: all 200ms ease-in-out;
 `;
@@ -165,15 +160,15 @@ const NavigationSubMenuListElement = styled.li`
 	&:hover,
 	&.active {
 		${NavigationSubMenuListElementLink} {
-			color: ${(props) => props.theme.textAccent};
+			color: ${(props) => props.theme.text.secondary};
 		}
 	}
 `;
 
 export {
-	Wrapper,
-	Container,
-	Row,
+	MobileMenuWrapper,
+	MobileMenuContainer,
+	MobileMenuRow,
 	NavigationWrapper,
 	NavigationContainer,
 	NavigationList,

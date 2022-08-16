@@ -5,13 +5,15 @@ import INavbarProps from './INavbarProps';
 import logo from '../../assets/images/logo.png';
 
 import {
-	Container,
 	MobileHamburger,
 	MobileHamburgerCheckbox,
 	MobileHamburgerContainer,
 	MobileHamburgerLine,
 	MobileHamburgerLineContainer,
 	MobileHamburgerWrapper,
+	NavbarContainer,
+	NavbarRow,
+	NavbarWrapper,
 	NavigationContainer,
 	NavigationList,
 	NavigationListElement,
@@ -20,8 +22,6 @@ import {
 	NavigationSubMenuListElement,
 	NavigationSubMenuListElementLink,
 	NavigationWrapper,
-	Row,
-	Wrapper,
 } from './Navbar.style';
 import MobileMenu from './MobileMenu/MobileMenu';
 import Logo from './Logo/Logo';
@@ -111,13 +111,13 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 
 	return (
 		<>
-			<Wrapper
+			<NavbarWrapper
 				className={componentProps.className}
 				id={`navbar`}
 				style={componentProps.style}
 			>
-				<Container>
-					<Row id={'desktop-contacts'}>
+				<NavbarContainer>
+					<NavbarRow id={'desktop-contacts'}>
 						<Logo
 							image={logo}
 							style={{
@@ -155,9 +155,9 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 								</MobileHamburger>
 							</MobileHamburgerContainer>
 						</MobileHamburgerWrapper>
-					</Row>
+					</NavbarRow>
 
-					<Row
+					<NavbarRow
 						style={{
 							display: !componentProps.isMobile ? 'block' : 'none',
 						}}
@@ -247,9 +247,9 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 						</NavigationWrapper>
 
 						<SearchBar />
-					</Row>
-				</Container>
-			</Wrapper>
+					</NavbarRow>
+				</NavbarContainer>
+			</NavbarWrapper>
 
 			<MobileMenu
 				currentlySelected={currentlySelected}

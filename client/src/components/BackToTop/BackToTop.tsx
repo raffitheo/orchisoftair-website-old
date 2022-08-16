@@ -2,7 +2,7 @@ import IBackToTopProps from './IBackToTopProps';
 
 import IconExtension from '../IconExtension/IconExtension';
 
-import { Wrapper } from './BackToTop.style';
+import { BackToTopElement } from './BackToTop.style';
 
 const BackToTop = (componentProps: IBackToTopProps): JSX.Element => {
 	const backToTop =
@@ -15,12 +15,12 @@ const BackToTop = (componentProps: IBackToTopProps): JSX.Element => {
 		};
 
 	return (
-		<Wrapper
+		<BackToTopElement
 			className={componentProps.show ? 'active' : ''}
 			onClick={backToTop()}
 		>
 			<IconExtension name="ChevronUp" size={35} />
-		</Wrapper>
+		</BackToTopElement>
 	);
 };
 

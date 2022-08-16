@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const SearchbarWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 	}
 `;
 
-const Container = styled.div`
+const SearchbarContainer = styled.div`
 	float: right;
 	overflow: hidden;
 	padding: 20px 0 19px;
@@ -28,8 +28,8 @@ const Form = styled.form`
 const Input = styled.input`
 	background-color: transparent;
 	border: none;
-	border-bottom: 1px solid ${(props) => props.theme.textPrimary};
-	color: ${(props) => props.theme.textPrimary};
+	border-bottom: 1px solid ${(props) => props.theme.text.primary};
+	color: ${(props) => props.theme.text.primary};
 	visibility: hidden;
 	margin-right: 20px;
 	opacity: 0;
@@ -39,7 +39,7 @@ const Input = styled.input`
 	-webkit-appearance: none;
 
 	&::placeholder {
-		color: ${(props) => props.theme.textPrimary};
+		color: ${(props) => props.theme.text.primary};
 	}
 
 	&.active {
@@ -52,7 +52,7 @@ const Input = styled.input`
 const Button = styled.button`
 	background-color: transparent;
 	border: none;
-	color: ${(props) => props.theme.textPrimary};
+	color: ${(props) => props.theme.text.primary};
 	cursor: pointer;
 	font-size: 19px;
 	position: absolute;
@@ -62,8 +62,8 @@ const Button = styled.button`
 
 	&:hover:not(.no-interaction),
 	&.active:not(.no-interaction) {
-		color: ${(props) => props.theme.textAccent};
+		color: ${(props) => props.theme.text.secondary};
 	}
 `;
 
-export { Wrapper, Container, Form, Input, Button };
+export { SearchbarWrapper, SearchbarContainer, Form, Input, Button };

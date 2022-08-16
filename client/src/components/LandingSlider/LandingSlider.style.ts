@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div<{ navbarHeight: number }>`
+const LandingSliderElement = styled.div<{ navbarHeight: number }>`
 	height: calc(100vh - ${(props) => props.navbarHeight}px);
 	margin-top: ${(props) => props.navbarHeight}px;
 	position: relative;
@@ -16,8 +16,12 @@ const ImagesWrapper = styled.div<{
 	height: 100%;
 	left: -${(props) => props.currentSlider * 100}vw;
 	position: absolute;
-	transition: left 400ms ease-in-out 200ms;
+	transition: left 1000ms ease-in-out;
 	width: ${(props) => props.slidersLength * 100}vw;
+
+	@media (min-width: 320px) and (max-width: 767px) {
+		transition: left 5000ms ease-in-out;
+	}
 `;
 
 const AdvancePillsWrapper = styled.div`
@@ -32,7 +36,7 @@ const AdvancePillsWrapper = styled.div`
 
 	&:before,
 	&:after {
-		border-top: 2px dotted ${(props) => props.theme.dark};
+		border-top: 2px dotted ${(props) => props.theme.color.secondary};
 		content: '';
 		height: 0;
 		margin: auto;
@@ -40,10 +44,14 @@ const AdvancePillsWrapper = styled.div`
 	}
 `;
 
+const AdvancePillElementText = styled.p`
+	color: ${(props) => props.theme.color.secondary};
+	margin: auto;
+`;
+
 const AdvancePillElement = styled.div<{ active?: boolean }>`
-	border: 1px solid ${(props) => props.theme.dark};
+	border: 1px solid ${(props) => props.theme.color.secondary};
 	border-radius: 50%;
-	color: ${(props) => props.theme.dark};
 	cursor: pointer;
 	display: flex;
 	height: 30px;
@@ -53,18 +61,14 @@ const AdvancePillElement = styled.div<{ active?: boolean }>`
 
 	&:hover,
 	&.active {
-		border: 2px solid ${(props) => props.theme.main};
-		color: ${(props) => props.theme.main};
+		border: 2px solid ${(props) => props.theme.color.primary};
 		height: 42px;
 		width: 42px;
 
-		p {
+		${AdvancePillElementText} {
+			color: ${(props) => props.theme.color.primary};
 			font-size: 20px;
 		}
-	}
-
-	p {
-		margin: auto;
 	}
 `;
 
@@ -78,7 +82,7 @@ const ImageDescription = styled.div`
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	transition: opacity 0ms ease-in-out 600ms;
+	transition: opacity 0ms ease-in-out 1000ms;
 	z-index: 501;
 
 	h2,
@@ -107,6 +111,10 @@ const ImageDescription = styled.div`
 		font-size: 200px;
 		line-height: 1;
 	}
+
+	@media (min-width: 320px) and (max-width: 767px) {
+		transition: opacity 0ms ease-in-out 500ms;
+	}
 `;
 
 const ImageForegroundElement = styled.div<{ image: string }>`
@@ -118,8 +126,12 @@ const ImageForegroundElement = styled.div<{ image: string }>`
 	min-height: 100%;
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0ms ease-in-out 600ms;
+	transition: opacity 0ms ease-in-out 1000ms;
 	width: 100vw;
+
+	@media (min-width: 320px) and (max-width: 767px) {
+		transition: opacity 0ms ease-in-out 500ms;
+	}
 `;
 
 const ImageElementContainer = styled.div`
@@ -134,10 +146,23 @@ const ImageElementContainer = styled.div`
 			opacity: 1;
 		}
 		${ImageDescription} {
-			transition: opacity 400ms ease-in-out 600ms;
+			transition: opacity 1000ms ease-in-out 1000ms;
 		}
 		${ImageForegroundElement} {
-			transition: opacity 400ms ease-in-out 1000ms, transform 1000ms ease-in-out;
+			transition: opacity 1000ms ease-in-out 2000ms,
+				transform 1000ms ease-in-out;
+		}
+	}
+
+	@media (min-width: 320px) and (max-width: 767px) {
+		&.active {
+			${ImageDescription} {
+				transition: opacity 1000ms ease-in-out 500ms;
+			}
+			${ImageForegroundElement} {
+				transition: opacity 1500ms ease-in-out 1500ms,
+					transform 500ms ease-in-out;
+			}
 		}
 	}
 `;
@@ -181,9 +206,10 @@ const ImageForegroundElementWrapper = styled.div`
 `;
 
 export {
-	Wrapper,
+	LandingSliderElement,
 	ImagesWrapper,
 	AdvancePillsWrapper,
+	AdvancePillElementText,
 	AdvancePillElement,
 	ImageDescription,
 	ImageForegroundElement,

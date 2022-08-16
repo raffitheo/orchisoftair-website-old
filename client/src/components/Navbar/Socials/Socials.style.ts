@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const SocialWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 	}
 `;
 
-const Container = styled.div`
+const SocialContainer = styled.div`
 	padding: 33px 0;
 	text-align: right;
 
@@ -28,4 +28,4 @@ const Container = styled.div`
 	}
 `;
 
-export { Wrapper, Container };
+export { SocialWrapper, SocialContainer };

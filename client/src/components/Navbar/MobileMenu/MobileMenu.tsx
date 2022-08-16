@@ -4,7 +4,9 @@ import IconExtension from '../../IconExtension/IconExtension';
 import Logo from '../Logo/Logo';
 
 import {
-	Container,
+	MobileMenuContainer,
+	MobileMenuRow,
+	MobileMenuWrapper,
 	NavigationContainer,
 	NavigationList,
 	NavigationListElement,
@@ -14,20 +16,18 @@ import {
 	NavigationSubMenuListElementLink,
 	NavigationSubMenuListExpand,
 	NavigationWrapper,
-	Row,
-	Wrapper,
 } from './MobileMenu.style';
 import SearchBar from '../SearchBar/SearchBar';
 
 const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 	return (
-		<Wrapper id="navbar-mobile">
-			<Container>
-				<Row>
+		<MobileMenuWrapper id="navbar-mobile">
+			<MobileMenuContainer>
+				<MobileMenuRow>
 					<Logo image={componentProps.logo} />
-				</Row>
+				</MobileMenuRow>
 
-				<Row>
+				<MobileMenuRow>
 					<NavigationWrapper>
 						<NavigationContainer>
 							<SearchBar openOnStart={true} preventCollapse={true} />
@@ -141,9 +141,9 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 							</NavigationList>
 						</NavigationContainer>
 					</NavigationWrapper>
-				</Row>
-			</Container>
-		</Wrapper>
+				</MobileMenuRow>
+			</MobileMenuContainer>
+		</MobileMenuWrapper>
 	);
 };
 

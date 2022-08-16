@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-const Wrapper = styled.section`
-	background-color: ${(props) => props.theme.main};
+const NavbarWrapper = styled.section`
+	background-color: ${(props) => props.theme.color.primary};
 	left: 0;
 	padding: 7px 0 0 0;
 	position: absolute;
@@ -14,7 +14,7 @@ const Wrapper = styled.section`
 	z-index: 1000;
 `;
 
-const Container = styled.div`
+const NavbarContainer = styled.div`
 	margin: 0 auto;
 	padding: 0 15px;
 
@@ -38,7 +38,7 @@ const Container = styled.div`
 	}
 `;
 
-export const Row = styled.div`
+export const NavbarRow = styled.div`
 	margin: 0 -15px;
 
 	&::before,
@@ -104,7 +104,7 @@ const MobileHamburgerLineContainer = styled.div`
 `;
 
 const MobileHamburgerLine = styled.span`
-	background-color: ${(props) => props.theme.textAccent};
+	background-color: ${(props) => props.theme.text.secondary};
 	border-radius: 2px;
 	display: block;
 	height: 3px;
@@ -171,20 +171,18 @@ const NavigationList = styled.ul`
 `;
 
 const NavigationListElementLink = styled(Link)`
-	color: ${(props) => props.theme.textPrimary};
 	display: block;
-	font-size: 16px;
 	padding: 20px 0 22px;
 	transition: all 200ms ease-in-out;
 `;
 
 const NavigationSubMenuList = styled.ul`
-	background-color: ${(props) => props.theme.dark};
+	background-color: ${(props) => props.theme.color.secondary};
 	border-radius: 2px;
 	cursor: default;
 	margin-left: -61px;
 	opacity: 0;
-	padding: 16px 0 16px 40px;
+	padding: 1em 0 1em 40px;
 	position: absolute;
 	top: 61px;
 	transition: all 200ms ease-in-out;
@@ -200,7 +198,7 @@ const NavigationListElement = styled.li`
 	position: relative;
 
 	&:not(:last-child):after {
-		background-color: ${(props) => props.theme.textAccent};
+		background-color: ${(props) => props.theme.text.secondary};
 		border-radius: 50%;
 		content: '';
 		height: 5px;
@@ -214,7 +212,7 @@ const NavigationListElement = styled.li`
 	&:hover,
 	&.active {
 		${NavigationListElementLink} {
-			color: ${(props) => props.theme.textAccent};
+			color: ${(props) => props.theme.text.secondary};
 		}
 	}
 
@@ -242,10 +240,8 @@ const NavigationListElement = styled.li`
 `;
 
 const NavigationSubMenuListElementLink = styled(Link)`
-	color: ${(props) => props.theme.textPrimary};
 	cursor: pointer;
 	display: block;
-	font-size: 16px;
 	padding: 0;
 	transition: all 200ms ease-in-out;
 `;
@@ -260,14 +256,14 @@ const NavigationSubMenuListElement = styled.li`
 	&:hover,
 	&.active {
 		${NavigationSubMenuListElementLink} {
-			color: ${(props) => props.theme.textAccent};
+			color: ${(props) => props.theme.text.secondary};
 		}
 	}
 `;
 
 export {
-	Wrapper,
-	Container,
+	NavbarWrapper,
+	NavbarContainer,
 	MobileHamburgerWrapper,
 	MobileHamburgerContainer,
 	MobileHamburgerCheckbox,

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const ContactsWrapper = styled.div`
 	float: left;
 	min-height: 1px;
 	padding: 0 15px;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 	}
 `;
 
-const Container = styled.div`
+const ContactsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
@@ -25,4 +25,4 @@ const Container = styled.div`
 	}
 `;
 
-export { Wrapper, Container };
+export { ContactsWrapper, ContactsContainer };

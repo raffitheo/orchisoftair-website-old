@@ -4,7 +4,13 @@ import ISearchbarProps from './ISearchBarProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 
-import { Button, Container, Form, Input, Wrapper } from './SeachBar.style';
+import {
+	Button,
+	Form,
+	Input,
+	SearchbarContainer,
+	SearchbarWrapper,
+} from './SeachBar.style';
 
 const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 	const [searchActive, setSearchActive] = useState<boolean>(
@@ -12,8 +18,8 @@ const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 	);
 
 	return (
-		<Wrapper>
-			<Container>
+		<SearchbarWrapper>
+			<SearchbarContainer>
 				<Form action="#" method="get" role="search">
 					<Input
 						className={searchActive ? 'active' : ''}
@@ -38,8 +44,8 @@ const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 						/>
 					</Button>
 				</Form>
-			</Container>
-		</Wrapper>
+			</SearchbarContainer>
+		</SearchbarWrapper>
 	);
 };
 

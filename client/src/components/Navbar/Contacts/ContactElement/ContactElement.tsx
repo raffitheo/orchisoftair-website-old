@@ -3,7 +3,7 @@ import IContactElementProps from './IContactElementProps';
 import IconExtension from '../../../IconExtension/IconExtension';
 import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
-import { Element, ElementTitle, ElementInfo } from './ContactElement.style';
+import { Element, Title, Info } from './ContactElement.style';
 
 const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
 	return (
@@ -18,9 +18,9 @@ const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
 				}}
 			/>
 
-			<ElementTitle>{componentProps.title}</ElementTitle>
+			<Title>{componentProps.title}</Title>
 
-			<ElementInfo>{componentProps.info}</ElementInfo>
+			<Info>{componentProps.info}</Info>
 		</Element>
 	);
 };

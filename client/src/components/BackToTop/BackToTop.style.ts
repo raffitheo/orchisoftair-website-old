@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-	background-color: ${(props) => props.theme.dark};
+const BackToTopElement = styled.div`
+	background-color: ${(props) => props.theme.color.secondary};
 	border-radius: 2px;
 	bottom: 20px;
 	cursor: pointer;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 	&:hover {
 		svg {
-			stroke: ${(props) => props.theme.textAccent} !important;
+			stroke: ${(props) => props.theme.text.secondary} !important;
 		}
 	}
 
@@ -26,9 +26,9 @@ const Wrapper = styled.div`
 	}
 
 	svg {
-		stroke: ${(props) => props.theme.textPrimary} !important;
+		stroke: ${(props) => props.theme.text.primary} !important;
 		transition: stroke 200ms ease-in-out;
 	}
 `;
 
-export { Wrapper };
+export { BackToTopElement };

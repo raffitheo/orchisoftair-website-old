@@ -4,6 +4,7 @@ import ILandingSliderProps from './ILandingSliderProps';
 
 import {
 	AdvancePillElement,
+	AdvancePillElementText,
 	AdvancePillsWrapper,
 	ImageBackgroundElement,
 	ImageDescription,
@@ -12,7 +13,7 @@ import {
 	ImageForegroundElement,
 	ImageForegroundElementWrapper,
 	ImagesWrapper,
-	Wrapper,
+	LandingSliderElement,
 } from './LandingSlider.style';
 
 interface ITouchInput {
@@ -28,9 +29,10 @@ const DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE: number = 475;
 const DEFAULT_DESCRIPTION_TEXT_MAX_SIZE: number = 200;
 const DEFAULT_DESCRIPTION_TITLE_MAX_SIZE: number = 20;
 const DEFAULT_DESCRIPTION_TEXT_MIN_SIZE: number = 30;
-const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE: number = 8;
+const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE: number = 10;
 
-const DEFAULT_SWITCH_TIMER: number = 7500;
+const DEFAULT_SWITCH_TIMER_DESKTOP: number = 13000;
+const DEFAULT_SWITCH_TIMER_MOBILE: number = 12500;
 
 const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
@@ -137,7 +139,9 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 
 			clearTimeout(resizeTimeout.current);
 			resizeTimeout.current = setTimeout(() => {
-				imagesWrapper.style.transition = 'left 400ms ease-in-out 200ms';
+				imagesWrapper.style.transition = `left ${
+					componentProps.isMobile ? '500ms' : '1000ms'
+				} ease-in-out`;
 			}, 100);
 		};
 
@@ -218,14 +222,19 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 
 		if (componentProps.sliders.length > 1) {
 			clearTimeout(switchTimeout.current);
-			switchTimeout.current = setTimeout(() => {
-				const nextIndex: number =
-					currentSlider !== componentProps.sliders.length - 1
-						? currentSlider + 1
-						: 0;
+			switchTimeout.current = setTimeout(
+				() => {
+					const nextIndex: number =
+						currentSlider !== componentProps.sliders.length - 1
+							? currentSlider + 1
+							: 0;
 
-				setCurrentSlider(nextIndex);
-			}, DEFAULT_SWITCH_TIMER);
+					setCurrentSlider(nextIndex);
+				},
+				componentProps.isMobile
+					? DEFAULT_SWITCH_TIMER_MOBILE
+					: DEFAULT_SWITCH_TIMER_DESKTOP
+			);
 		}
 
 		return () => {
@@ -238,7 +247,7 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 	}, [currentSlider]);
 
 	return (
-		<Wrapper navbarHeight={componentProps.navbarHeight}>
+		<LandingSliderElement navbarHeight={componentProps.navbarHeight}>
 			<ImagesWrapper
 				currentSlider={currentSlider}
 				id="images-wrapper"
@@ -282,12 +291,12 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 							key={`LandingPill${index}`}
 							onClick={setSlider(index)}
 						>
-							<p>{index + 1}</p>
+							<AdvancePillElementText>{index + 1}</AdvancePillElementText>
 						</AdvancePillElement>
 					);
 				})}
 			</AdvancePillsWrapper>
-		</Wrapper>
+		</LandingSliderElement>
 	);
 };
 

@@ -2,12 +2,12 @@ import ISocialsProps from './ISocialsProps';
 
 import SocialItemLink from './SocialItemLink/SocialItemLink';
 
-import { Container, Wrapper } from './Socials.style';
+import { SocialContainer, SocialWrapper } from './Socials.style';
 
 const Socials = (componentProps: ISocialsProps): JSX.Element => {
 	return (
-		<Wrapper>
-			<Container>
+		<SocialWrapper>
+			<SocialContainer>
 				<>
 					{componentProps.socials.map((social, index) => {
 						return (
@@ -21,8 +21,8 @@ const Socials = (componentProps: ISocialsProps): JSX.Element => {
 						);
 					})}
 				</>
-			</Container>
-		</Wrapper>
+			</SocialContainer>
+		</SocialWrapper>
 	);
 };
 

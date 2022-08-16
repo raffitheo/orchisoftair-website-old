@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const LogoWrapper = styled.div`
 	min-height: 1px;
 	padding: 0 15px;
 	position: relative;
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 	}
 `;
 
-const Container = styled.div`
+const LogoContainer = styled.div`
     height: 106px;
     width: 152px;
 
@@ -37,4 +37,4 @@ const Image = styled.img`
 	}
 `;
 
-export { Wrapper, Container, Image };
+export { LogoWrapper, LogoContainer, Image };

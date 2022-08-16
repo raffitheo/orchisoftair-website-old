@@ -1,11 +1,11 @@
 import ILogoProps from './ILogoProps';
 
-import { Wrapper, Image, Container } from './Logo.style';
+import { Image, LogoContainer, LogoWrapper } from './Logo.style';
 
 const Logo = (componentProps: ILogoProps): JSX.Element => {
 	return (
-		<Wrapper>
-			<Container>
+		<LogoWrapper>
+			<LogoContainer>
 				<a href="#home">
 					<Image
 						alt="logo"
@@ -13,8 +13,8 @@ const Logo = (componentProps: ILogoProps): JSX.Element => {
 						style={componentProps.style}
 					/>
 				</a>
-			</Container>
-		</Wrapper>
+			</LogoContainer>
+		</LogoWrapper>
 	);
 };
 
