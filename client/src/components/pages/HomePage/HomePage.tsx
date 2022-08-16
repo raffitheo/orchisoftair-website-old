@@ -101,7 +101,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 
 	useEffect(() => {
 		const swipeGesture = () => {
-			if (touch.current.end.x - touch.current.start.x < -100) {
+			if (touch.current.end.x - touch.current.start.x < -50) {
 				const prevIndex: number =
 					currentSlider !== 0
 						? currentSlider - 1
@@ -109,7 +109,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 				setCurrentSlider(prevIndex);
 			}
 
-			if (touch.current.end.x - touch.current.start.x > 100) {
+			if (touch.current.end.x - touch.current.start.x > 50) {
 				const nextIndex: number =
 					currentSlider !== componentProps.sliders.length - 1
 						? currentSlider + 1
