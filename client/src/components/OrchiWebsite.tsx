@@ -10,11 +10,13 @@ import { Contacts, Navigation, Socials } from '../data/navbar';
 import HomePage from './pages/HomePage/HomePage';
 
 import { PageContent } from './OrchiWebsite.style';
+import BackToTop from './BackToTop/BackToTop';
 
 const OrchiWebsite = (): JSX.Element => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 	const [pageWidth, setPageWidth] = useState<number>(0);
 	const [navbarHeight, setNavbarHeight] = useState<number>(0);
+	const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
 
 	const baseURL: string = window.location.href.indexOf('github')
 		? '/orchisoftair-website'
@@ -57,12 +59,20 @@ const OrchiWebsite = (): JSX.Element => {
 			if (!mobile) onMobileMenuChange(false);
 		};
 
+		const handleScroll = (): void => {
+			if (window.pageYOffset > 114) setShowBackToTop(true);
+			else setShowBackToTop(false);
+		};
+
 		handleResize();
+		handleScroll();
 
 		window.addEventListener('resize', handleResize);
+		window.addEventListener('scroll', handleScroll);
 
 		return () => {
 			window.removeEventListener('resize', handleResize);
+			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
 
@@ -81,6 +91,8 @@ const OrchiWebsite = (): JSX.Element => {
 				onMobileMenuChange={onMobileMenuChange}
 				isMobile={isMobile}
 			/>
+
+			<BackToTop show={showBackToTop} />
 
 			<PageContent id="page-content">
 				<Routes>

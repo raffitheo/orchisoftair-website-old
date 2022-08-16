@@ -10,7 +10,7 @@ const Wrapper = styled.section`
 	padding: 7px;
 	position: fixed;
 	top: 0;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	width: 250px;
 	z-index: 99;
 
@@ -83,7 +83,7 @@ const NavigationListElementLink = styled(Link)`
 	font-size: 16px;
 	margin-right: 40px;
 	padding: 20px 0 5px;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 
 	&:hover {
 		color: ${(props) => props.theme.textAccent};
@@ -130,7 +130,7 @@ const NavigationSubMenuList = styled.ul`
 	opacity: 0;
 	overflow: hidden;
 	pointer-events: none;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	visibility: hidden;
 	z-index: 9;
 
@@ -148,7 +148,7 @@ const NavigationSubMenuListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 0;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 `;
 
 const NavigationSubMenuListElement = styled.li`

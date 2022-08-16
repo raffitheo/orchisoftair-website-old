@@ -34,7 +34,7 @@ const Input = styled.input`
 	margin-right: 20px;
 	opacity: 0;
 	position: relative;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	width: 50%;
 	-webkit-appearance: none;
 
@@ -58,7 +58,7 @@ const Button = styled.button`
 	position: absolute;
 	right: 0;
 	top: 20px;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 
 	&:hover:not(.no-interaction),
 	&.active:not(.no-interaction) {

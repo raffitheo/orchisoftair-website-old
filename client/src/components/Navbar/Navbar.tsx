@@ -46,7 +46,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 				'navbar'
 			) as HTMLElement;
 
-			if (componentProps.isMobile) {
+			if (!componentProps.isMobile) {
 				if (desktopContacts && navbar) {
 					const pageScroll: number = window.pageYOffset;
 					const desktopContactsHeight: number = desktopContacts.offsetHeight;

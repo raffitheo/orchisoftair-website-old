@@ -8,7 +8,7 @@ const Wrapper = styled.section`
 	padding: 7px 0 0 0;
 	position: absolute;
 	right: 0;
-	transition: left 200ms linear, right 200ms linear;
+	transition: left 200ms ease-in-out, right 200ms ease-in-out;
 	top: 0;
 	width: 100%;
 	z-index: 1000;
@@ -109,7 +109,7 @@ const MobileHamburgerLine = styled.span`
 	display: block;
 	height: 3px;
 	position: absolute;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	width: 100%;
 
 	&:nth-of-type(1) {
@@ -175,7 +175,7 @@ const NavigationListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 20px 0 22px;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 `;
 
 const NavigationSubMenuList = styled.ul`
@@ -187,7 +187,7 @@ const NavigationSubMenuList = styled.ul`
 	padding: 16px 0 16px 40px;
 	position: absolute;
 	top: 61px;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	visibility: hidden;
 	width: 250px;
 	z-index: 9;
@@ -247,7 +247,7 @@ const NavigationSubMenuListElementLink = styled(Link)`
 	display: block;
 	font-size: 16px;
 	padding: 0;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 `;
 
 const NavigationSubMenuListElement = styled.li`

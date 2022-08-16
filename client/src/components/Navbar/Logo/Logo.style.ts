@@ -28,7 +28,7 @@ const Container = styled.div`
 
 const Image = styled.img`
 	height: 100%;
-	transition: all 200ms linear;
+	transition: all 200ms ease-in-out;
 	width: auto;
 
 	@media (min-width: 320px) and (max-width: 767px) {
