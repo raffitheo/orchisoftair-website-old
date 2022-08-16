@@ -20,6 +20,18 @@ interface ITouchInput {
 	end: { x: number; y: number };
 }
 
+const DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE: number = 1285;
+const DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE: number = 1285;
+const DEFAULT_DESCRIPTION_TEXT_MIN_SCREEN_SIZE: number = 150;
+const DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE: number = 475;
+
+const DEFAULT_DESCRIPTION_TEXT_MAX_SIZE: number = 200;
+const DEFAULT_DESCRIPTION_TITLE_MAX_SIZE: number = 20;
+const DEFAULT_DESCRIPTION_TEXT_MIN_SIZE: number = 30;
+const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE: number = 8;
+
+const DEFAULT_SWITCH_TIMER: number = 7500;
+
 const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
 
@@ -70,8 +82,10 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 		};
 
 		const resizeTextInRange = (): void => {
-			const currentDescriptionTitles: NodeListOf<Element> =
-				document.querySelectorAll('.image-element-description-title');
+			let maxSize: number = 0;
+			let maxTextSize: number = 0;
+			let minSize: number = 0;
+			let minTextSize: number = 0;
 
 			let difW: number = 0;
 			let difT: number = 0;
@@ -79,25 +93,38 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 			let out: number = 0;
 			let normalizedOut: number = 0;
 
-			currentDescriptionTitles.forEach((text) => {
-				difW = 1285 - 475;
-				difT = 20 - 8;
-				rapW = document.documentElement.clientWidth - 475;
-				out = (difT / 100) * (rapW / (difW / 100)) + 8;
-				normalizedOut = inRange(out, 8, 20);
-
-				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
-			});
-
 			const currentDescriptionTexts: NodeListOf<Element> =
 				document.querySelectorAll('.image-element-description-text');
 
 			currentDescriptionTexts.forEach((text) => {
-				difW = 1285 - 150;
-				difT = 200 - 30;
-				rapW = document.documentElement.clientWidth - 150;
-				out = (difT / 100) * (rapW / (difW / 100)) + 30;
-				normalizedOut = inRange(out, 30, 200);
+				maxSize = DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE;
+				maxTextSize = DEFAULT_DESCRIPTION_TEXT_MAX_SIZE;
+				minSize = DEFAULT_DESCRIPTION_TEXT_MIN_SCREEN_SIZE;
+				minTextSize = DEFAULT_DESCRIPTION_TEXT_MIN_SIZE;
+
+				difW = maxSize - minSize;
+				difT = maxTextSize - minTextSize;
+				rapW = document.documentElement.clientWidth - minSize;
+				out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
+				normalizedOut = inRange(out, minTextSize, maxTextSize);
+
+				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+			});
+
+			const currentDescriptionTitles: NodeListOf<Element> =
+				document.querySelectorAll('.image-element-description-title');
+
+			currentDescriptionTitles.forEach((text) => {
+				maxSize = DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE;
+				maxTextSize = DEFAULT_DESCRIPTION_TITLE_MAX_SIZE;
+				minSize = DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE;
+				minTextSize = DEFAULT_DESCRIPTION_TITLE_MIN_SIZE;
+
+				difW = maxSize - minSize;
+				difT = maxTextSize - minTextSize;
+				rapW = document.documentElement.clientWidth - minSize;
+				out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
+				normalizedOut = inRange(out, minTextSize, maxTextSize);
 
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
 			});
@@ -198,7 +225,7 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 						: 0;
 
 				setCurrentSlider(nextIndex);
-			}, 5000);
+			}, DEFAULT_SWITCH_TIMER);
 		}
 
 		return () => {

@@ -1,4 +1,4 @@
-import ISlider from '../../../../interfaces/ISlider';
+import ISlider from '../../interfaces/ISlider';
 
 interface ILandingSliderProps {
 	isMobile: boolean;

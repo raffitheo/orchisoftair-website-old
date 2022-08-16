@@ -85,7 +85,6 @@ const ImageDescription = styled.div`
 	p {
 		color: white;
 		display: -webkit-box;
-		line-height: 1;
 		overflow: hidden;
 		text-transform: uppercase;
 		user-select: none;
@@ -100,11 +99,13 @@ const ImageDescription = styled.div`
 	h2 {
 		font-size: 1.5em;
 		letter-spacing: 20px;
+		line-height: 2;
 	}
 
 	p {
 		font-family: Anton;
 		font-size: 200px;
+		line-height: 1;
 	}
 `;
 
