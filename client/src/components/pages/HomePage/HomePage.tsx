@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import IHomePageProps from './IHomePageProps';
 
@@ -17,6 +17,11 @@ import {
 
 const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
+
+	const touch = useRef<{
+		start: { x: number; y: number };
+		end: { x: number; y: number };
+	}>({ start: { x: 0, y: 0 }, end: { x: 0, y: 0 } });
 
 	const setSlider =
 		(
@@ -93,6 +98,75 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		const swipeGesture = () => {
+			if (touch.current.end.x < touch.current.start.x) {
+				const prevIndex: number =
+					currentSlider !== 0
+						? currentSlider - 1
+						: componentProps.sliders.length - 1;
+				setCurrentSlider(prevIndex);
+			}
+
+			if (touch.current.end.x > touch.current.start.x) {
+				const nextIndex: number =
+					currentSlider !== componentProps.sliders.length - 1
+						? currentSlider + 1
+						: 0;
+				setCurrentSlider(nextIndex);
+			}
+		};
+
+		const mouseDown = (event: any): void => {
+			touch.current.start = {
+				x: event.clientX,
+				y: event.clientY,
+			};
+		};
+
+		const touchStart = (event: any): void => {
+			touch.current.start = {
+				x: event.changedTouches[0].clientX,
+				y: event.changedTouches[0].clientY,
+			};
+		};
+
+		const mouseUp = (event: any): void => {
+			touch.current.end = {
+				x: event.clientX,
+				y: event.clientY,
+			};
+
+			swipeGesture();
+		};
+
+		const touchEnd = (event: any): void => {
+			touch.current.end = {
+				x: event.changedTouches[0].clientX,
+				y: event.changedTouches[0].clientY,
+			};
+
+			swipeGesture();
+		};
+
+		const imagesWrapper: HTMLElement = document.querySelector(
+			'#images-wrapper'
+		) as HTMLElement;
+
+		imagesWrapper.addEventListener('mousedown', mouseDown);
+		imagesWrapper.addEventListener('touchstart', touchStart);
+		imagesWrapper.addEventListener('mouseup', mouseUp);
+		imagesWrapper.addEventListener('touchend', touchEnd);
+
+		return () => {
+			imagesWrapper.removeEventListener('mousedown', mouseDown);
+			imagesWrapper.removeEventListener('touchstart', touchStart);
+			imagesWrapper.removeEventListener('mouseup', mouseUp);
+			imagesWrapper.removeEventListener('touchend', touchEnd);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentSlider]);
 
 	return (
 		<>

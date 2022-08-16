@@ -78,7 +78,7 @@ const LandingImageDescription = styled.div`
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	transition: opacity 0ms ease-in-out 400ms;
+	transition: opacity 0ms ease-in-out 600ms;
 	z-index: 501;
 
 	h2,
@@ -117,7 +117,7 @@ const LandingImageForegroundElement = styled.div<{ image: string }>`
 	min-height: 100%;
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0ms ease-in-out 400ms;
+	transition: opacity 0ms ease-in-out 600ms;
 	width: 100vw;
 `;
 
