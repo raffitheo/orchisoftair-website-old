@@ -15,13 +15,20 @@ import {
 	LandingImageForegroundElementWrapper,
 } from './HomePage.style';
 
+interface ITouchInput {
+	start: { x: number; y: number };
+	end: { x: number; y: number };
+}
+
 const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
 
-	const touch = useRef<{
-		start: { x: number; y: number };
-		end: { x: number; y: number };
-	}>({ start: { x: 0, y: 0 }, end: { x: 0, y: 0 } });
+	const resizeTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
+		useRef<NodeJS.Timeout>();
+	const touch = useRef<ITouchInput>({
+		start: { x: 0, y: 0 },
+		end: { x: 0, y: 0 },
+	});
 
 	const setSlider =
 		(
@@ -32,7 +39,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 		};
 
 	useEffect(() => {
-		const imageParallax = (event: any): void => {
+		const imageParallax = (event: MouseEvent): void => {
 			if (!window.matchMedia('(pointer: coarse)').matches) {
 				const currentImages: NodeListOf<Element> = document.querySelectorAll(
 					'.image-element-foreground'
@@ -40,7 +47,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 
 				currentImages.forEach((image) => {
 					const imageElement: HTMLElement = image as HTMLElement;
-					if (event.target.id === 'images-wrapper') {
+					if ((event.target as HTMLElement).id === 'images-wrapper') {
 						const x: number =
 							(document.documentElement.clientWidth - event.pageX) / 70;
 						const y: number =
@@ -64,12 +71,19 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			const currentDescriptionTitles: NodeListOf<Element> =
 				document.querySelectorAll('.image-element-description-title');
 
+			let difW: number = 0;
+			let difT: number = 0;
+			let rapW: number = 0;
+			let out: number = 0;
+			let normalizedOut: number = 0;
+
 			currentDescriptionTitles.forEach((text) => {
-				const difW = 1285 - 475;
-				const difT = 20 - 8;
-				const rapW = document.documentElement.clientWidth - 475;
-				const out = (difT / 100) * (rapW / (difW / 100)) + 8;
-				const normalizedOut = inRange(out, 8, 20);
+				difW = 1285 - 475;
+				difT = 20 - 8;
+				rapW = document.documentElement.clientWidth - 475;
+				out = (difT / 100) * (rapW / (difW / 100)) + 8;
+				normalizedOut = inRange(out, 8, 20);
+
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
 			});
 
@@ -77,13 +91,25 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 				document.querySelectorAll('.image-element-description-text');
 
 			currentDescriptionTexts.forEach((text) => {
-				const difW = 1285 - 150;
-				const difT = 200 - 30;
-				const rapW = document.documentElement.clientWidth - 150;
-				const out = (difT / 100) * (rapW / (difW / 100)) + 30;
-				const normalizedOut = inRange(out, 30, 200);
+				difW = 1285 - 150;
+				difT = 200 - 30;
+				rapW = document.documentElement.clientWidth - 150;
+				out = (difT / 100) * (rapW / (difW / 100)) + 30;
+				normalizedOut = inRange(out, 30, 200);
+
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
 			});
+
+			const imagesWrapper: HTMLElement = document.querySelector(
+				'#images-wrapper'
+			) as HTMLElement;
+
+			imagesWrapper.style.transition = 'none';
+
+			clearTimeout(resizeTimeout.current);
+			resizeTimeout.current = setTimeout(() => {
+				imagesWrapper.style.transition = 'left 400ms ease-in-out 200ms';
+			}, 100);
 		};
 
 		setCurrentSlider(0);
@@ -118,21 +144,21 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			}
 		};
 
-		const mouseDown = (event: any): void => {
+		const mouseDown = (event: MouseEvent): void => {
 			touch.current.start = {
 				x: event.clientX,
 				y: event.clientY,
 			};
 		};
 
-		const touchStart = (event: any): void => {
+		const touchStart = (event: TouchEvent): void => {
 			touch.current.start = {
 				x: event.changedTouches[0].clientX,
 				y: event.changedTouches[0].clientY,
 			};
 		};
 
-		const mouseUp = (event: any): void => {
+		const mouseUp = (event: MouseEvent): void => {
 			touch.current.end = {
 				x: event.clientX,
 				y: event.clientY,
@@ -141,7 +167,7 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 			swipeGesture();
 		};
 
-		const touchEnd = (event: any): void => {
+		const touchEnd = (event: TouchEvent): void => {
 			touch.current.end = {
 				x: event.changedTouches[0].clientX,
 				y: event.changedTouches[0].clientY,
