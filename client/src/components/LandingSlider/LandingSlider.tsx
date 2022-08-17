@@ -130,19 +130,6 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 
 				(text as HTMLElement).style.fontSize = `${normalizedOut}px`;
 			});
-
-			const imagesWrapper: HTMLElement = document.querySelector(
-				'#images-wrapper'
-			) as HTMLElement;
-
-			imagesWrapper.style.transition = 'none';
-
-			clearTimeout(resizeTimeout.current);
-			resizeTimeout.current = setTimeout(() => {
-				imagesWrapper.style.transition = `left ${
-					componentProps.isMobile ? '500ms' : '1000ms'
-				} ease-in-out`;
-			}, 100);
 		};
 
 		setCurrentSlider(0);
@@ -157,6 +144,29 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		const resizeSlider = () => {
+			const imagesWrapper: HTMLElement = document.querySelector(
+				'#images-wrapper'
+			) as HTMLElement;
+			imagesWrapper.style.transition = 'none';
+			clearTimeout(resizeTimeout.current);
+			resizeTimeout.current = setTimeout(() => {
+				imagesWrapper.style.transition = `left ${
+					componentProps.isMobile ? '500ms' : '1000ms'
+				} ease-in-out`;
+			}, 100);
+		};
+
+		resizeSlider();
+
+		window.addEventListener('resize', resizeSlider);
+
+		return () => {
+			window.removeEventListener('resize', resizeSlider);
+		};
+	}, [componentProps.isMobile]);
 
 	useEffect(() => {
 		const swipeGesture = () => {

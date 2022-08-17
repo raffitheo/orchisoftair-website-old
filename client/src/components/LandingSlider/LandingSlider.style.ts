@@ -20,7 +20,7 @@ const ImagesWrapper = styled.div<{
 	width: ${(props) => props.slidersLength * 100}vw;
 
 	@media (min-width: 320px) and (max-width: 767px) {
-		transition: left 5000ms ease-in-out;
+		transition: left 500ms ease-in-out;
 	}
 `;
 
