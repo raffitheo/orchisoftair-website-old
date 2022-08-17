@@ -1,7 +1,9 @@
 import IMobileMenuProps from './IMobileMenuProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
+
 import Logo from '../Logo/Logo';
+import SearchBar from '../SearchBar/SearchBar';
 
 import {
 	MobileMenuContainer,
@@ -17,7 +19,6 @@ import {
 	NavigationSubMenuListExpand,
 	NavigationWrapper,
 } from './MobileMenu.style';
-import SearchBar from '../SearchBar/SearchBar';
 
 const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 	return (
@@ -62,7 +63,7 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 												{element.text}
 											</NavigationListElementLink>
 
-											{element.subMenu ? (
+											{element.subMenu && (
 												<>
 													<NavigationSubMenuList
 														className={
@@ -132,8 +133,6 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 														/>
 													</NavigationSubMenuListExpand>
 												</>
-											) : (
-												<></>
 											)}
 										</NavigationListElement>
 									);

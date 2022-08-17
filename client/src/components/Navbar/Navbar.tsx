@@ -194,7 +194,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 													{element.text}
 												</NavigationListElementLink>
 
-												{element.subMenu ? (
+												{element.subMenu && (
 													<NavigationSubMenuList>
 														{element.subMenu.map(
 															(subMenuElement, subMenuElementIndex) => {
@@ -236,8 +236,6 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 															}
 														)}
 													</NavigationSubMenuList>
-												) : (
-													<></>
 												)}
 											</NavigationListElement>
 										);

@@ -50,6 +50,7 @@ import DefaultTheme from './defaultTheme.style';
 
 export default createGlobalStyle`
     @font-face {
+        font-display: swap;
         font-family: 'Anton';
         font-style: normal;
         font-weight: 400;
@@ -77,103 +78,103 @@ export default createGlobalStyle`
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Light';
+        font-style: normal;
+        font-weight: 300;
         src: url(${SatoshiLightTTF}) format('truetype'),
             url(${SatoshiLightWOFF}) format('woff'),
             url(${SatoshiLightWOFF2}) format('woff2');
-            font-weight: 300;
-            font-display: swap;
-            font-style: normal;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-LightItalic';
+        font-style: italic;
+        font-weight: 300;
         src: url(${SatoshiLightItalicTTF}) format('truetype'),
             url(${SatoshiLightItalicWOFF}) format('woff'),
             url(${SatoshiLightItalicWOFF2}) format('woff2');
-            font-weight: 300;
-            font-display: swap;
-            font-style: italic;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Regular';
+        font-style: normal;
+        font-weight: 400;
         src: url(${SatoshiRegularTTF}) format('truetype'),
             url(${SatoshiRegularWOFF}) format('woff'),
             url(${SatoshiRegularWOFF2}) format('woff2');
-            font-weight: 400;
-            font-display: swap;
-            font-style: normal;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Italic';
+        font-style: italic;
+        font-weight: 400;
         src: url(${SatoshiItalicTTF}) format('truetype'),
             url(${SatoshiItalicWOFF}) format('woff'),
             url(${SatoshiItalicWOFF2}) format('woff2');
-            font-weight: 400;
-            font-display: swap;
-            font-style: italic;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Medium';
+        font-style: normal;
+        font-weight: 500;
         src: url(${SatoshiMediumTTF}) format('truetype'),
             url(${SatoshiMediumWOFF}) format('woff'),
             url(${SatoshiMediumWOFF2}) format('woff2');
-            font-weight: 500;
-            font-display: swap;
-            font-style: normal;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-MediumItalic';
+        font-style: italic;
+        font-weight: 500;
         src: url(${SatoshiMediumItalicTTF}) format('truetype'),
             url(${SatoshiMediumItalicWOFF}) format('woff'),
             url(${SatoshiMediumItalicWOFF2}) format('woff2');
-            font-weight: 500;
-            font-display: swap;
-            font-style: italic;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Bold';
+        font-style: normal;
+        font-weight: 700;
         src: url(${SatoshiBoldTTF}) format('truetype'),
             url(${SatoshiBoldWOFF}) format('woff'),
             url(${SatoshiBoldWOFF2}) format('woff2');
-            font-weight: 700;
-            font-display: swap;
-            font-style: normal;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-BoldItalic';
+        font-style: italic;
+        font-weight: 700;
         src: url(${SatoshiBoldItalicTTF}) format('truetype'),
             url(${SatoshiBoldItalicWOFF}) format('woff'),
             url(${SatoshiBoldItalicWOFF2}) format('woff2');
-            font-weight: 700;
-            font-display: swap;
-            font-style: italic;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-Black';
+        font-style: normal;
+        font-weight: 900;
         src: url(${SatoshiBlackTTF}) format('truetype'),
             url(${SatoshiBlackWOFF}) format('woff'),
             url(${SatoshiBlackWOFF2}) format('woff2');
-            font-weight: 900;
-            font-display: swap;
-            font-style: normal;
     }
 
     @font-face {
+        font-display: swap;
         font-family: 'Satoshi-BlackItalic';
+        font-style: italic;
+        font-weight: 900;
         src: url(${SatoshiBlackItalicTTF}) format('truetype'),
             url(${SatoshiBlackItalicWOFF}) format('woff'),
             url(${SatoshiBlackItalicWOFF2}) format('woff2');
-            font-weight: 900;
-            font-display: swap;
-            font-style: italic;
     }
 
     * {
