@@ -42,15 +42,13 @@ const OrchiWebsite = (): JSX.Element => {
 
 		if (navbar && navbarMobile && getPageContentRef()) {
 			if (newValue) {
-				navbar.style.left = '250px';
-				navbar.style.right = '-250px';
-				navbarMobile.style.left = '0';
-				getPageContentRef().style.transform = 'translateX(250px)';
+				navbar.style.transform = 'translateX(250px)';
+				navbarMobile.style.transform = 'translateX(250px)';
+				getPageContentRef().style.paddingLeft = '250px';
 			} else {
-				navbar.style.left = '0';
-				navbar.style.right = '0';
-				navbarMobile.style.left = '-250px';
-				getPageContentRef().style.transform = 'translateX(0)';
+				navbar.style.transform = 'translateX(0)';
+				navbarMobile.style.transform = 'translateX(0)';
+				getPageContentRef().style.paddingLeft = '0';
 			}
 		}
 	};

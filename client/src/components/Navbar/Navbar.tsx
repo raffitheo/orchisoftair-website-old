@@ -64,11 +64,11 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 				styles['NavbarWrapper']
 			) as HTMLElement;
 
+			const pageScroll: number = window.pageYOffset;
+			const desktopContactsHeight: number = desktopContacts.offsetHeight;
+
 			if (!isMobile) {
 				if (desktopContacts && navbar) {
-					const pageScroll: number = window.pageYOffset;
-					const desktopContactsHeight: number = desktopContacts.offsetHeight;
-
 					if (pageScroll > 114) {
 						navbar.style.top = `-${desktopContactsHeight + 7}px`;
 						navbar.style.position = 'fixed';
@@ -78,10 +78,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 					}
 				}
 			} else {
-				if (navbar) {
-					navbar.style.top = '0';
-					navbar.style.position = 'fixed';
-				}
+				if (navbar) navbar.style.position = 'fixed';
 			}
 		};
 
