@@ -8,7 +8,8 @@
 	line-height: 1;
 	margin-right: 10px;
 	text-align: center;
-	transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out;
+	transition: background-color var(--animation-fast) ease-in-out,
+		border-color var(--animation-fast) ease-in-out;
 	width: 40px;
 
 	&:last-of-type {
@@ -20,6 +21,6 @@
 	}
 
 	svg {
-		transition: color 400ms ease-in-out;
+		transition: color var(--animation-fast) ease-in-out;
 	}
 }

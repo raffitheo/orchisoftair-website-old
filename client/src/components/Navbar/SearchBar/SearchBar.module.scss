@@ -30,7 +30,7 @@
 			margin-right: 20px;
 			opacity: 0;
 			position: relative;
-			transition: all 200ms ease-in-out;
+			transition: all var(--animation-fast) ease-in-out;
 			width: 50%;
 			-webkit-appearance: none;
 
@@ -54,7 +54,7 @@
 			position: absolute;
 			right: 0;
 			top: 20px;
-			transition: all 200ms ease-in-out;
+			transition: all var(--animation-fast) ease-in-out;
 
 			&:hover:not(.no-interaction),
 			&.Active:not(.no-interaction) {

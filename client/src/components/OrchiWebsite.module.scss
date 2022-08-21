@@ -131,10 +131,14 @@
 
 :root {
 	--background-primary: hsl(37, 33%, 55%);
+	--background-primary-darken: hsl(37, 33%, 53%);
 	--background-secondary: hsl(36, 16%, 65%);
 
 	--text-primary: hsl(35, 18%, 26%);
 	--text-secondary: hsl(349, 75%, 31%);
+
+	--animation-fast: 200ms;
+	--border-radius: 2px;
 }
 
 * {
@@ -151,6 +155,7 @@ a {
 }
 
 body {
+	background-color: var(--background-primary-darken);
 	color: var(--text-primary);
 	margin: 0 auto;
 	overflow-x: hidden;
@@ -159,6 +164,6 @@ body {
 
 #PageContent {
 	overflow-x: hidden;
-	transition: padding 200ms ease-in-out;
+	transition: padding var(--animation-fast) ease-in-out;
 	width: 100vw;
 }

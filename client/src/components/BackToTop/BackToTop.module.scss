@@ -1,9 +1,8 @@
 .BackToTop {
-	background-color: var(
-		--background-secondary
-	); // ${(props) => props.theme.color.secondary}
-	border-radius: 2px;
+	background-color: var(--text-secondary);
+	border-radius: var(--border-radius);
 	bottom: 20px;
+	color: white;
 	cursor: pointer;
 	display: flex;
 	opacity: 0;
@@ -11,26 +10,15 @@
 	pointer-events: none;
 	position: fixed;
 	right: 20px;
-	transition: opacity 400ms ease-in-out;
+	transition: opacity var(--animation-fast) ease-in-out;
 	z-index: 1000;
 
 	&:hover {
-		svg {
-			stroke: var(
-				--text-secondary
-			); // ${(props) => props.theme.text.secondary} !important
-		}
+		opacity: 1 !important;
 	}
 
 	&.Active {
-		opacity: 1;
+		opacity: 0.5;
 		pointer-events: all;
-	}
-
-	svg {
-		stroke: var(
-			--text-primary
-		) !important; // ${(props) => props.theme.text.primary} !important
-		transition: stroke 200ms ease-in-out;
 	}
 }
