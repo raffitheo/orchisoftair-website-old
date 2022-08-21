@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import BackToTop from './BackToTop/BackToTop';
 import Navbar from './Navbar/Navbar';
 
 import { Sliders } from '../data/landing';
@@ -9,41 +10,47 @@ import { Contacts, Navigation, Socials } from '../data/navbar';
 
 import HomePage from './pages/HomePage/HomePage';
 
-import { PageContent } from './OrchiWebsite.style';
-import BackToTop from './BackToTop/BackToTop';
+import styles from './OrchiWebsite.module.scss';
+
+const DEFAUTL_MOBILE_MAX_SIZE: number = 767;
+const DEFAUTL_MOBILE_MIN_SIZE: number = 319;
+
+const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
 
 const OrchiWebsite = (): JSX.Element => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
 	const [pageWidth, setPageWidth] = useState<number>(0);
 	const [navbarHeight, setNavbarHeight] = useState<number>(0);
-	const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
 
-	const baseURL: string = window.location.href.indexOf('github')
-		? '/orchisoftair-website'
-		: '/';
+	const baseURL: string =
+		window.location.href.indexOf('github') !== -1 ||
+		window.location.href.indexOf('localhost') !== -1
+			? '/orchisoftair-website'
+			: '/';
+
+	const getPageContentRef = (): HTMLElement => {
+		return document.querySelector(`#${styles['PageContent']}`) as HTMLElement;
+	};
 
 	const onMobileMenuChange = (newValue: boolean): void => {
-		const navbar: HTMLElement = document.getElementById(
-			'navbar'
+		const navbar: HTMLElement = document.querySelector(
+			'[id*="NavbarWrapper"]'
 		) as HTMLElement;
-		const navbarMobile: HTMLElement = document.getElementById(
-			'navbar-mobile'
-		) as HTMLElement;
-		const pageContent: HTMLElement = document.getElementById(
-			'page-content'
+		const navbarMobile: HTMLElement = document.querySelector(
+			'[id*="MobileMenuWrapper"]'
 		) as HTMLElement;
 
-		if (navbar && navbarMobile && pageContent) {
+		if (navbar && navbarMobile && getPageContentRef()) {
 			if (newValue) {
 				navbar.style.left = '250px';
 				navbar.style.right = '-250px';
 				navbarMobile.style.left = '0';
-				pageContent.style.transform = 'translateX(250px)';
+				getPageContentRef().style.transform = 'translateX(250px)';
 			} else {
 				navbar.style.left = '0';
 				navbar.style.right = '0';
 				navbarMobile.style.left = '-250px';
-				pageContent.style.transform = 'translateX(0)';
+				getPageContentRef().style.transform = 'translateX(0)';
 			}
 		}
 	};
@@ -51,65 +58,71 @@ const OrchiWebsite = (): JSX.Element => {
 	useEffect(() => {
 		const handleResize = (): void => {
 			const width: number = document.documentElement.clientWidth;
-			const mobile: boolean = width > 767 || width < 319 ? false : true;
+			const mobile: boolean =
+				width > DEFAUTL_MOBILE_MAX_SIZE || width < DEFAUTL_MOBILE_MIN_SIZE
+					? false
+					: true;
 
 			setIsMobile(mobile);
 			setPageWidth(width);
 
 			if (!mobile) onMobileMenuChange(false);
-		};
 
-		const handleScroll = (): void => {
-			if (window.pageYOffset > 114) setShowBackToTop(true);
-			else setShowBackToTop(false);
+			if (getPageContentRef()) {
+				getPageContentRef().style.marginTop = `${navbarHeight}px)`;
+			}
 		};
 
 		handleResize();
-		handleScroll();
 
 		window.addEventListener('resize', handleResize);
-		window.addEventListener('scroll', handleScroll);
 
 		return () => {
 			window.removeEventListener('resize', handleResize);
-			window.removeEventListener('scroll', handleScroll);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
-		const navbar = document.getElementById('navbar');
+		const navbar: HTMLElement = document.querySelector(
+			'[id*="NavbarWrapper"]'
+		) as HTMLElement;
 
 		if (navbar) setNavbarHeight(navbar.offsetHeight);
 	}, [pageWidth]);
 
 	return (
-		<Router>
-			<Navbar
-				contacts={Contacts()}
-				navigation={Navigation()}
-				socials={Socials()}
-				onMobileMenuChange={onMobileMenuChange}
-				isMobile={isMobile}
-			/>
+		<IsMobileContext.Provider value={isMobile}>
+			<Router>
+				<Navbar
+					contacts={Contacts()}
+					navigation={Navigation()}
+					socials={Socials()}
+					onMobileMenuChange={onMobileMenuChange}
+				/>
 
-			<BackToTop show={showBackToTop} />
+				<BackToTop minVisibleSize={114} />
 
-			<PageContent id="page-content">
-				<Routes>
-					<Route
-						element={
-							<HomePage
-								isMobile={isMobile}
-								navbarHeight={navbarHeight}
-								sliders={Sliders()}
-							/>
-						}
-						path={baseURL}
-					/>
-				</Routes>
-			</PageContent>
-		</Router>
+				<div
+					id={styles['PageContent']}
+					style={{
+						marginTop: `${navbarHeight}px`,
+					}}
+				>
+					<Routes>
+						<Route
+							element={
+								<HomePage navbarHeight={navbarHeight} sliders={Sliders()} />
+							}
+							path={baseURL}
+						/>
+					</Routes>
+				</div>
+			</Router>
+		</IsMobileContext.Provider>
 	);
 };
+
+export { IsMobileContext };
 
 export default OrchiWebsite;

@@ -1,20 +1,21 @@
 import ILogoProps from './ILogoProps';
 
-import { Image, LogoContainer, LogoWrapper } from './Logo.style';
+import styles from './Logo.module.scss';
 
 const Logo = (componentProps: ILogoProps): JSX.Element => {
 	return (
-		<LogoWrapper>
-			<LogoContainer>
+		<div className={styles['LogoWrapper']}>
+			<div className={styles['LogoContainer']}>
 				<a href="#home">
-					<Image
+					<img
 						alt="logo"
+						className={styles['Image']}
 						src={componentProps.image}
 						style={componentProps.style}
 					/>
 				</a>
-			</LogoContainer>
-		</LogoWrapper>
+			</div>
+		</div>
 	);
 };
 

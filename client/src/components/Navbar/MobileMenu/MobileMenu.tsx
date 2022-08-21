@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import IMobileMenuProps from './IMobileMenuProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
@@ -5,47 +7,34 @@ import IconExtension from '../../IconExtension/IconExtension';
 import Logo from '../Logo/Logo';
 import SearchBar from '../SearchBar/SearchBar';
 
-import {
-	MobileMenuContainer,
-	MobileMenuRow,
-	MobileMenuWrapper,
-	NavigationContainer,
-	NavigationList,
-	NavigationListElement,
-	NavigationListElementLink,
-	NavigationSubMenuList,
-	NavigationSubMenuListElement,
-	NavigationSubMenuListElementLink,
-	NavigationSubMenuListExpand,
-	NavigationWrapper,
-} from './MobileMenu.style';
+import styles from './MobileMenu.module.scss';
 
 const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 	return (
-		<MobileMenuWrapper id="navbar-mobile">
-			<MobileMenuContainer>
-				<MobileMenuRow>
+		<section id={styles['MobileMenuWrapper']}>
+			<div id={styles['MobileMenuContainer']}>
+				<div className={styles['MobileMenuRow']}>
 					<Logo image={componentProps.logo} />
-				</MobileMenuRow>
+				</div>
 
-				<MobileMenuRow>
-					<NavigationWrapper>
-						<NavigationContainer>
+				<div className={styles['MobileMenuRow']}>
+					<div id={styles['NavigationWrapper']}>
+						<div id={styles['NavigationContainer']}>
 							<SearchBar openOnStart={true} preventCollapse={true} />
 
-							<NavigationList>
+							<ul id={styles['NavigationList']}>
 								{componentProps.navigation.map((element, elementIndex) => {
 									return (
-										<NavigationListElement
-											className={
+										<li
+											className={`${styles['NavigationListElement']}${
 												componentProps.currentlySelected === elementIndex
-													? 'active'
+													? ` ${styles['Active']}`
 													: ''
-											}
+											}`}
 											key={`ListElement${elementIndex}`}
 										>
-											<NavigationListElementLink
-												className="navbar-list-element"
+											<Link
+												className={styles['NavigationListElementLink']}
 												onClick={(event) => {
 													const pressedElement: HTMLElement =
 														event.target as HTMLElement;
@@ -53,7 +42,7 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 													if (
 														pressedElement &&
 														pressedElement?.classList.contains(
-															'navbar-list-element'
+															styles['NavigationListElementLink']
 														)
 													)
 														componentProps.onClickElement(elementIndex, 0);
@@ -61,38 +50,44 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 												to={element.link}
 											>
 												{element.text}
-											</NavigationListElementLink>
+											</Link>
 
 											{element.subMenu && (
 												<>
-													<NavigationSubMenuList
-														className={
+													<ul
+														className={`${styles['NavigationSubMenuList']}${
 															componentProps.mobileSubMenuOpen === elementIndex
-																? 'visible'
+																? ` ${styles['Visible']}`
 																: ''
-														}
+														}`}
 													>
 														{element.subMenu.map(
 															(subMenuElement, subMenuElementIndex) => {
 																return (
-																	<NavigationSubMenuListElement
+																	<li
 																		className={`${
+																			styles['NavigationSubMenuListElement']
+																		}${
 																			componentProps.currentlySelected ===
 																				elementIndex &&
 																			componentProps.currentlySelectedSubMenu ===
 																				subMenuElementIndex
-																				? 'active'
+																				? ` ${styles['Active']}`
 																				: ''
-																		} ${
+																		}${
 																			subMenuElementIndex + 1 ===
 																			element.subMenu?.length
-																				? 'last-child'
+																				? ` ${styles['LastChild']}`
 																				: ''
 																		}`}
 																		key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
 																	>
-																		<NavigationSubMenuListElementLink
-																			className="submenu-list-element"
+																		<Link
+																			className={
+																				styles[
+																					'NavigationSubMenuListElementLink'
+																				]
+																			}
 																			onClick={(event) => {
 																				const pressedElement: HTMLElement =
 																					event.target as HTMLElement;
@@ -100,7 +95,9 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 																				if (
 																					pressedElement &&
 																					pressedElement?.classList.contains(
-																						'submenu-list-element'
+																						styles[
+																							'NavigationSubMenuListElementLink'
+																						]
 																					)
 																				)
 																					componentProps.onClickElement(
@@ -111,14 +108,16 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 																			to={subMenuElement.link}
 																		>
 																			{subMenuElement.text}
-																		</NavigationSubMenuListElementLink>
-																	</NavigationSubMenuListElement>
+																		</Link>
+																	</li>
 																);
 															}
 														)}
-													</NavigationSubMenuList>
+													</ul>
 
-													<NavigationSubMenuListExpand>
+													<div
+														className={styles['NavigationSubMenuListExpand']}
+													>
 														<IconExtension
 															name={
 																componentProps.mobileSubMenuOpen ===
@@ -131,18 +130,18 @@ const MobileMenu = (componentProps: IMobileMenuProps): JSX.Element => {
 															}}
 															size={16}
 														/>
-													</NavigationSubMenuListExpand>
+													</div>
 												</>
 											)}
-										</NavigationListElement>
+										</li>
 									);
 								})}
-							</NavigationList>
-						</NavigationContainer>
-					</NavigationWrapper>
-				</MobileMenuRow>
-			</MobileMenuContainer>
-		</MobileMenuWrapper>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	);
 };
 

@@ -1,5 +1,7 @@
 interface IBackToTopProps {
-	show: boolean;
+	minVisibleSize: number;
+
+	maxVisibleSize?: number;
 }
 
 export default IBackToTopProps;

@@ -4,13 +4,7 @@ import ISearchbarProps from './ISearchBarProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 
-import {
-	Button,
-	Form,
-	Input,
-	SearchbarContainer,
-	SearchbarWrapper,
-} from './SeachBar.style';
+import styles from './SearchBar.module.scss';
 
 const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 	const [searchActive, setSearchActive] = useState<boolean>(
@@ -18,17 +12,26 @@ const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 	);
 
 	return (
-		<SearchbarWrapper>
-			<SearchbarContainer>
-				<Form action="#" method="get" role="search">
-					<Input
-						className={searchActive ? 'active' : ''}
+		<div className={styles['SearchbarWrapper']}>
+			<div className={styles['SearchbarContainer']}>
+				<form
+					className={styles['SearchbarForm']}
+					action="#"
+					method="get"
+					role="search"
+				>
+					<input
+						className={`${styles['SearchbarInput']}${
+							searchActive ? ` ${styles['Active']}` : ''
+						}`}
 						name="s"
 						placeholder="Cerca nel sito..."
 						type="search"
 					/>
-					<Button
-						className={searchActive ? 'active' : ''}
+					<button
+						className={`${styles['SearchbarButton']}${
+							searchActive ? ` ${styles['Active']}` : ''
+						}`}
 						type="button"
 						onClick={() => {
 							if (!componentProps.preventCollapse)
@@ -42,10 +45,10 @@ const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
 								margin: 'auto',
 							}}
 						/>
-					</Button>
-				</Form>
-			</SearchbarContainer>
-		</SearchbarWrapper>
+					</button>
+				</form>
+			</div>
+		</div>
 	);
 };
 

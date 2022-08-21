@@ -1,8 +1,6 @@
-import styled from 'styled-components';
-
-const Link = styled.a<{ hovercolor: string }>`
+.LinkElement {
 	align-items: center;
-	border: 2px solid ${(props) => props.theme.text.primary};
+	border: 2px solid var(--text-primary);
 	border-radius: 50%;
 	display: inline-flex;
 	height: 40px;
@@ -18,14 +16,10 @@ const Link = styled.a<{ hovercolor: string }>`
 	}
 
 	&:hover {
-		background-color: ${(props) => props.hovercolor};
-		border-color: ${(props) => props.hovercolor};
 		color: white;
 	}
 
 	svg {
 		transition: color 400ms ease-in-out;
 	}
-`;
-
-export { Link };
+}

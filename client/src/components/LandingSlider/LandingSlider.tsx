@@ -1,20 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { IsMobileContext } from '../OrchiWebsite';
 
 import ILandingSliderProps from './ILandingSliderProps';
 
-import {
-	AdvancePillElement,
-	AdvancePillElementText,
-	AdvancePillsWrapper,
-	ImageBackgroundElement,
-	ImageDescription,
-	ImageElementColorPanel,
-	ImageElementContainer,
-	ImageForegroundElement,
-	ImageForegroundElementWrapper,
-	ImagesWrapper,
-	LandingSliderElement,
-} from './LandingSlider.style';
+import styles from './LandingSlider.module.scss';
 
 interface ITouchInput {
 	start: { x: number; y: number };
@@ -46,6 +35,23 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 		end: { x: 0, y: 0 },
 	});
 
+	const isMobile: boolean = useContext<boolean>(IsMobileContext);
+
+	const getImagesWrapperRef = (): HTMLElement => {
+		return document.querySelector(`#${styles['ImagesWrapper']}`) as HTMLElement;
+	};
+
+	const getForegroundImagesRef = (): HTMLElement[] => {
+		const images: NodeListOf<Element> = document.querySelectorAll(
+			`.${styles['ImageForegroundElementWrapper']}`
+		);
+		const elements: HTMLElement[] = [];
+
+		images.forEach((image) => elements.push(image as HTMLElement));
+
+		return elements;
+	};
+
 	const setSlider =
 		(
 			index: number
@@ -57,25 +63,22 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 	useEffect(() => {
 		const imageParallax = (event: MouseEvent): void => {
 			if (!window.matchMedia('(pointer: coarse)').matches) {
-				const currentImages: NodeListOf<Element> = document.querySelectorAll(
-					'.image-element-foreground'
-				);
+				if (getImagesWrapperRef()) {
+					getForegroundImagesRef().forEach((image) => {
+						if ((event.target as HTMLElement) === getImagesWrapperRef()) {
+							const x: number =
+								(document.documentElement.clientWidth - event.pageX) / 70;
+							const y: number =
+								(document.documentElement.clientHeight - event.pageY) / 70;
 
-				currentImages.forEach((image) => {
-					const imageElement: HTMLElement = image as HTMLElement;
-					if ((event.target as HTMLElement).id === 'images-wrapper') {
-						const x: number =
-							(document.documentElement.clientWidth - event.pageX) / 70;
-						const y: number =
-							(document.documentElement.clientHeight - event.pageY) / 70;
-
-						imageElement.style.transform = `translate(${x}px, ${y}px)`;
-						imageElement.style.transition = '';
-					} else {
-						imageElement.style.transform = `translate(0px, 0px)`;
-						imageElement.style.transition = 'transform 1000ms ease-in-out';
-					}
-				});
+							image.style.transform = `translate(${x}px, ${y}px)`;
+							image.style.transition = '';
+						} else {
+							image.style.transform = `translate(0px, 0px)`;
+							image.style.transition = 'transform 1000ms ease-in-out';
+						}
+					});
+				}
 			}
 		};
 
@@ -142,21 +145,19 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 			window.removeEventListener('mousemove', imageParallax);
 			window.removeEventListener('resize', resizeTextInRange);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		const resizeSlider = () => {
-			const imagesWrapper: HTMLElement = document.querySelector(
-				'#images-wrapper'
-			) as HTMLElement;
-			imagesWrapper.style.transition = 'none';
-			clearTimeout(resizeTimeout.current);
-			resizeTimeout.current = setTimeout(() => {
-				imagesWrapper.style.transition = `left ${
-					componentProps.isMobile ? '500ms' : '1000ms'
-				} ease-in-out`;
-			}, 100);
+			if (getImagesWrapperRef()) {
+				getImagesWrapperRef().style.transition = 'none';
+				clearTimeout(resizeTimeout.current);
+				resizeTimeout.current = setTimeout(() => {
+					getImagesWrapperRef().style.transition = `left ${
+						isMobile ? '500ms' : '1000ms'
+					} ease-in-out`;
+				}, 100);
+			}
 		};
 
 		resizeSlider();
@@ -166,7 +167,7 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 		return () => {
 			window.removeEventListener('resize', resizeSlider);
 		};
-	}, [componentProps.isMobile]);
+	}, [isMobile]);
 
 	useEffect(() => {
 		const swipeGesture = () => {
@@ -221,14 +222,12 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 			swipeGesture();
 		};
 
-		const imagesWrapper: HTMLElement = document.querySelector(
-			'#images-wrapper'
-		) as HTMLElement;
-
-		imagesWrapper.addEventListener('mousedown', mouseDown);
-		imagesWrapper.addEventListener('touchstart', touchStart);
-		imagesWrapper.addEventListener('mouseup', mouseUp);
-		imagesWrapper.addEventListener('touchend', touchEnd);
+		if (getImagesWrapperRef()) {
+			getImagesWrapperRef().addEventListener('mousedown', mouseDown);
+			getImagesWrapperRef().addEventListener('touchstart', touchStart);
+			getImagesWrapperRef().addEventListener('mouseup', mouseUp);
+			getImagesWrapperRef().addEventListener('touchend', touchEnd);
+		}
 
 		if (componentProps.sliders.length > 1) {
 			clearTimeout(switchTimeout.current);
@@ -241,72 +240,99 @@ const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
 
 					setCurrentSlider(nextIndex);
 				},
-				componentProps.isMobile
-					? DEFAULT_SWITCH_TIMER_MOBILE
-					: DEFAULT_SWITCH_TIMER_DESKTOP
+				isMobile ? DEFAULT_SWITCH_TIMER_MOBILE : DEFAULT_SWITCH_TIMER_DESKTOP
 			);
 		}
 
 		return () => {
-			imagesWrapper.removeEventListener('mousedown', mouseDown);
-			imagesWrapper.removeEventListener('touchstart', touchStart);
-			imagesWrapper.removeEventListener('mouseup', mouseUp);
-			imagesWrapper.removeEventListener('touchend', touchEnd);
+			if (getImagesWrapperRef()) {
+				getImagesWrapperRef().removeEventListener('mousedown', mouseDown);
+				getImagesWrapperRef().removeEventListener('touchstart', touchStart);
+				getImagesWrapperRef().removeEventListener('mouseup', mouseUp);
+				getImagesWrapperRef().removeEventListener('touchend', touchEnd);
+			}
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentSlider]);
 
 	return (
-		<LandingSliderElement navbarHeight={componentProps.navbarHeight}>
-			<ImagesWrapper
-				currentSlider={currentSlider}
-				id="images-wrapper"
-				slidersLength={componentProps.sliders.length}
+		<div
+			id={styles['SliderElement']}
+			style={{
+				height: `calc(100vh - ${componentProps.navbarHeight}px)`,
+			}}
+		>
+			<div
+				id={styles['ImagesWrapper']}
+				style={{
+					left: `-${currentSlider * 100}vw`,
+					width: `${componentProps.sliders.length * 100}vw`,
+				}}
 			>
 				{componentProps.sliders.map((slider, index) => {
 					return (
-						<ImageElementContainer
-							className={currentSlider === index ? 'active' : ''}
+						<div
+							className={`${styles['ImageElementContainer']}${
+								currentSlider === index ? ` ${styles['Active']}` : ''
+							}`}
 							key={`LandingImageElement${index}`}
 						>
-							<ImageBackgroundElement image={slider.backgroundImage} />
+							<div
+								className={styles['ImageBackgroundElement']}
+								style={{
+									backgroundImage: `url(data:image/png;base64,${slider.backgroundImage})`,
+								}}
+							/>
 
-							<ImageElementColorPanel color={slider.color} />
-							<ImageDescription>
+							<div
+								className={styles['ImageColorElement']}
+								style={{
+									backgroundColor: slider.color,
+								}}
+							/>
+
+							<div className={styles['ImageDescriptionElement']}>
 								<h2 className="image-element-description-title">
 									{slider.title.replace(/<nbs>/g, '\u00A0')}
 								</h2>
 								<p className="image-element-description-text">
 									{slider.text.replace(/<nbs>/g, '\u00A0')}
 								</p>
-							</ImageDescription>
+							</div>
 
-							<ImageForegroundElementWrapper className="image-element-foreground">
-								<ImageForegroundElement image={slider.foregroundImage} />
-							</ImageForegroundElementWrapper>
-						</ImageElementContainer>
+							<div className={styles['ImageForegroundElementWrapper']}>
+								<div
+									className={styles['ImageForegroundElement']}
+									style={{
+										backgroundImage: `url(data:image/png;base64,${slider.foregroundImage})`,
+									}}
+								/>
+							</div>
+						</div>
 					);
 				})}
-			</ImagesWrapper>
+			</div>
 
-			<AdvancePillsWrapper
-				style={{
-					display: componentProps.isMobile ? 'none' : 'flex',
-				}}
-			>
-				{componentProps.sliders.map((_, index) => {
-					return (
-						<AdvancePillElement
-							className={currentSlider === index ? 'active' : ''}
-							key={`LandingPill${index}`}
-							onClick={setSlider(index)}
-						>
-							<AdvancePillElementText>{index + 1}</AdvancePillElementText>
-						</AdvancePillElement>
-					);
-				})}
-			</AdvancePillsWrapper>
-		</LandingSliderElement>
+			{!isMobile && (
+				<div id={styles['AdvancePillsWrapper']}>
+					{componentProps.sliders.map((_, index) => {
+						return (
+							<div
+								className={`${styles['AdvancePillElement']}${
+									currentSlider === index ? ` ${styles['Active']}` : ''
+								}`}
+								key={`LandingPill${index}`}
+								onClick={setSlider(index)}
+							>
+								<div className={styles['AdvancePillElementText']}>
+									{index + 1}
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			)}
+		</div>
 	);
 };
 

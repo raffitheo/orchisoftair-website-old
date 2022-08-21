@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-
-const BackToTopElement = styled.div`
-	background-color: ${(props) => props.theme.color.secondary};
+.BackToTop {
+	background-color: var(
+		--background-secondary
+	); // ${(props) => props.theme.color.secondary}
 	border-radius: 2px;
 	bottom: 20px;
 	cursor: pointer;
@@ -16,19 +16,21 @@ const BackToTopElement = styled.div`
 
 	&:hover {
 		svg {
-			stroke: ${(props) => props.theme.text.secondary} !important;
+			stroke: var(
+				--text-secondary
+			); // ${(props) => props.theme.text.secondary} !important
 		}
 	}
 
-	&.active {
+	&.Active {
 		opacity: 1;
 		pointer-events: all;
 	}
 
 	svg {
-		stroke: ${(props) => props.theme.text.primary} !important;
+		stroke: var(
+			--text-primary
+		) !important; // ${(props) => props.theme.text.primary} !important
 		transition: stroke 200ms ease-in-out;
 	}
-`;
-
-export { BackToTopElement };
+}

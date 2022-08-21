@@ -6,7 +6,6 @@ const HomePage = (componentProps: IHomePageProps): JSX.Element => {
 	return (
 		<>
 			<LandingSlider
-				isMobile={componentProps.isMobile}
 				navbarHeight={componentProps.navbarHeight}
 				sliders={componentProps.sliders}
 			/>

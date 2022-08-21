@@ -1,0 +1,162 @@
+#MobileMenuWrapper {
+	background-color: var(--background-secondary);
+	display: none;
+	height: 100vh;
+	left: -250px;
+	padding: 7px;
+	position: fixed;
+	top: 0;
+	transition: all 200ms ease-in-out;
+	width: 250px;
+	z-index: 99;
+
+	@media (min-width: 320px) and (max-width: 767px) {
+		display: block;
+	}
+
+	#MobileMenuContainer {
+		margin: 0 auto;
+		padding: 0 15px;
+
+		@media (min-width: 768px) {
+			width: 750px;
+		}
+		@media (min-width: 992px) {
+			width: 970px;
+		}
+		@media (min-width: 1200px) {
+			width: 1170px;
+		}
+
+		&::before,
+		&::after {
+			content: ' ';
+			display: table;
+		}
+		&::after {
+			clear: both;
+		}
+
+		.MobileMenuRow {
+			margin: 0 -15px;
+
+			&::before,
+			&::after {
+				content: ' ';
+				display: table;
+			}
+			&::after {
+				clear: both;
+			}
+		}
+	}
+}
+
+#NavigationWrapper {
+	min-height: 1px;
+	padding: 0 15px;
+	position: relative;
+
+	@media (min-width: 768px) {
+		float: left;
+		width: 75%;
+	}
+
+	#NavigationContainer {
+		display: block;
+
+		#NavigationList {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			.NavigationListElement {
+				display: inline-block;
+				line-height: 1.2;
+				position: relative;
+				width: 100%;
+
+				&.Active {
+					.NavigationListElementLink {
+						color: var(--text-secondary);
+					}
+				}
+
+				.NavigationListElementLink {
+					display: block;
+					margin-right: 40px;
+					padding: 20px 0 5px;
+					transition: all 200ms ease-in-out;
+
+					&:hover {
+						color: var(--text-secondary);
+					}
+				}
+
+				.NavigationSubMenuList {
+					background-color: var(--background-secondary);
+					cursor: default;
+					display: block;
+					height: auto;
+					margin-left: 25px;
+					max-height: 0;
+					opacity: 0;
+					overflow: hidden;
+					pointer-events: none;
+					transition: all 200ms ease-in-out;
+					visibility: hidden;
+					z-index: 9;
+
+					&.Visible {
+						max-height: 100vh;
+						opacity: 1;
+						pointer-events: auto;
+						visibility: visible;
+					}
+
+					.NavigationSubMenuListElement {
+						color: black;
+						display: block;
+						line-height: 1.2;
+						margin: 21px 0;
+						position: relative;
+
+						&.LastChild {
+							margin-bottom: 10px;
+						}
+
+						&:hover,
+						&.Active {
+							.NavigationSubMenuListElementLink {
+								color: var(--text-secondary);
+							}
+						}
+
+						.NavigationSubMenuListElementLink {
+							cursor: pointer;
+							display: block;
+							padding: 0;
+							transition: all 200ms ease-in-out;
+						}
+					}
+				}
+
+				.NavigationSubMenuListExpand {
+					align-items: center;
+					cursor: pointer;
+					display: flex;
+					height: 19px;
+					justify-content: center;
+					position: absolute;
+					right: 0;
+					top: 20px;
+					width: 19px;
+
+					&:hover {
+						color: var(--text-secondary);
+					}
+				}
+			}
+		}
+	}
+}

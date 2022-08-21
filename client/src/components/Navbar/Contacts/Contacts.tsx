@@ -1,12 +1,13 @@
 import IContactsProps from './IContactsProps';
 
-import { ContactsContainer, ContactsWrapper } from './Contacts.style';
 import ContactElement from './ContactElement/ContactElement';
+
+import styles from './Contacts.module.scss';
 
 const Contacts = (componentProps: IContactsProps): JSX.Element => {
 	return (
-		<ContactsWrapper>
-			<ContactsContainer>
+		<div id={styles['ContactsWrapper']}>
+			<div id={styles['ContactsContainer']}>
 				<>
 					{componentProps.contacts.map((contact, index) => {
 						return (
@@ -20,8 +21,8 @@ const Contacts = (componentProps: IContactsProps): JSX.Element => {
 						);
 					})}
 				</>
-			</ContactsContainer>
-		</ContactsWrapper>
+			</div>
+		</div>
 	);
 };
 

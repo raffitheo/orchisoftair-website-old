@@ -1,33 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import { Link } from 'react-router-dom';
 
 import INavbarProps from './INavbarProps';
 
 import logo from '../../assets/images/logo.png';
 
-import {
-	MobileHamburger,
-	MobileHamburgerCheckbox,
-	MobileHamburgerContainer,
-	MobileHamburgerLine,
-	MobileHamburgerLineContainer,
-	MobileHamburgerWrapper,
-	NavbarContainer,
-	NavbarRow,
-	NavbarWrapper,
-	NavigationContainer,
-	NavigationList,
-	NavigationListElement,
-	NavigationListElementLink,
-	NavigationSubMenuList,
-	NavigationSubMenuListElement,
-	NavigationSubMenuListElementLink,
-	NavigationWrapper,
-} from './Navbar.style';
 import MobileMenu from './MobileMenu/MobileMenu';
 import Logo from './Logo/Logo';
 import SearchBar from './SearchBar/SearchBar';
 import Socials from './Socials/Socials';
 import Contacts from './Contacts/Contacts';
+
+import { IsMobileContext } from '../OrchiWebsite';
+
+import styles from './Navbar.module.scss';
 
 const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
@@ -37,6 +24,9 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<number>(-1);
 
+	const isMobile: boolean = useContext<boolean>(IsMobileContext);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		const url: string = window.location.toString();
 
@@ -71,10 +61,10 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 				'desktop-contacts'
 			) as HTMLElement;
 			const navbar: HTMLElement = document.getElementById(
-				'navbar'
+				styles['NavbarWrapper']
 			) as HTMLElement;
 
-			if (!componentProps.isMobile) {
+			if (!isMobile) {
 				if (desktopContacts && navbar) {
 					const pageScroll: number = window.pageYOffset;
 					const desktopContactsHeight: number = desktopContacts.offsetHeight;
@@ -102,22 +92,21 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, [componentProps.isMobile]);
+	}, [isMobile]);
 
 	useEffect(() => {
-		if (!componentProps.isMobile && isMobileMenuOpen)
-			setIsMobileMenuOpen(false);
-	}, [componentProps.isMobile, isMobileMenuOpen]);
+		if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false);
+	}, [isMobile, isMobileMenuOpen]);
 
 	return (
 		<>
-			<NavbarWrapper
+			<div
 				className={componentProps.className}
-				id={`navbar`}
+				id={styles['NavbarWrapper']}
 				style={componentProps.style}
 			>
-				<NavbarContainer>
-					<NavbarRow id={'desktop-contacts'}>
+				<div id={styles['NavbarContainer']}>
+					<div className={styles['NavbarRow']} id={'desktop-contacts'}>
 						<Logo
 							image={logo}
 							style={{
@@ -129,13 +118,12 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 
 						<Socials socials={componentProps.socials} />
 
-						<MobileHamburgerWrapper>
-							<MobileHamburgerContainer>
-								<MobileHamburger>
-									<MobileHamburgerCheckbox
-										checked={
-											!componentProps.isMobile ? false : isMobileMenuOpen
-										}
+						<div id={styles['MobileHamburgerWrapper']}>
+							<div id={styles['MobileHamburgerContainer']}>
+								<div id={styles['MobileHamburger']}>
+									<input
+										id={styles['MobileHamburgerCheckbox']}
+										checked={!isMobile ? false : isMobileMenuOpen}
 										onChange={(event) => {
 											componentProps.onMobileMenuChange(
 												!isMobileMenuOpen,
@@ -147,34 +135,37 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 										type="checkbox"
 									/>
 
-									<MobileHamburgerLineContainer>
-										<MobileHamburgerLine />
-										<MobileHamburgerLine />
-										<MobileHamburgerLine />
-									</MobileHamburgerLineContainer>
-								</MobileHamburger>
-							</MobileHamburgerContainer>
-						</MobileHamburgerWrapper>
-					</NavbarRow>
+									<div id={styles['MobileHamburgerLineContainer']}>
+										<span className={styles['MobileHamburgerLine']} />
+										<span className={styles['MobileHamburgerLine']} />
+										<span className={styles['MobileHamburgerLine']} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-					<NavbarRow
+					<div
+						className={styles['NavbarRow']}
 						style={{
-							display: !componentProps.isMobile ? 'block' : 'none',
+							display: !isMobile ? 'block' : 'none',
 						}}
 					>
-						<NavigationWrapper>
-							<NavigationContainer>
-								<NavigationList>
+						<div id={styles['NavigationWrapper']}>
+							<div id={styles['NavigationContainer']}>
+								<ul id={styles['NavigationList']}>
 									{componentProps.navigation.map((element, elementIndex) => {
 										return (
-											<NavigationListElement
-												className={
-													currentlySelected === elementIndex ? 'active' : ''
-												}
+											<li
+												className={`${styles['NavigationListElement']}${
+													currentlySelected === elementIndex
+														? ` ${styles['Active']}`
+														: ''
+												}`}
 												key={`ListElement${elementIndex}`}
 											>
-												<NavigationListElementLink
-													className="navbar-list-element"
+												<Link
+													className={styles['NavigationListElementLink']}
 													onClick={(event) => {
 														const pressedElement: HTMLElement =
 															event.target as HTMLElement;
@@ -182,7 +173,7 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 														if (
 															pressedElement &&
 															pressedElement?.classList.contains(
-																'navbar-list-element'
+																styles['NavigationListElementLink']
 															)
 														) {
 															setCurrentlySelected(elementIndex);
@@ -192,25 +183,31 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 													to={element.link}
 												>
 													{element.text}
-												</NavigationListElementLink>
+												</Link>
 
 												{element.subMenu && (
-													<NavigationSubMenuList>
+													<ul className={styles['NavigationSubMenuList']}>
 														{element.subMenu.map(
 															(subMenuElement, subMenuElementIndex) => {
 																return (
-																	<NavigationSubMenuListElement
-																		className={
+																	<li
+																		className={`${
+																			styles['NavigationSubMenuListElement']
+																		}${
 																			currentlySelected === elementIndex &&
 																			currentlySelectedSubMenu ===
 																				subMenuElementIndex
-																				? 'active'
+																				? ` ${styles['Active']}`
 																				: ''
-																		}
+																		}`}
 																		key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
 																	>
-																		<NavigationSubMenuListElementLink
-																			className="submenu-list-element"
+																		<Link
+																			className={
+																				styles[
+																					'NavigationSubMenuListElementLink'
+																				]
+																			}
 																			onClick={(event) => {
 																				const pressedElement: HTMLElement =
 																					event.target as HTMLElement;
@@ -218,7 +215,9 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 																				if (
 																					pressedElement &&
 																					pressedElement?.classList.contains(
-																						'submenu-list-element'
+																						styles[
+																							'NavigationSubMenuListElementLink'
+																						]
 																					)
 																				) {
 																					setCurrentlySelected(elementIndex);
@@ -230,24 +229,24 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 																			to={subMenuElement.link}
 																		>
 																			{subMenuElement.text}
-																		</NavigationSubMenuListElementLink>
-																	</NavigationSubMenuListElement>
+																		</Link>
+																	</li>
 																);
 															}
 														)}
-													</NavigationSubMenuList>
+													</ul>
 												)}
-											</NavigationListElement>
+											</li>
 										);
 									})}
-								</NavigationList>
-							</NavigationContainer>
-						</NavigationWrapper>
+								</ul>
+							</div>
+						</div>
 
 						<SearchBar />
-					</NavbarRow>
-				</NavbarContainer>
-			</NavbarWrapper>
+					</div>
+				</div>
+			</div>
 
 			<MobileMenu
 				currentlySelected={currentlySelected}

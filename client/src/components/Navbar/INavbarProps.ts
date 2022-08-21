@@ -10,7 +10,6 @@ interface INavbarProps {
 		newValue: boolean,
 		event?: React.ChangeEvent<HTMLInputElement>
 	) => void;
-	isMobile: boolean;
 
 	className?: string | undefined;
 	style?: React.CSSProperties | undefined;

@@ -3,11 +3,11 @@ import IContactElementProps from './IContactElementProps';
 import IconExtension from '../../../IconExtension/IconExtension';
 import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
-import { Element, Title, Info } from './ContactElement.style';
+import styles from './ContactElement.module.scss';
 
 const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
 	return (
-		<Element>
+		<div className={styles['ContactElement']}>
 			<IconExtension
 				name={componentProps.icon as IconName}
 				size={16}
@@ -18,10 +18,10 @@ const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
 				}}
 			/>
 
-			<Title>{componentProps.title}</Title>
+			<h4 className={styles['ContactTitle']}>{componentProps.title}</h4>
 
-			<Info>{componentProps.info}</Info>
-		</Element>
+			<h2 className={styles['ContactInfo']}>{componentProps.info}</h2>
+		</div>
 	);
 };
 
