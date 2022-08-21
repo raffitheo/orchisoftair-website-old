@@ -1,11 +1,11 @@
-import IContact from '../../interfaces/IContact';
-import INavigation from '../../interfaces/INavigation';
-import ISocial from '../../interfaces/ISocial';
+import { Contact } from '../../interfaces/IContact';
+import { Navigation } from '../../interfaces/INavigation';
+import { Social } from '../../interfaces/ISocial';
 
 interface INavbarProps {
-	contacts: IContact[];
-	navigation: INavigation[];
-	socials: ISocial[];
+	contacts: Contact[];
+	navigation: Navigation[];
+	socials: Social[];
 	onMobileMenuChange: (
 		newValue: boolean,
 		event?: React.ChangeEvent<HTMLInputElement>
@@ -15,4 +15,4 @@ interface INavbarProps {
 	style?: React.CSSProperties | undefined;
 }
 
-export default INavbarProps;
+export type NavbarProps = INavbarProps;

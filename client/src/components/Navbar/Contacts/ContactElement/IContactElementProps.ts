@@ -1,7 +1,7 @@
-import IContact from '../../../../interfaces/IContact';
+import { Contact } from '../../../../interfaces/IContact';
 
-interface IContactElementProps extends IContact {
+interface IContactElementProps extends Contact {
 	index: number;
 }
 
-export default IContactElementProps;
+export type ContactElementProps = IContactElementProps;

@@ -1,10 +1,10 @@
-import IContactsProps from './IContactsProps';
+import { ContactsProps } from './IContactsProps';
 
 import ContactElement from './ContactElement/ContactElement';
 
 import styles from './Contacts.module.scss';
 
-const Contacts = (componentProps: IContactsProps): JSX.Element => {
+const Contacts = (componentProps: ContactsProps): JSX.Element => {
 	return (
 		<div id={styles['ContactsWrapper']}>
 			<div id={styles['ContactsContainer']}>

@@ -6,7 +6,11 @@ import BackToTop from './BackToTop/BackToTop';
 import Navbar from './Navbar/Navbar';
 
 import { Sliders } from '../data/landing';
-import { Contacts, Navigation, Socials } from '../data/navbar';
+import {
+	ContactElements,
+	NavigationElements,
+	SocialElements,
+} from '../data/navbar';
 
 import HomePage from './pages/HomePage/HomePage';
 
@@ -93,9 +97,9 @@ const OrchiWebsite = (): JSX.Element => {
 		<IsMobileContext.Provider value={isMobile}>
 			<Router>
 				<Navbar
-					contacts={Contacts()}
-					navigation={Navigation()}
-					socials={Socials()}
+					contacts={ContactElements()}
+					navigation={NavigationElements()}
+					socials={SocialElements()}
 					onMobileMenuChange={onMobileMenuChange}
 				/>
 

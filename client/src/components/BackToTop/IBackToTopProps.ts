@@ -4,4 +4,4 @@ interface IBackToTopProps {
 	maxVisibleSize?: number;
 }
 
-export default IBackToTopProps;
+export type BackToTopProps = IBackToTopProps;

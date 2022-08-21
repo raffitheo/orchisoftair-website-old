@@ -4,4 +4,4 @@ interface IContact {
 	title: string;
 }
 
-export default IContact;
+export type Contact = IContact;

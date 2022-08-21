@@ -188,6 +188,7 @@
 					}
 				}
 
+				&:active,
 				&:hover {
 					.NavigationSubMenuList {
 						opacity: 1;
@@ -211,6 +212,7 @@
 				}
 
 				.NavigationListElementLink {
+					cursor: pointer;
 					display: block;
 					padding: 20px 0 22px;
 					transition: all var(--animation-fast) ease-in-out;

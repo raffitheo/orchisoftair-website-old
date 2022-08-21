@@ -1,8 +1,8 @@
-import IContact from '../interfaces/IContact';
-import INavigation from '../interfaces/INavigation';
-import ISocial from '../interfaces/ISocial';
+import { Contact } from '../interfaces/IContact';
+import { Navigation } from '../interfaces/INavigation';
+import { Social } from '../interfaces/ISocial';
 
-const Contacts = (): IContact[] => {
+const ContactElements = (): Contact[] => {
 	return [
 		{
 			icon: 'AtSign',
@@ -17,7 +17,7 @@ const Contacts = (): IContact[] => {
 	];
 };
 
-const Navigation = (): INavigation[] => {
+const NavigationElements = (): Navigation[] => {
 	return [
 		{
 			text: 'Home',
@@ -25,7 +25,6 @@ const Navigation = (): INavigation[] => {
 		},
 		{
 			text: 'Chi siamo',
-			link: '#chi-siamo',
 			subMenu: [
 				{
 					text: "L'associazione",
@@ -43,7 +42,6 @@ const Navigation = (): INavigation[] => {
 		},
 		{
 			text: 'Eventi',
-			link: '#event',
 			subMenu: [
 				{
 					text: 'In arrivo',
@@ -66,7 +64,7 @@ const Navigation = (): INavigation[] => {
 	];
 };
 
-const Socials = (): ISocial[] => {
+const SocialElements = (): Social[] => {
 	return [
 		{
 			link: 'https://www.instagram.com/orchisoftair_official/',
@@ -81,4 +79,4 @@ const Socials = (): ISocial[] => {
 	];
 };
 
-export { Contacts, Navigation, Socials };
+export { ContactElements, NavigationElements, SocialElements };

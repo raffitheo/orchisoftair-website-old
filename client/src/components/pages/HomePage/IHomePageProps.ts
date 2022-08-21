@@ -1,8 +1,8 @@
-import ISlider from '../../../interfaces/ISlider';
+import { Slider } from '../../../interfaces/ISlider';
 
 interface IHomePageProps {
 	navbarHeight: number;
-	sliders: ISlider[];
+	sliders: Slider[];
 }
 
-export default IHomePageProps;
+export type HomePageProps = IHomePageProps;

@@ -1,11 +1,16 @@
 interface INavigation {
 	text: string;
-	link: string;
+}
 
-	subMenu?: {
+interface INavigationWithLink extends INavigation {
+	link: string;
+}
+
+interface INavigationWithSubmenu extends INavigation {
+	subMenu: {
 		text: string;
 		link: string;
 	}[];
 }
 
-export default INavigation;
+export type Navigation = INavigationWithLink | INavigationWithSubmenu;

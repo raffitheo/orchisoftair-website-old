@@ -1,10 +1,10 @@
-import ISocialsProps from './ISocialsProps';
+import { SocialsProps } from './ISocialsProps';
 
 import SocialItemLink from './SocialItemLink/SocialItemLink';
 
 import styles from './Socials.module.scss';
 
-const Socials = (componentProps: ISocialsProps): JSX.Element => {
+const Socials = (componentProps: SocialsProps): JSX.Element => {
 	return (
 		<div id={styles['SocialWrapper']}>
 			<div id={styles['SocialContainer']}>

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import ISearchbarProps from './ISearchBarProps';
+import { SearchbarProps } from './ISearchBarProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 
 import styles from './SearchBar.module.scss';
 
-const SearchBar = (componentProps: ISearchbarProps): JSX.Element => {
+const SearchBar = (componentProps: SearchbarProps): JSX.Element => {
 	const [searchActive, setSearchActive] = useState<boolean>(
 		componentProps.openOnStart ? true : false
 	);

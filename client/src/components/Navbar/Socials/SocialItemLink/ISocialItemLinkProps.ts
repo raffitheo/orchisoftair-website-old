@@ -1,7 +1,7 @@
-import ISocial from '../../../../interfaces/ISocial';
+import { Social } from '../../../../interfaces/ISocial';
 
-interface ISocialItemLinkProps extends ISocial {
+interface ISocialItemLinkProps extends Social {
 	index: number;
 }
 
-export default ISocialItemLinkProps;
+export type SocialItemLinkProps = ISocialItemLinkProps;

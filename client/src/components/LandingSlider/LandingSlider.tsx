@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { IsMobileContext } from '../OrchiWebsite';
 
-import ILandingSliderProps from './ILandingSliderProps';
+import { LandingSliderProps } from './ILandingSliderProps';
 
 import styles from './LandingSlider.module.scss';
 
@@ -23,7 +23,7 @@ const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE: number = 10;
 const DEFAULT_SWITCH_TIMER_DESKTOP: number = 13000;
 const DEFAULT_SWITCH_TIMER_MOBILE: number = 12500;
 
-const LandingSlider = (componentProps: ILandingSliderProps): JSX.Element => {
+const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 	const [currentSlider, setCurrentSlider] = useState<number>(-1);
 
 	const switchTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =

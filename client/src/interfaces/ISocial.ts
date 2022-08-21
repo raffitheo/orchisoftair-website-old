@@ -4,4 +4,4 @@ interface ISocial {
 	link: string;
 }
 
-export default ISocial;
+export type Social = ISocial;

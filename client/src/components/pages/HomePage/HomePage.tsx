@@ -1,14 +1,28 @@
-import IHomePageProps from './IHomePageProps';
+import { HomePageProps } from './IHomePageProps';
 
 import LandingSlider from '../../LandingSlider/LandingSlider';
 
-const HomePage = (componentProps: IHomePageProps): JSX.Element => {
+const HomePage = (componentProps: HomePageProps): JSX.Element => {
 	return (
 		<>
-			<LandingSlider
-				navbarHeight={componentProps.navbarHeight}
-				sliders={componentProps.sliders}
-			/>
+			<div
+				style={{
+					position: 'relative',
+					scrollMarginTop: `${componentProps.navbarHeight}px`,
+				}}
+			>
+				<div
+					id="home"
+					style={{
+						position: 'absolute',
+						top: `-${componentProps.navbarHeight}px`,
+					}}
+				/>
+				<LandingSlider
+					navbarHeight={componentProps.navbarHeight}
+					sliders={componentProps.sliders}
+				/>
+			</div>
 
 			<div style={{ height: '100vh' }} />
 		</>

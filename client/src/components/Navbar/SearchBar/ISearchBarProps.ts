@@ -3,4 +3,4 @@ interface ISearchbarProps {
 	preventCollapse?: boolean;
 }
 
-export default ISearchbarProps;
+export type SearchbarProps = ISearchbarProps;

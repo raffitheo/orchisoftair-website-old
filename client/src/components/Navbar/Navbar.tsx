@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import INavbarProps from './INavbarProps';
+import { NavbarProps } from './INavbarProps';
 
 import logo from '../../assets/images/logo.png';
 
@@ -16,7 +16,7 @@ import { IsMobileContext } from '../OrchiWebsite';
 
 import styles from './Navbar.module.scss';
 
-const Navbar = (componentProps: INavbarProps): JSX.Element => {
+const Navbar = (componentProps: NavbarProps): JSX.Element => {
 	const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
 	const [currentlySelectedSubMenu, setCurrentlySelectedSubMenu] =
 		useState<number>(-1);
@@ -35,9 +35,14 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 
 			if (selection) {
 				componentProps.navigation.forEach((element, index) => {
-					if (`#${selection}` === element.link) setCurrentlySelected(index);
+					if ('link' in element && `#${selection}` === element.link)
+						setCurrentlySelected(index);
 					else {
-						if (element.subMenu && element.subMenu.length >= 1) {
+						if (
+							'subMenu' in element &&
+							element.subMenu &&
+							element.subMenu.length >= 1
+						) {
 							element.subMenu.forEach((subElement, subIndex) => {
 								if (`#${selection}` === subElement.link) {
 									setCurrentlySelected(index);
@@ -161,77 +166,145 @@ const Navbar = (componentProps: INavbarProps): JSX.Element => {
 												}`}
 												key={`ListElement${elementIndex}`}
 											>
-												<Link
-													className={styles['NavigationListElementLink']}
-													onClick={(event) => {
-														const pressedElement: HTMLElement =
-															event.target as HTMLElement;
+												{'link' in element ? (
+													element.link.startsWith('#') ? (
+														<a
+															className={styles['NavigationListElementLink']}
+															href={element.link}
+															onClick={(event) => {
+																const pressedElement: HTMLElement =
+																	event.target as HTMLElement;
 
-														if (
-															pressedElement &&
-															pressedElement?.classList.contains(
-																styles['NavigationListElementLink']
-															)
-														) {
-															setCurrentlySelected(elementIndex);
-															setCurrentlySelectedSubMenu(0);
-														}
-													}}
-													to={element.link}
-												>
-													{element.text}
-												</Link>
+																if (
+																	pressedElement &&
+																	pressedElement?.classList.contains(
+																		styles['NavigationListElementLink']
+																	)
+																) {
+																	setCurrentlySelected(elementIndex);
+																	setCurrentlySelectedSubMenu(0);
+																}
+															}}
+														>
+															{element.text}
+														</a>
+													) : (
+														<Link
+															className={styles['NavigationListElementLink']}
+															onClick={(event) => {
+																const pressedElement: HTMLElement =
+																	event.target as HTMLElement;
 
-												{element.subMenu && (
-													<ul className={styles['NavigationSubMenuList']}>
-														{element.subMenu.map(
-															(subMenuElement, subMenuElementIndex) => {
-																return (
-																	<li
-																		className={`${
-																			styles['NavigationSubMenuListElement']
-																		}${
-																			currentlySelected === elementIndex &&
-																			currentlySelectedSubMenu ===
-																				subMenuElementIndex
-																				? ` ${styles['Active']}`
-																				: ''
-																		}`}
-																		key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
-																	>
-																		<Link
-																			className={
-																				styles[
-																					'NavigationSubMenuListElementLink'
-																				]
-																			}
-																			onClick={(event) => {
-																				const pressedElement: HTMLElement =
-																					event.target as HTMLElement;
+																if (
+																	pressedElement &&
+																	pressedElement?.classList.contains(
+																		styles['NavigationListElementLink']
+																	)
+																) {
+																	setCurrentlySelected(elementIndex);
+																	setCurrentlySelectedSubMenu(0);
+																}
+															}}
+															to={element.link}
+														>
+															{element.text}
+														</Link>
+													)
+												) : 'subMenu' in element ? (
+													<>
+														<span
+															className={styles['NavigationListElementLink']}
+														>
+															{element.text}
+														</span>
 
-																				if (
-																					pressedElement &&
-																					pressedElement?.classList.contains(
+														<ul className={styles['NavigationSubMenuList']}>
+															{element.subMenu.map(
+																(subMenuElement, subMenuElementIndex) => {
+																	return (
+																		<li
+																			className={`${
+																				styles['NavigationSubMenuListElement']
+																			}${
+																				currentlySelected === elementIndex &&
+																				currentlySelectedSubMenu ===
+																					subMenuElementIndex
+																					? ` ${styles['Active']}`
+																					: ''
+																			}`}
+																			key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
+																		>
+																			{subMenuElement.link.startsWith('#') ? (
+																				<a
+																					className={
 																						styles[
 																							'NavigationSubMenuListElementLink'
 																						]
-																					)
-																				) {
-																					setCurrentlySelected(elementIndex);
-																					setCurrentlySelectedSubMenu(
-																						subMenuElementIndex
-																					);
-																				}
-																			}}
-																			to={subMenuElement.link}
-																		>
-																			{subMenuElement.text}
-																		</Link>
-																	</li>
-																);
-															}
-														)}
-													</ul>
+																					}
+																					href={subMenuElement.link}
+																					onClick={(event) => {
+																						const pressedElement: HTMLElement =
+																							event.target as HTMLElement;
+
+																						if (
+																							pressedElement &&
+																							pressedElement?.classList.contains(
+																								styles[
+																									'NavigationSubMenuListElementLink'
+																								]
+																							)
+																						) {
+																							setCurrentlySelected(
+																								elementIndex
+																							);
+																							setCurrentlySelectedSubMenu(
+																								subMenuElementIndex
+																							);
+																						}
+																					}}
+																				>
+																					{subMenuElement.text}
+																				</a>
+																			) : (
+																				<Link
+																					className={
+																						styles[
+																							'NavigationSubMenuListElementLink'
+																						]
+																					}
+																					onClick={(event) => {
+																						const pressedElement: HTMLElement =
+																							event.target as HTMLElement;
+
+																						if (
+																							pressedElement &&
+																							pressedElement?.classList.contains(
+																								styles[
+																									'NavigationSubMenuListElementLink'
+																								]
+																							)
+																						) {
+																							setCurrentlySelected(
+																								elementIndex
+																							);
+																							setCurrentlySelectedSubMenu(
+																								subMenuElementIndex
+																							);
+																						}
+																					}}
+																					to={subMenuElement.link}
+																				>
+																					{subMenuElement.text}
+																				</Link>
+																			)}
+																		</li>
+																	);
+																}
+															)}
+														</ul>
+													</>
+												) : (
+													<></>
 												)}
 											</li>
 										);

@@ -1,18 +1,13 @@
+import { Navigation } from '../../../interfaces/INavigation';
+
 interface IMobileMenuProps {
 	currentlySelected: number;
 	currentlySelectedSubMenu: number;
 	logo: string;
 	mobileSubMenuOpen: number;
-	navigation: {
-		text: string;
-		link: string;
-		subMenu?: {
-			text: string;
-			link: string;
-		}[];
-	}[];
+	navigation: Navigation[];
 	onClickElement: (elementIndex: number, subMenuElementIndex: number) => void;
 	onDismiss: (elementIndex: number) => void;
 }
 
-export default IMobileMenuProps;
+export type MobileMenuProps = IMobileMenuProps;

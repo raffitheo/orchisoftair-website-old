@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import IBackToTopProps from './IBackToTopProps';
+import { BackToTopProps } from './IBackToTopProps';
 
 import IconExtension from '../IconExtension/IconExtension';
 
 import styles from './BackToTop.module.scss';
 
-const BackToTop = (componentProps: IBackToTopProps): JSX.Element => {
+const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
 	const [visible, setVisible] = useState<boolean>(false);
 
 	const backToTop =

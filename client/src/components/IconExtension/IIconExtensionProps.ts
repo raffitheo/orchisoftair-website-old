@@ -10,4 +10,4 @@ interface IIconExtensionProps extends SVGAttributes<SVGElement> {
 	size?: string | number;
 }
 
-export default IIconExtensionProps;
+export type IconExtensionProps = IIconExtensionProps;

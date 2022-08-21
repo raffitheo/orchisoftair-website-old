@@ -6,4 +6,4 @@ interface ISlider {
 	title: string;
 }
 
-export default ISlider;
+export type Slider = ISlider;

@@ -1,6 +1,6 @@
-import ISlider from '../interfaces/ISlider';
+import { Slider } from '../interfaces/ISlider';
 
-const Sliders = (): ISlider[] => {
+const Sliders = (): Slider[] => {
 	return [
 		{
 			backgroundImage:

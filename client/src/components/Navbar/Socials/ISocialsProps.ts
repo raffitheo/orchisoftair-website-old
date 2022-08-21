@@ -1,7 +1,7 @@
-import ISocial from '../../../interfaces/ISocial';
+import { Social } from '../../../interfaces/ISocial';
 
 interface ISocialsProps {
-	socials: ISocial[];
+	socials: Social[];
 }
 
-export default ISocialsProps;
+export type SocialsProps = ISocialsProps;

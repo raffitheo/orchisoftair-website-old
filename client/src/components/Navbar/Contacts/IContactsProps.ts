@@ -1,7 +1,7 @@
-import IContact from '../../../interfaces/IContact';
+import { Contact } from '../../../interfaces/IContact';
 
 interface IContactsProps {
-	contacts: IContact[];
+	contacts: Contact[];
 }
 
-export default IContactsProps;
+export type ContactsProps = IContactsProps;

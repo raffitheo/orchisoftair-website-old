@@ -1,11 +1,11 @@
-import IContactElementProps from './IContactElementProps';
+import { ContactElementProps } from './IContactElementProps';
 
 import IconExtension from '../../../IconExtension/IconExtension';
 import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
 import styles from './ContactElement.module.scss';
 
-const ContactElement = (componentProps: IContactElementProps): JSX.Element => {
+const ContactElement = (componentProps: ContactElementProps): JSX.Element => {
 	return (
 		<div className={styles['ContactElement']}>
 			<IconExtension

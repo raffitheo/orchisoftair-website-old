@@ -6,4 +6,4 @@ interface ILogoProps {
 	style?: CSSProperties;
 }
 
-export default ILogoProps;
+export type LogoProps = ILogoProps;

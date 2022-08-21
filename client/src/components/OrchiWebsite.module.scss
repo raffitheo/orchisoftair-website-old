@@ -162,6 +162,10 @@ body {
 	width: 100vw;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 #PageContent {
 	overflow-x: hidden;
 	transition: padding var(--animation-fast) ease-in-out;
