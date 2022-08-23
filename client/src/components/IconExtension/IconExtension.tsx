@@ -1,4 +1,4 @@
-import { IconExtensionProps } from './IIconExtensionProps';
+import IconExtensionProps from './IIconExtensionProps';
 
 import * as icons from 'react-feather';
 

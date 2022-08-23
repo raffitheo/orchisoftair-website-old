@@ -1,16 +1,16 @@
-interface INavigation {
+type NavigationBase = {
 	text: string;
-}
+};
 
-interface INavigationWithLink extends INavigation {
+type NavigationWithLink = {
 	link: string;
-}
+} & NavigationBase;
 
-interface INavigationWithSubmenu extends INavigation {
+type NavigationWithSubmenu = {
 	subMenu: {
 		text: string;
 		link: string;
 	}[];
-}
+} & NavigationBase;
 
-export type Navigation = INavigationWithLink | INavigationWithSubmenu;
+export type Navigation = NavigationWithLink | NavigationWithSubmenu;

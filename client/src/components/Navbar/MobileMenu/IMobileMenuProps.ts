@@ -1,6 +1,6 @@
 import { Navigation } from '../../../interfaces/INavigation';
 
-interface IMobileMenuProps {
+type MobileMenuProps = {
 	currentlySelected: number;
 	currentlySelectedSubMenu: number;
 	logo: string;
@@ -8,6 +8,6 @@ interface IMobileMenuProps {
 	navigation: Navigation[];
 	onClickElement: (elementIndex: number, subMenuElementIndex: number) => void;
 	onDismiss: (elementIndex: number) => void;
-}
+};
 
-export type MobileMenuProps = IMobileMenuProps;
+export default MobileMenuProps;

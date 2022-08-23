@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { MobileMenuProps } from './IMobileMenuProps';
+import MobileMenuProps from './IMobileMenuProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 

@@ -1,7 +1,7 @@
 import { Contact } from '../../../../interfaces/IContact';
 
-interface IContactElementProps extends Contact {
+type ContactElementProps = {
 	index: number;
-}
+} & Contact;
 
-export type ContactElementProps = IContactElementProps;
+export default ContactElementProps;

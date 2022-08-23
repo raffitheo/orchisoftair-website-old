@@ -12,14 +12,15 @@ import {
 	SocialElements,
 } from '../data/navbar';
 
-import HomePage from './pages/HomePage/HomePage';
+import HomePage from '../pages/HomePage/HomePage';
 
 import styles from './OrchiWebsite.module.scss';
 
 const DEFAUTL_MOBILE_MAX_SIZE: number = 767;
 const DEFAUTL_MOBILE_MIN_SIZE: number = 319;
 
-const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
+export const IsMobileContext: React.Context<boolean> =
+	createContext<boolean>(false);
 
 const OrchiWebsite = (): JSX.Element => {
 	const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -97,9 +98,9 @@ const OrchiWebsite = (): JSX.Element => {
 		<IsMobileContext.Provider value={isMobile}>
 			<Router>
 				<Navbar
-					contacts={ContactElements()}
-					navigation={NavigationElements()}
-					socials={SocialElements()}
+					contacts={ContactElements}
+					navigation={NavigationElements}
+					socials={SocialElements}
 					onMobileMenuChange={onMobileMenuChange}
 				/>
 
@@ -114,7 +115,7 @@ const OrchiWebsite = (): JSX.Element => {
 					<Routes>
 						<Route
 							element={
-								<HomePage navbarHeight={navbarHeight} sliders={Sliders()} />
+								<HomePage navbarHeight={navbarHeight} sliders={Sliders} />
 							}
 							path={baseURL}
 						/>
@@ -124,7 +125,5 @@ const OrchiWebsite = (): JSX.Element => {
 		</IsMobileContext.Provider>
 	);
 };
-
-export { IsMobileContext };
 
 export default OrchiWebsite;

@@ -1,4 +1,4 @@
-import { LogoProps } from './ILogoProps';
+import LogoProps from './ILogoProps';
 
 import styles from './Logo.module.scss';
 

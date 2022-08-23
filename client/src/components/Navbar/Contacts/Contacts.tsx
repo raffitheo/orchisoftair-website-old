@@ -1,4 +1,4 @@
-import { ContactsProps } from './IContactsProps';
+import ContactsProps from './IContactsProps';
 
 import ContactElement from './ContactElement/ContactElement';
 

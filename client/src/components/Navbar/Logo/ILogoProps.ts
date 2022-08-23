@@ -1,9 +1,9 @@
 import { CSSProperties } from 'react';
 
-interface ILogoProps {
+type LogoProps = {
 	image: string;
 
 	style?: CSSProperties;
-}
+};
 
-export type LogoProps = ILogoProps;
+export default LogoProps;

@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { IsMobileContext } from '../OrchiWebsite';
 
-import { LandingSliderProps } from './ILandingSliderProps';
+import LandingSliderProps from './ILandingSliderProps';
 
 import styles from './LandingSlider.module.scss';
 
-interface ITouchInput {
+type TouchInput = {
 	start: { x: number; y: number };
 	end: { x: number; y: number };
-}
+};
 
 const DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE: number = 1285;
 const DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE: number = 1285;
@@ -30,7 +30,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 		useRef<NodeJS.Timeout>();
 	const resizeTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
 		useRef<NodeJS.Timeout>();
-	const touch = useRef<ITouchInput>({
+	const touch = useRef<TouchInput>({
 		start: { x: 0, y: 0 },
 		end: { x: 0, y: 0 },
 	});

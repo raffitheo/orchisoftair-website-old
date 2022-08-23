@@ -1,4 +1,4 @@
-import { ContactElementProps } from './IContactElementProps';
+import ContactElementProps from './IContactElementProps';
 
 import IconExtension from '../../../IconExtension/IconExtension';
 import { IconName } from '../../../IconExtension/IIconExtensionProps';

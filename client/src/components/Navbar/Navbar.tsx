@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { NavbarProps } from './INavbarProps';
+import NavbarProps from './INavbarProps';
 
 import logo from '../../assets/images/logo.png';
 

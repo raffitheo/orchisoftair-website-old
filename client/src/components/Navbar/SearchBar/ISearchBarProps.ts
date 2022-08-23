@@ -1,6 +1,6 @@
-interface ISearchbarProps {
+type SearchbarProps = {
 	openOnStart?: boolean;
 	preventCollapse?: boolean;
-}
+};
 
-export type SearchbarProps = ISearchbarProps;
+export default SearchbarProps;

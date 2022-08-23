@@ -1,7 +1,5 @@
-interface ISocial {
+export type Social = {
 	hoverColor: string;
 	icon: string;
 	link: string;
-}
-
-export type Social = ISocial;
+};

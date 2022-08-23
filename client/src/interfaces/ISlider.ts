@@ -1,9 +1,7 @@
-interface ISlider {
+export type Slider = {
 	backgroundImage: string;
 	color: string;
 	foregroundImage: string;
 	text: string;
 	title: string;
-}
-
-export type Slider = ISlider;
+};

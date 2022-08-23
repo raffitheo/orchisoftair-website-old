@@ -1,4 +1,4 @@
-import { SocialsProps } from './ISocialsProps';
+import SocialsProps from './ISocialsProps';
 
 import SocialItemLink from './SocialItemLink/SocialItemLink';
 

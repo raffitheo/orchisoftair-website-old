@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { BackToTopProps } from './IBackToTopProps';
+import BackToTopProps from './IBackToTopProps';
 
 import IconExtension from '../IconExtension/IconExtension';
 

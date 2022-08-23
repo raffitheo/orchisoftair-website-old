@@ -4,10 +4,10 @@ import * as icons from 'react-feather';
 
 export type IconName = keyof typeof icons;
 
-interface IIconExtensionProps extends SVGAttributes<SVGElement> {
+type IconExtensionProps = {
 	name: IconName;
 	color?: string;
 	size?: string | number;
-}
+} & SVGAttributes<SVGElement>;
 
-export type IconExtensionProps = IIconExtensionProps;
+export default IconExtensionProps;

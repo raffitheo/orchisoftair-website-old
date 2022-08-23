@@ -1,6 +1,6 @@
-import { HomePageProps } from './IHomePageProps';
+import HomePageProps from './IHomePageProps';
 
-import LandingSlider from '../../LandingSlider/LandingSlider';
+import LandingSlider from '../../components/LandingSlider/LandingSlider';
 
 const HomePage = (componentProps: HomePageProps): JSX.Element => {
 	return (

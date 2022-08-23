@@ -1,7 +1,7 @@
-interface IBackToTopProps {
+type BackToTopProps = {
 	minVisibleSize: number;
 
 	maxVisibleSize?: number;
-}
+};
 
-export type BackToTopProps = IBackToTopProps;
+export default BackToTopProps;

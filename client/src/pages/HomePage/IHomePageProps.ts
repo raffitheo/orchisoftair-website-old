@@ -1,8 +1,8 @@
 import { Slider } from '../../interfaces/ISlider';
 
-type LandingSliderProps = {
+type HomePageProps = {
 	navbarHeight: number;
 	sliders: Slider[];
 };
 
-export default LandingSliderProps;
+export default HomePageProps;

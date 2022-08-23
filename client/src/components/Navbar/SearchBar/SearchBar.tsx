@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SearchbarProps } from './ISearchBarProps';
+import SearchbarProps from './ISearchBarProps';
 
 import IconExtension from '../../IconExtension/IconExtension';
 
