@@ -1,7 +1,7 @@
 type BackToTopProps = {
-	minVisibleSize: number;
+    minVisibleSize: number;
 
-	maxVisibleSize?: number;
+    maxVisibleSize?: number;
 };
 
 export default BackToTopProps;

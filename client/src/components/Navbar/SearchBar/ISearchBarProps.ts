@@ -1,6 +1,6 @@
 type SearchbarProps = {
-	openOnStart?: boolean;
-	preventCollapse?: boolean;
+    openOnStart?: boolean;
+    preventCollapse?: boolean;
 };
 
 export default SearchbarProps;

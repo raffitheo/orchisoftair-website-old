@@ -1,7 +1,7 @@
 export type Slider = {
-	backgroundImage: string;
-	color: string;
-	foregroundImage: string;
-	text: string;
-	title: string;
+    backgroundImage: string;
+    color: string;
+    foregroundImage: string;
+    text: string;
+    title: string;
 };

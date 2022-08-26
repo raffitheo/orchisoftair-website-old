@@ -1,7 +1,7 @@
 import { Social } from '../../../../interfaces/ISocial';
 
 type SocialItemLinkProps = {
-	index: number;
+    index: number;
 } & Social;
 
 export default SocialItemLinkProps;
