@@ -46,17 +46,17 @@
 		"react-feather": "^2.0.10",
 		"react-router-dom": "^6.3.0",
 		"react-scripts": "5.0.1",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^3.0.0"
 	},
 	"devDependencies": {
-		"@types/jest": "^28.1.7",
-		"@types/node": "^18.7.11",
+		"@types/jest": "^28.1.8",
+		"@types/node": "^18.7.13",
 		"@types/react": "^18.0.17",
 		"@types/react-dom": "^18.0.6",
 		"@types/react-router-dom": "^5.3.3",
 		"gh-pages": "^4.0.0",
 		"sass": "^1.54.5",
-		"typescript": "^4.7.4"
+		"typescript": "^4.8.2"
 	},
 	"eslintConfig": {
 		"extends": [
