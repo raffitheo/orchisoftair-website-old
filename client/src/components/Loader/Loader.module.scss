@@ -1,0 +1,16 @@
+$loader-width: 15px;
+
+.loader-element {
+    animation: loader-animation 1500ms infinite linear;
+    border: $loader-width solid var(--text-secondary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    height: 100px;
+    width: 100px;
+}
+
+@keyframes loader-animation {
+    to {
+        transform: rotateZ(1turn);
+    }
+}
