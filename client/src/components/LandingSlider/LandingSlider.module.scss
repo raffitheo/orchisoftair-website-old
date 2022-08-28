@@ -1,0 +1,195 @@
+#SliderElement {
+	position: relative;
+	width: 100%;
+
+	#ImagesWrapper {
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+		position: absolute;
+		transition: left 1000ms ease-in-out;
+
+		@media (min-width: 320px) and (max-width: 767px) {
+			transition: left 500ms ease-in-out;
+		}
+	}
+
+	.ImageElementContainer {
+		height: 100%;
+		overflow: hidden;
+		pointer-events: none;
+		position: relative;
+		width: 100vw;
+
+		&.Active {
+			.ImageDescriptionElement {
+				opacity: 1;
+				transition: opacity 1000ms ease-in-out 1000ms;
+			}
+			.ImageForegroundElementWrapper {
+				.ImageForegroundElement {
+					opacity: 1;
+					transition: opacity 1000ms ease-in-out 2000ms,
+						transform 1000ms ease-in-out;
+				}
+			}
+		}
+
+		@media (min-width: 320px) and (max-width: 767px) {
+			&.Active {
+				.ImageDescriptionElement {
+					transition: opacity 1000ms ease-in-out 500ms;
+				}
+				.ImageForegroundElement {
+					transition: opacity 1500ms ease-in-out 1500ms,
+						transform 500ms ease-in-out;
+				}
+			}
+		}
+
+		.ImageBackgroundElement {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: auto;
+			left: 0;
+			min-height: 100%;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100vw;
+			z-index: 498;
+		}
+
+		.ImageColorElement {
+			height: 300vh;
+			left: 54%;
+			pointer-events: none;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%) rotateZ(37.5deg);
+			width: 58.5vh;
+			z-index: 499;
+		}
+
+		.ImageDescriptionElement {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+			left: 50%;
+			opacity: 0;
+			padding: 25px 0;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			transition: opacity 0ms ease-in-out 1000ms;
+			z-index: 501;
+
+			h2,
+			p {
+				color: white;
+				display: -webkit-box;
+				overflow: hidden;
+				text-transform: uppercase;
+				user-select: none;
+				white-space: pre-line;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+				-webkit-user-select: none;
+			}
+
+			h2 {
+				font-size: 1.5em;
+				letter-spacing: 20px;
+				line-height: 2;
+			}
+
+			p {
+				font-family: Anton;
+				font-size: 200px;
+				line-height: 1;
+			}
+
+			@media (min-width: 320px) and (max-width: 767px) {
+				transition: opacity 0ms ease-in-out 500ms;
+			}
+		}
+
+		.ImageForegroundElementWrapper {
+			display: flex;
+			height: 100%;
+			left: 0;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 500;
+
+			.ImageForegroundElement {
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				height: auto;
+				min-height: 100%;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0ms ease-in-out 1000ms;
+				width: 100vw;
+
+				@media (min-width: 320px) and (max-width: 767px) {
+					transition: opacity 0ms ease-in-out 500ms;
+				}
+			}
+		}
+	}
+
+	#AdvancePillsWrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		bottom: 20px;
+		left: 50%;
+		position: absolute;
+		transform: translateX(-50%);
+		z-index: 1000;
+
+		&:before,
+		&:after {
+			border-top: 2px dotted var(--background-secondary);
+			content: '';
+			height: 0;
+			margin: auto;
+			width: 163px;
+		}
+
+		.AdvancePillElement {
+			border: 1px solid var(--background-secondary);
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			height: 30px;
+			margin: auto;
+			transition: all var(--animation-fast) ease-in-out;
+			width: 30px;
+
+			&:hover,
+			&.Active {
+				border: 2px solid var(--background-primary);
+				height: 42px;
+				width: 42px;
+
+				.AdvancePillElementText {
+					color: var(--background-primary);
+					font-size: 20px;
+				}
+			}
+
+			.AdvancePillElementText {
+				color: var(--background-secondary);
+				margin: auto;
+			}
+		}
+	}
+}
