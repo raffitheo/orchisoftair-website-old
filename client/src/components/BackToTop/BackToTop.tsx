@@ -9,14 +9,22 @@ import styles from './BackToTop.module.scss';
 const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
     const [visible, setVisible] = useState<boolean>(false);
 
-    const backToTop =
-        (): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
-        (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-            });
-        };
+    // const backToTop =
+    //     (): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
+    //     (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+
+    //         window.scrollTo({
+    //             top: 0,
+    //             behavior: 'smooth',
+    //         });
+    //     };
+
+    const backToTop = (): void => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
 
     useEffect(() => {
         const handleVisibility = (): void => {
@@ -40,7 +48,7 @@ const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
     return (
         <div
             className={`${styles['BackToTop']}${visible ? ` ${styles['Active']}` : ''}`}
-            onClick={backToTop()}
+            onClick={backToTop}
         >
             <IconExtension name='ChevronUp' size={35} />
         </div>
