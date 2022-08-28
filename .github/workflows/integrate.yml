@@ -14,10 +14,10 @@ jobs:
           node-version: 18
           cache: yarn
       - name: Install Yarn packages (client UI)
-      - run: |
+        run: |
           cd client
           yarn install --frozen-lockfile
       - name: Build solution (client UI)
-      - run: |
+        run: |
           cd client
           yarn build
