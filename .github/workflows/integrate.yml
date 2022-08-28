@@ -16,7 +16,7 @@ jobs:
       - name: Install Yarn packages (client UI)
         run: |
           cd client
-          yarn install --frozen-lockfile
+          yarn install
       - name: Build solution (client UI)
         run: |
           cd client
