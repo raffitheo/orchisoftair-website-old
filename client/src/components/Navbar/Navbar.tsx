@@ -12,7 +12,7 @@ import SearchBar from './SearchBar/SearchBar';
 import Socials from './Socials/Socials';
 import Contacts from './Contacts/Contacts';
 
-import { IsMobileContext } from '../OrchiWebsite';
+import { IsMobileContext } from '../../pages/OrchiWebsite';
 
 import styles from './Navbar.module.scss';
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { IsMobileContext } from '../OrchiWebsite';
+import { IsMobileContext } from '../../pages/OrchiWebsite';
 
 import LandingSliderProps from './ILandingSliderProps';
 
@@ -38,12 +38,12 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
 
     const getImagesWrapperRef = (): HTMLElement => {
-        return document.querySelector(`#${styles['ImagesWrapper']}`) as HTMLElement;
+        return document.querySelector(`[id='${styles['ImagesWrapper']}']`) as HTMLElement;
     };
 
     const getForegroundImagesRef = (): HTMLElement[] => {
         const images: NodeListOf<Element> = document.querySelectorAll(
-            `.${styles['ImageForegroundElementWrapper']}`,
+            `[class='${styles['ImageForegroundElementWrapper']}']`,
         );
         const elements: HTMLElement[] = [];
 
@@ -51,12 +51,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
         return elements;
     };
-
-    // const setSlider =
-    //     (index: number): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
-    //     (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-    //         if (currentSlider !== index) setCurrentSlider(index);
-    //     };
 
     const setSlider = (index: number): void => {
         if (currentSlider !== index) setCurrentSlider(index);
@@ -101,7 +95,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             let normalizedOut = 0;
 
             const currentDescriptionTexts: NodeListOf<Element> = document.querySelectorAll(
-                '.image-element-description-text',
+                '[class=\'image-element-description-text\']',
             );
 
             currentDescriptionTexts.forEach((text) => {
@@ -120,7 +114,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             });
 
             const currentDescriptionTitles: NodeListOf<Element> = document.querySelectorAll(
-                '.image-element-description-title',
+                '[class=\'image-element-description-title\']',
             );
 
             currentDescriptionTitles.forEach((text) => {
