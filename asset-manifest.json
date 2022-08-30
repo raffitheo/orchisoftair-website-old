@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/orchisoftair-website/static/css/main.6c209750.css",
-    "main.js": "/orchisoftair-website/static/js/main.3147a49b.js",
+    "main.css": "/orchisoftair-website/static/css/main.f6bcf6a1.css",
+    "main.js": "/orchisoftair-website/static/js/main.67250644.js",
     "static/js/496.fea34576.chunk.js": "/orchisoftair-website/static/js/496.fea34576.chunk.js",
     "static/media/logo.png": "/orchisoftair-website/static/media/logo.23f78ceb22bb68f00183.png",
     "static/media/Satoshi-VariableItalic.ttf": "/orchisoftair-website/static/media/Satoshi-VariableItalic.9519fea9567e2405bc08.ttf",
@@ -43,12 +43,12 @@
     "static/media/anton-v23-latin-regular.woff": "/orchisoftair-website/static/media/anton-v23-latin-regular.a1c586770eebfeef3224.woff",
     "static/media/anton-v23-latin-regular.woff2": "/orchisoftair-website/static/media/anton-v23-latin-regular.d1b9af350e094aacd397.woff2",
     "index.html": "/orchisoftair-website/index.html",
-    "main.6c209750.css.map": "/orchisoftair-website/static/css/main.6c209750.css.map",
-    "main.3147a49b.js.map": "/orchisoftair-website/static/js/main.3147a49b.js.map",
+    "main.f6bcf6a1.css.map": "/orchisoftair-website/static/css/main.f6bcf6a1.css.map",
+    "main.67250644.js.map": "/orchisoftair-website/static/js/main.67250644.js.map",
     "496.fea34576.chunk.js.map": "/orchisoftair-website/static/js/496.fea34576.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6c209750.css",
-    "static/js/main.3147a49b.js"
+    "static/css/main.f6bcf6a1.css",
+    "static/js/main.67250644.js"
   ]
 }
