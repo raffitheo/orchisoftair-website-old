@@ -37,9 +37,13 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
 
+    const getImagesWrapperRef = (): HTMLElement => {
+        return document.querySelector(`[id='${styles['ImagesWrapper']}']`) as HTMLElement;
+    };
+
     const getForegroundImagesRef = (): HTMLElement[] => {
         const images: NodeListOf<Element> = document.querySelectorAll(
-            `.${styles['ImageForegroundElementWrapper']}`,
+            `[class='${styles['ImageForegroundElementWrapper']}']`,
         );
         const elements: HTMLElement[] = [];
 
@@ -55,13 +59,9 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     useEffect(() => {
         const imageParallax = (event: MouseEvent): void => {
             if (!window.matchMedia('(pointer: coarse)').matches) {
-                const imagesWrapper: HTMLElement = document.querySelector(
-                    `#${styles['ImagesWrapper']}`,
-                ) as HTMLElement;
-
-                if (imagesWrapper) {
+                if (getImagesWrapperRef()) {
                     getForegroundImagesRef().forEach((image) => {
-                        if ((event.target as HTMLElement) === imagesWrapper) {
+                        if ((event.target as HTMLElement) === getImagesWrapperRef()) {
                             const x: number =
                                 (document.documentElement.clientWidth - event.pageX) / 70;
                             const y: number =
@@ -95,7 +95,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             let normalizedOut = 0;
 
             const currentDescriptionTexts: NodeListOf<Element> = document.querySelectorAll(
-                '.image-element-description-text',
+                '[class=\'image-element-description-text\']',
             );
 
             currentDescriptionTexts.forEach((text) => {
@@ -114,7 +114,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             });
 
             const currentDescriptionTitles: NodeListOf<Element> = document.querySelectorAll(
-                '.image-element-description-title',
+                '[class=\'image-element-description-title\']',
             );
 
             currentDescriptionTitles.forEach((text) => {
@@ -146,16 +146,12 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        const imagesWrapper: HTMLElement = document.querySelector(
-            `#${styles['ImagesWrapper']}`,
-        ) as HTMLElement;
-
         const resizeSlider = () => {
-            if (imagesWrapper) {
-                imagesWrapper.style.transition = 'none';
+            if (getImagesWrapperRef()) {
+                getImagesWrapperRef().style.transition = 'none';
                 clearTimeout(resizeTimeout.current);
                 resizeTimeout.current = setTimeout(() => {
-                    imagesWrapper.style.transition = `left ${
+                    getImagesWrapperRef().style.transition = `left ${
                         isMobile ? '500ms' : '1000ms'
                     } ease-in-out`;
                 }, 100);
@@ -172,10 +168,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     }, [isMobile]);
 
     useEffect(() => {
-        const imagesWrapper: HTMLElement = document.querySelector(
-            `#${styles['ImagesWrapper']}`,
-        ) as HTMLElement;
-
         const swipeGesture = () => {
             if (touch.current.end.x - touch.current.start.x < -50) {
                 const prevIndex: number =
@@ -224,11 +216,11 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             swipeGesture();
         };
 
-        if (imagesWrapper) {
-            imagesWrapper.addEventListener('mousedown', mouseDown);
-            imagesWrapper.addEventListener('touchstart', touchStart);
-            imagesWrapper.addEventListener('mouseup', mouseUp);
-            imagesWrapper.addEventListener('touchend', touchEnd);
+        if (getImagesWrapperRef()) {
+            getImagesWrapperRef().addEventListener('mousedown', mouseDown);
+            getImagesWrapperRef().addEventListener('touchstart', touchStart);
+            getImagesWrapperRef().addEventListener('mouseup', mouseUp);
+            getImagesWrapperRef().addEventListener('touchend', touchEnd);
         }
 
         if (componentProps.sliders.length > 1) {
@@ -245,11 +237,11 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
         }
 
         return () => {
-            if (imagesWrapper) {
-                imagesWrapper.removeEventListener('mousedown', mouseDown);
-                imagesWrapper.removeEventListener('touchstart', touchStart);
-                imagesWrapper.removeEventListener('mouseup', mouseUp);
-                imagesWrapper.removeEventListener('touchend', touchEnd);
+            if (getImagesWrapperRef()) {
+                getImagesWrapperRef().removeEventListener('mousedown', mouseDown);
+                getImagesWrapperRef().removeEventListener('touchstart', touchStart);
+                getImagesWrapperRef().removeEventListener('mouseup', mouseUp);
+                getImagesWrapperRef().removeEventListener('touchend', touchEnd);
             }
         };
     }, [currentSlider]);

@@ -38,7 +38,7 @@ const OrchiWebsite = (): JSX.Element => {
             : '/';
 
     const getPageContentRef = (): HTMLElement => {
-        return document.querySelector(`#${styles['PageContent']}`) as HTMLElement;
+        return document.querySelector(`[id='${styles['PageContent']}']`) as HTMLElement;
     };
 
     const onMobileMenuChange = (newValue: boolean): void => {
