@@ -11,6 +11,14 @@ import { ContactElements, NavigationElements, SocialElements } from '../data/nav
 import HomePage from '../pages/HomePage/HomePage';
 
 import styles from './OrchiWebsite.module.scss';
+import Loader from './Loader/Loader';
+
+enum DataState {
+    ERROR = -1,
+    INITIALIZED = 0,
+    LOADING = 1,
+    LOADED = 2,
+}
 
 const DEFAUTL_MOBILE_MAX_SIZE = 767;
 const DEFAUTL_MOBILE_MIN_SIZE = 319;
@@ -18,6 +26,7 @@ const DEFAUTL_MOBILE_MIN_SIZE = 319;
 export const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
 
 const OrchiWebsite = (): JSX.Element => {
+    const [dataState, setDataState] = useState<DataState>(DataState.INITIALIZED);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [pageWidth, setPageWidth] = useState<number>(0);
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
@@ -69,6 +78,12 @@ const OrchiWebsite = (): JSX.Element => {
 
         handleResize();
 
+        setDataState(DataState.LOADING);
+
+        setTimeout(() => {
+            setDataState(DataState.LOADED);
+        }, 5000);
+
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -82,34 +97,56 @@ const OrchiWebsite = (): JSX.Element => {
         if (navbar) setNavbarHeight(navbar.offsetHeight);
     }, [pageWidth]);
 
-    return (
-        <IsMobileContext.Provider value={isMobile}>
-            <Router>
-                <Navbar
-                    contacts={ContactElements}
-                    navigation={NavigationElements}
-                    socials={SocialElements}
-                    onMobileMenuChange={onMobileMenuChange}
-                />
-
-                <BackToTop minVisibleSize={114} />
-
+    switch (dataState) {
+        case DataState.LOADING:
+            return (
                 <div
-                    id={styles['PageContent']}
                     style={{
-                        marginTop: `${navbarHeight}px`,
+                        left: '50%',
+                        position: 'absolute',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
                     }}
                 >
-                    <Routes>
-                        <Route
-                            element={<HomePage navbarHeight={navbarHeight} sliders={Sliders} />}
-                            path={baseURL}
-                        />
-                    </Routes>
+                    <Loader />
                 </div>
-            </Router>
-        </IsMobileContext.Provider>
-    );
+            );
+
+        case DataState.LOADED:
+            return (
+                <IsMobileContext.Provider value={isMobile}>
+                    <Router>
+                        <Navbar
+                            contacts={ContactElements}
+                            navigation={NavigationElements}
+                            socials={SocialElements}
+                            onMobileMenuChange={onMobileMenuChange}
+                        />
+
+                        <BackToTop minVisibleSize={114} />
+
+                        <div
+                            id={styles['PageContent']}
+                            style={{
+                                marginTop: `${navbarHeight}px`,
+                            }}
+                        >
+                            <Routes>
+                                <Route
+                                    element={
+                                        <HomePage navbarHeight={navbarHeight} sliders={Sliders} />
+                                    }
+                                    path={baseURL}
+                                />
+                            </Routes>
+                        </div>
+                    </Router>
+                </IsMobileContext.Provider>
+            );
+
+        default:
+            return <></>;
+    }
 };
 
 export default OrchiWebsite;

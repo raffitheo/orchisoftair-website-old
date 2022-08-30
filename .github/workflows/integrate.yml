@@ -1,19 +1,30 @@
-name: Node Continuous Integration
+name: CI/CD
 
 on:
+  push:
+    branches: [master, develop]
   pull_request:
-    branches:
-      - 'develop'
+    branches: [master, develop]
 
 jobs:
-  test_pull_request:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js ${{ matrix.node-version }} (client UI)
+        uses: actions/setup-node@v1
         with:
-          node-version: 18
-          cache: yarn
+          node-version: ${{ matrix.node-version }}
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install Yarn packages (client UI)
         run: |
           cd client
@@ -26,3 +37,15 @@ jobs:
         run: |
           cd client
           yarn build
+      - name: Deploy
+        run: |
+          git config --global user.name $user_name
+          git config --global user.email $user_email
+          git remote set-url origin https://${github_token}@github.com/${repository}
+          cd client
+          yarn deploy
+        env:
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
