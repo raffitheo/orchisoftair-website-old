@@ -2,8 +2,9 @@ import React, { createContext, useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import BackToTop from './BackToTop/BackToTop';
-import Navbar from './Navbar/Navbar';
+import BackToTop from '../components/BackToTop/BackToTop';
+import Loader from '../components/Loader/Loader';
+import Navbar from '../components/Navbar/Navbar';
 
 import { Sliders } from '../data/landing';
 import { ContactElements, NavigationElements, SocialElements } from '../data/navbar';
@@ -11,7 +12,6 @@ import { ContactElements, NavigationElements, SocialElements } from '../data/nav
 import HomePage from '../pages/HomePage/HomePage';
 
 import styles from './OrchiWebsite.module.scss';
-import Loader from './Loader/Loader';
 
 enum DataState {
     ERROR = -1,
