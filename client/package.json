@@ -29,14 +29,15 @@
     },
     "private": true,
     "scripts": {
-        "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
+        "deduplicate": "npx yarn-deduplicate && yarn",
+        "deploy": "gh-pages -d build",
         "eject": "react-scripts eject",
+        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
         "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
         "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\"",
-        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
-        "deduplicate": "npx yarn-deduplicate && yarn"
+        "start": "react-scripts start",
+        "test": "react-scripts test"
     },
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
@@ -44,6 +45,7 @@
         "@testing-library/user-event": "^14.4.3",
         "axios": "^0.27.2",
         "dayjs": "^1.11.5",
+        "gh-pages": "^4.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-feather": "^2.0.10",
