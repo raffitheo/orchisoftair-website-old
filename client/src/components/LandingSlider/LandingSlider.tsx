@@ -52,11 +52,15 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
         return elements;
     };
 
-    const setSlider =
-        (index: number): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
-        (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-            if (currentSlider !== index) setCurrentSlider(index);
-        };
+    // const setSlider =
+    //     (index: number): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
+    //     (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+    //         if (currentSlider !== index) setCurrentSlider(index);
+    //     };
+
+    const setSlider = (index: number): void => {
+        if (currentSlider !== index) setCurrentSlider(index);
+    };
 
     useEffect(() => {
         const imageParallax = (event: MouseEvent): void => {
@@ -315,7 +319,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
                                     currentSlider === index ? ` ${styles['Active']}` : ''
                                 }`}
                                 key={`LandingPill${index}`}
-                                onClick={setSlider(index)}
+                                onClick={() => setSlider(index)}
                             >
                                 <div className={styles['AdvancePillElementText']}>{index + 1}</div>
                             </div>

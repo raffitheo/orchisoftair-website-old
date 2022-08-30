@@ -2,7 +2,8 @@ name: Node Continuous Integration
 
 on:
   pull_request:
-    branches: [develop]
+    branches:
+      - 'develop'
 
 jobs:
   test_pull_request:
@@ -17,6 +18,10 @@ jobs:
         run: |
           cd client
           yarn install
+      #   - name: Testing solution (client UI)
+      #     run: |
+      #       cd client
+      #       yarn test
       - name: Build solution (client UI)
         run: |
           cd client
