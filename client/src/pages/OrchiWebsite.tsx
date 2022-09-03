@@ -6,8 +6,15 @@ import BackToTop from '../components/BackToTop/BackToTop';
 import Loader from '../components/Loader/Loader';
 import Navbar from '../components/Navbar/Navbar';
 
-import { Sliders } from '../data/landing';
-import { ContactElements, NavigationElements, SocialElements } from '../data/navbar';
+import { Contact } from '../interfaces/IContact';
+import { Navigation } from '../interfaces/INavigation';
+import { Slider } from '../interfaces/ISlider';
+import { Social } from '../interfaces/ISocial';
+
+import ContactData from '../mock/ContactData.json';
+import NavbarData from '../mock/NavbarData.json';
+import SliderData from '../mock/SliderData.json';
+import SocialData from '../mock/SocialData.json';
 
 import HomePage from '../pages/HomePage/HomePage';
 
@@ -31,11 +38,27 @@ const OrchiWebsite = (): JSX.Element => {
     const [pageWidth, setPageWidth] = useState<number>(0);
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
 
-    const baseURL: string =
+    const getBaseURL: string =
         window.location.href.indexOf('github') !== -1 ||
         window.location.href.indexOf('localhost') !== -1
             ? '/orchisoftair-website'
             : '/';
+
+    const getContactData = (): Contact[] => {
+        return JSON.parse(JSON.stringify(ContactData)) as Contact[];
+    };
+
+    const getNavbarData = (): Navigation[] => {
+        return JSON.parse(JSON.stringify(NavbarData)) as Navigation[];
+    };
+
+    const getSliderData = (): Slider[] => {
+        return JSON.parse(JSON.stringify(SliderData)) as Slider[];
+    };
+
+    const getSocialData = (): Social[] => {
+        return JSON.parse(JSON.stringify(SocialData)) as Social[];
+    };
 
     const getPageContentRef = (): HTMLElement => {
         return document.querySelector(`[id='${styles['PageContent']}']`) as HTMLElement;
@@ -117,9 +140,9 @@ const OrchiWebsite = (): JSX.Element => {
                 <IsMobileContext.Provider value={isMobile}>
                     <Router>
                         <Navbar
-                            contacts={ContactElements}
-                            navigation={NavigationElements}
-                            socials={SocialElements}
+                            contacts={getContactData()}
+                            navigation={getNavbarData()}
+                            socials={getSocialData()}
                             onMobileMenuChange={onMobileMenuChange}
                         />
 
@@ -134,9 +157,12 @@ const OrchiWebsite = (): JSX.Element => {
                             <Routes>
                                 <Route
                                     element={
-                                        <HomePage navbarHeight={navbarHeight} sliders={Sliders} />
+                                        <HomePage
+                                            navbarHeight={navbarHeight}
+                                            sliders={getSliderData()}
+                                        />
                                     }
-                                    path={baseURL}
+                                    path={getBaseURL}
                                 />
                             </Routes>
                         </div>

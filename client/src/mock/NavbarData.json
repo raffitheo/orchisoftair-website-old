@@ -1,0 +1,44 @@
+[
+    {
+        "text": "Home",
+        "link": "#home"
+    },
+    {
+        "text": "Chi siamo",
+        "subMenu": [
+            {
+                "text": "L'associazione",
+                "link": "#chi-siamo-l-associazione"
+            },
+            {
+                "text": "Il team",
+                "link": "#chi-siamo-il-team"
+            },
+            {
+                "text": "Dove giochiamo",
+                "link": "#chi-siamo-dove-giochiamo"
+            }
+        ]
+    },
+    {
+        "text": "Eventi",
+        "subMenu": [
+            {
+                "text": "In arrivo",
+                "link": "#eventi-in-arrivo"
+            },
+            {
+                "text": "Storico",
+                "link": "#eventi-storico"
+            }
+        ]
+    },
+    {
+        "text": "Contatti",
+        "link": "#contatti"
+    },
+    {
+        "text": "Area riservata",
+        "link": "area-riservata"
+    }
+]
