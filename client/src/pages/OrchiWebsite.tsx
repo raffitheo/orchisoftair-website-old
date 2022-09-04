@@ -37,6 +37,7 @@ const OrchiWebsite = (): JSX.Element => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [pageWidth, setPageWidth] = useState<number>(0);
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
+    const [showLoader, setShowLoader] = useState<boolean>(true);
 
     const getBaseURL: string =
         window.location.href.indexOf('github') !== -1 ||
@@ -105,6 +106,10 @@ const OrchiWebsite = (): JSX.Element => {
 
         setTimeout(() => {
             setDataState(DataState.LOADED);
+
+            setTimeout(() => {
+                setShowLoader(false);
+            }, 500);
         }, 5000);
 
         window.addEventListener('resize', handleResize);
@@ -120,23 +125,29 @@ const OrchiWebsite = (): JSX.Element => {
         if (navbar) setNavbarHeight(navbar.offsetHeight);
     }, [pageWidth]);
 
-    switch (dataState) {
-        case DataState.LOADING:
-            return (
+    return (
+        <>
+            {showLoader ? (
                 <div
-                    style={{
-                        left: '50%',
-                        position: 'absolute',
-                        top: '50%',
-                        transform: 'translate(-50%, -50%)',
-                    }}
+                    className={`${dataState === DataState.LOADED ? `${styles['FadeOut']}` : ''}`}
+                    id={`${styles['MainLoader']}`}
                 >
-                    <Loader />
+                    <div
+                        style={{
+                            left: '50%',
+                            position: 'absolute',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <Loader fadeOut={dataState === DataState.LOADED} />
+                    </div>
                 </div>
-            );
+            ) : (
+                <></>
+            )}
 
-        case DataState.LOADED:
-            return (
+            {dataState === DataState.LOADED ? (
                 <IsMobileContext.Provider value={isMobile}>
                     <Router>
                         <Navbar
@@ -168,11 +179,11 @@ const OrchiWebsite = (): JSX.Element => {
                         </div>
                     </Router>
                 </IsMobileContext.Provider>
-            );
-
-        default:
-            return <></>;
-    }
+            ) : (
+                <></>
+            )}
+        </>
+    );
 };
 
 export default OrchiWebsite;

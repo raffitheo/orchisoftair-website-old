@@ -169,6 +169,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
     useEffect(() => {
         const swipeGesture = () => {
+            console.log('Test');
             if (touch.current.end.x - touch.current.start.x < -50) {
                 const prevIndex: number =
                     currentSlider !== 0 ? currentSlider - 1 : componentProps.sliders.length - 1;
