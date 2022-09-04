@@ -23,8 +23,11 @@ const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE = 10;
 const DEFAULT_SWITCH_TIMER_DESKTOP = 13000;
 const DEFAULT_SWITCH_TIMER_MOBILE = 12500;
 
+const DEFAULT_REST_IMAGE_POSITION_ON_LEAVE = true;
+
 const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     const [currentSlider, setCurrentSlider] = useState<number>(-1);
+    const [overImages, setOverImages] = useState<boolean>(false);
 
     const imageElementDescriptionTexts = useRef<HTMLParagraphElement[]>([]);
     const imageElementDescriptionTitles = useRef<HTMLHeadingElement[]>([]);
@@ -47,16 +50,29 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     };
 
     useEffect(() => {
+        const mouseEnter = () => {
+            setOverImages(true);
+        };
+        const mouseLeave = () => {
+            setOverImages(false);
+
+            if (DEFAULT_REST_IMAGE_POSITION_ON_LEAVE) {
+                if (!window.matchMedia('(pointer: coarse)').matches) {
+                    if (imageForegroundElementWrappers && imageForegroundElementWrappers.current) {
+                        imageForegroundElementWrappers.current.forEach((image) => {
+                            image.style.transform = 'translate(0px, 0px)';
+                            image.style.transition = 'transform 1000ms ease-in-out';
+                        });
+                    }
+                }
+            }
+        };
+
         const imageParallax = (event: MouseEvent): void => {
             if (!window.matchMedia('(pointer: coarse)').matches) {
-                if (
-                    imagesWrapper &&
-                    imagesWrapper.current &&
-                    imageForegroundElementWrappers &&
-                    imageForegroundElementWrappers.current
-                ) {
+                if (imageForegroundElementWrappers && imageForegroundElementWrappers.current) {
                     imageForegroundElementWrappers.current.forEach((image) => {
-                        if ((event.target as HTMLElement) === imagesWrapper.current) {
+                        if (overImages) {
                             const x: number =
                                 (document.documentElement.clientWidth - event.pageX) / 70;
                             const y: number =
@@ -64,9 +80,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
                             image.style.transform = `translate(${x}px, ${y}px)`;
                             image.style.transition = '';
-                        } else {
-                            image.style.transform = 'translate(0px, 0px)';
-                            image.style.transition = 'transform 1000ms ease-in-out';
                         }
                     });
                 }
@@ -75,12 +88,20 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
         setCurrentSlider(0);
 
-        window.addEventListener('mousemove', imageParallax);
+        if (imagesWrapper && imagesWrapper.current) {
+            imagesWrapper.current.addEventListener('mouseenter', mouseEnter);
+            imagesWrapper.current.addEventListener('mousemove', imageParallax);
+            imagesWrapper.current.addEventListener('mouseleave', mouseLeave);
+        }
 
         return () => {
-            window.removeEventListener('mousemove', imageParallax);
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.removeEventListener('mouseenter', mouseEnter);
+                imagesWrapper.current.removeEventListener('mousemove', imageParallax);
+                imagesWrapper.current.removeEventListener('mouseleave', mouseLeave);
+            }
         };
-    }, []);
+    }, [overImages]);
 
     useEffect(() => {
         const resizeSlider = () => {
