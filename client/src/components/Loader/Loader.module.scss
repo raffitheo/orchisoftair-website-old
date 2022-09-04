@@ -1,16 +1,50 @@
-$loader-width: 15px;
+$loaders-width: 6px;
 
-.loader-element {
-    animation: loader-animation 1500ms infinite linear;
-    border: $loader-width solid var(--text-secondary);
-    border-radius: 50%;
-    border-top-color: transparent;
+.LoaderElement {
     height: 100px;
+    position: relative;
     width: 100px;
+
+    &::after,
+    &::before {
+        border: $loaders-width solid var(--text-secondary);
+        border-radius: 50%;
+        content: '';
+        left: 50%;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transform-origin: center;
+    }
+    &::after {
+        animation: LoaderAnimation 1000ms infinite linear;
+        border-top-color: transparent;
+        height: calc(75% - $loaders-width);
+        width: calc(75% - $loaders-width);
+    }
+    &::before {
+        animation: LoaderAnimation 2000ms infinite linear;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        height: calc(100% - $loaders-width);
+        width: calc(100% - $loaders-width);
+    }
+
+    &.FadeOut {
+        animation: FadeoutAnimation 500ms 1 forwards linear;
+        opacity: 1;
+    }
 }
 
-@keyframes loader-animation {
+@keyframes LoaderAnimation {
     to {
-        transform: rotateZ(1turn);
+        transform: translate(-50%, -50%) rotateZ(1turn);
+    }
+}
+
+@keyframes FadeoutAnimation {
+    to {
+        opacity: 0;
     }
 }

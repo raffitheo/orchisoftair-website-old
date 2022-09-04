@@ -26,6 +26,10 @@ const DEFAULT_SWITCH_TIMER_MOBILE = 12500;
 const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     const [currentSlider, setCurrentSlider] = useState<number>(-1);
 
+    const imageElementDescriptionTexts = useRef<HTMLParagraphElement[]>([]);
+    const imageElementDescriptionTitles = useRef<HTMLHeadingElement[]>([]);
+    const imageForegroundElementWrappers = useRef<HTMLDivElement[]>([]);
+    const imagesWrapper = useRef<HTMLDivElement>(null);
     const switchTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
         useRef<NodeJS.Timeout>();
     const resizeTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
@@ -37,21 +41,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
 
-    const getImagesWrapperRef = (): HTMLElement => {
-        return document.querySelector(`[id='${styles['ImagesWrapper']}']`) as HTMLElement;
-    };
-
-    const getForegroundImagesRef = (): HTMLElement[] => {
-        const images: NodeListOf<Element> = document.querySelectorAll(
-            `[class='${styles['ImageForegroundElementWrapper']}']`,
-        );
-        const elements: HTMLElement[] = [];
-
-        images.forEach((image) => elements.push(image as HTMLElement));
-
-        return elements;
-    };
-
     const setSlider = (index: number): void => {
         if (currentSlider !== index) setCurrentSlider(index);
     };
@@ -59,9 +48,14 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     useEffect(() => {
         const imageParallax = (event: MouseEvent): void => {
             if (!window.matchMedia('(pointer: coarse)').matches) {
-                if (getImagesWrapperRef()) {
-                    getForegroundImagesRef().forEach((image) => {
-                        if ((event.target as HTMLElement) === getImagesWrapperRef()) {
+                if (
+                    imagesWrapper &&
+                    imagesWrapper.current &&
+                    imageForegroundElementWrappers &&
+                    imageForegroundElementWrappers.current
+                ) {
+                    imageForegroundElementWrappers.current.forEach((image) => {
+                        if ((event.target as HTMLElement) === imagesWrapper.current) {
                             const x: number =
                                 (document.documentElement.clientWidth - event.pageX) / 70;
                             const y: number =
@@ -94,43 +88,39 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             let out = 0;
             let normalizedOut = 0;
 
-            const currentDescriptionTexts: NodeListOf<Element> = document.querySelectorAll(
-                '[class=\'image-element-description-text\']',
-            );
+            if (imageElementDescriptionTexts && imageElementDescriptionTexts.current) {
+                imageElementDescriptionTexts.current.forEach((text) => {
+                    maxSize = DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE;
+                    maxTextSize = DEFAULT_DESCRIPTION_TEXT_MAX_SIZE;
+                    minSize = DEFAULT_DESCRIPTION_TEXT_MIN_SCREEN_SIZE;
+                    minTextSize = DEFAULT_DESCRIPTION_TEXT_MIN_SIZE;
 
-            currentDescriptionTexts.forEach((text) => {
-                maxSize = DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE;
-                maxTextSize = DEFAULT_DESCRIPTION_TEXT_MAX_SIZE;
-                minSize = DEFAULT_DESCRIPTION_TEXT_MIN_SCREEN_SIZE;
-                minTextSize = DEFAULT_DESCRIPTION_TEXT_MIN_SIZE;
+                    difW = maxSize - minSize;
+                    difT = maxTextSize - minTextSize;
+                    rapW = document.documentElement.clientWidth - minSize;
+                    out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
+                    normalizedOut = inRange(out, minTextSize, maxTextSize);
 
-                difW = maxSize - minSize;
-                difT = maxTextSize - minTextSize;
-                rapW = document.documentElement.clientWidth - minSize;
-                out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
-                normalizedOut = inRange(out, minTextSize, maxTextSize);
+                    (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+                });
+            }
 
-                (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
-            });
+            if (imageElementDescriptionTitles && imageElementDescriptionTitles.current) {
+                imageElementDescriptionTitles.current.forEach((text) => {
+                    maxSize = DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE;
+                    maxTextSize = DEFAULT_DESCRIPTION_TITLE_MAX_SIZE;
+                    minSize = DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE;
+                    minTextSize = DEFAULT_DESCRIPTION_TITLE_MIN_SIZE;
 
-            const currentDescriptionTitles: NodeListOf<Element> = document.querySelectorAll(
-                '[class=\'image-element-description-title\']',
-            );
+                    difW = maxSize - minSize;
+                    difT = maxTextSize - minTextSize;
+                    rapW = document.documentElement.clientWidth - minSize;
+                    out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
+                    normalizedOut = inRange(out, minTextSize, maxTextSize);
 
-            currentDescriptionTitles.forEach((text) => {
-                maxSize = DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE;
-                maxTextSize = DEFAULT_DESCRIPTION_TITLE_MAX_SIZE;
-                minSize = DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE;
-                minTextSize = DEFAULT_DESCRIPTION_TITLE_MIN_SIZE;
-
-                difW = maxSize - minSize;
-                difT = maxTextSize - minTextSize;
-                rapW = document.documentElement.clientWidth - minSize;
-                out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
-                normalizedOut = inRange(out, minTextSize, maxTextSize);
-
-                (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
-            });
+                    (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+                });
+            }
         };
 
         setCurrentSlider(0);
@@ -147,13 +137,14 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
     useEffect(() => {
         const resizeSlider = () => {
-            if (getImagesWrapperRef()) {
-                getImagesWrapperRef().style.transition = 'none';
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.style.transition = 'none';
                 clearTimeout(resizeTimeout.current);
                 resizeTimeout.current = setTimeout(() => {
-                    getImagesWrapperRef().style.transition = `left ${
-                        isMobile ? '500ms' : '1000ms'
-                    } ease-in-out`;
+                    if (imagesWrapper && imagesWrapper.current)
+                        imagesWrapper.current.style.transition = `left ${
+                            isMobile ? '500ms' : '1000ms'
+                        } ease-in-out`;
                 }, 100);
             }
         };
@@ -169,6 +160,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
     useEffect(() => {
         const swipeGesture = () => {
+            console.log('Test');
             if (touch.current.end.x - touch.current.start.x < -50) {
                 const prevIndex: number =
                     currentSlider !== 0 ? currentSlider - 1 : componentProps.sliders.length - 1;
@@ -216,11 +208,11 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             swipeGesture();
         };
 
-        if (getImagesWrapperRef()) {
-            getImagesWrapperRef().addEventListener('mousedown', mouseDown);
-            getImagesWrapperRef().addEventListener('touchstart', touchStart);
-            getImagesWrapperRef().addEventListener('mouseup', mouseUp);
-            getImagesWrapperRef().addEventListener('touchend', touchEnd);
+        if (imagesWrapper && imagesWrapper.current) {
+            imagesWrapper.current.addEventListener('mousedown', mouseDown);
+            imagesWrapper.current.addEventListener('touchstart', touchStart);
+            imagesWrapper.current.addEventListener('mouseup', mouseUp);
+            imagesWrapper.current.addEventListener('touchend', touchEnd);
         }
 
         if (componentProps.sliders.length > 1) {
@@ -237,11 +229,11 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
         }
 
         return () => {
-            if (getImagesWrapperRef()) {
-                getImagesWrapperRef().removeEventListener('mousedown', mouseDown);
-                getImagesWrapperRef().removeEventListener('touchstart', touchStart);
-                getImagesWrapperRef().removeEventListener('mouseup', mouseUp);
-                getImagesWrapperRef().removeEventListener('touchend', touchEnd);
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.removeEventListener('mousedown', mouseDown);
+                imagesWrapper.current.removeEventListener('touchstart', touchStart);
+                imagesWrapper.current.removeEventListener('mouseup', mouseUp);
+                imagesWrapper.current.removeEventListener('touchend', touchEnd);
             }
         };
     }, [currentSlider]);
@@ -255,6 +247,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
         >
             <div
                 id={styles['ImagesWrapper']}
+                ref={imagesWrapper}
                 style={{
                     left: `-${currentSlider * 100}vw`,
                     width: `${componentProps.sliders.length * 100}vw`,
@@ -283,15 +276,31 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
                             />
 
                             <div className={styles['ImageDescriptionElement']}>
-                                <h2 className='image-element-description-title'>
+                                <h2
+                                    ref={(element) =>
+                                        (imageElementDescriptionTitles.current[index] =
+                                            element as HTMLHeadingElement)
+                                    }
+                                >
                                     {slider.title.replace(/<nbs>/g, '\u00A0')}
                                 </h2>
-                                <p className='image-element-description-text'>
+                                <p
+                                    ref={(element) =>
+                                        (imageElementDescriptionTexts.current[index] =
+                                            element as HTMLParagraphElement)
+                                    }
+                                >
                                     {slider.text.replace(/<nbs>/g, '\u00A0')}
                                 </p>
                             </div>
 
-                            <div className={styles['ImageForegroundElementWrapper']}>
+                            <div
+                                className={styles['ImageForegroundElementWrapper']}
+                                ref={(element) =>
+                                    (imageForegroundElementWrappers.current[index] =
+                                        element as HTMLDivElement)
+                                }
+                            >
                                 <div
                                     className={styles['ImageForegroundElement']}
                                     style={{

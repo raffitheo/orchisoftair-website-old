@@ -1,0 +1,12 @@
+[
+    {
+        "link": "https://www.instagram.com/orchisoftair_official/",
+        "icon": "Instagram",
+        "hoverColor": "hsl(326, 57%, 48%)"
+    },
+    {
+        "link": "https://www.facebook.com/orchitrieste/",
+        "icon": "Facebook",
+        "hoverColor": "hsl(214, 89%, 52%)"
+    }
+]

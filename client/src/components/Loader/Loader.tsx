@@ -7,9 +7,9 @@ import styles from './Loader.module.scss';
 const Loader = (componentProps: LoaderProps): JSX.Element => {
     return (
         <div
-            className={`${styles['loader-element']}${
-                componentProps.className ? `, ${componentProps.className}` : ''
-            }`}
+            className={`${styles['LoaderElement']}${
+                componentProps.fadeOut ? ` ${styles['FadeOut']}` : ''
+            }${componentProps.className ? ` ${componentProps.className}` : ''}`}
             id={componentProps.id}
             style={componentProps.style}
         />

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -19,9 +19,11 @@ import styles from './Navbar.module.scss';
 const Navbar = (componentProps: NavbarProps): JSX.Element => {
     const [currentlySelected, setCurrentlySelected] = useState<number>(-1);
     const [currentlySelectedSubMenu, setCurrentlySelectedSubMenu] = useState<number>(-1);
-
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
     const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<number>(-1);
+
+    const desktopContacts = useRef<HTMLDivElement>(null);
+    const navbarWrapper = useRef<HTMLDivElement>(null);
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
 
@@ -59,28 +61,24 @@ const Navbar = (componentProps: NavbarProps): JSX.Element => {
 
     useEffect(() => {
         const handleScroll = (): void => {
-            const desktopContacts: HTMLElement = document.getElementById(
-                'desktop-contacts',
-            ) as HTMLElement;
-            const navbar: HTMLElement = document.getElementById(
-                styles['NavbarWrapper'],
-            ) as HTMLElement;
+            if (
+                desktopContacts &&
+                desktopContacts.current &&
+                navbarWrapper &&
+                navbarWrapper.current
+            ) {
+                const pageScroll: number = window.pageYOffset;
+                const desktopContactsHeight: number = desktopContacts.current.offsetHeight;
 
-            const pageScroll: number = window.pageYOffset;
-            const desktopContactsHeight: number = desktopContacts.offsetHeight;
-
-            if (!isMobile) {
-                if (desktopContacts && navbar) {
+                if (!isMobile) {
                     if (pageScroll > 114) {
-                        navbar.style.top = `-${desktopContactsHeight + 7}px`;
-                        navbar.style.position = 'fixed';
+                        navbarWrapper.current.style.top = `-${desktopContactsHeight + 7}px`;
+                        navbarWrapper.current.style.position = 'fixed';
                     } else {
-                        navbar.style.top = '0';
-                        navbar.style.position = 'absolute';
+                        navbarWrapper.current.style.top = '0';
+                        navbarWrapper.current.style.position = 'absolute';
                     }
-                }
-            } else {
-                if (navbar) navbar.style.position = 'fixed';
+                } else navbarWrapper.current.style.position = 'fixed';
             }
         };
 
@@ -102,10 +100,11 @@ const Navbar = (componentProps: NavbarProps): JSX.Element => {
             <div
                 className={componentProps.className}
                 id={styles['NavbarWrapper']}
+                ref={navbarWrapper}
                 style={componentProps.style}
             >
                 <div id={styles['NavbarContainer']}>
-                    <div className={styles['NavbarRow']} id={'desktop-contacts'}>
+                    <div className={styles['NavbarRow']} ref={desktopContacts}>
                         <Logo
                             image={logo}
                             style={{

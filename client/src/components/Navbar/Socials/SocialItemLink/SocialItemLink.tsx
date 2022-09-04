@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import SocialItemLinkProps from './ISocialItemLinkProps';
 
@@ -10,6 +10,27 @@ import styles from './SocialItemLink.module.scss';
 const SocialItemLink = (componentProps: SocialItemLinkProps): JSX.Element => {
     const [hover, setHover] = useState<boolean>(false);
 
+    const socialElement = useRef<HTMLAnchorElement>(null);
+
+    useEffect(() => {
+        const setMouseHover = (): void => {
+            setHover(true);
+        };
+        const unsetMouseHover = (): void => {
+            setHover(false);
+        };
+
+        if (socialElement && socialElement.current) {
+            socialElement.current.addEventListener('mouseover', setMouseHover);
+            socialElement.current.addEventListener('mouseleave', unsetMouseHover);
+
+            return () => {
+                socialElement.current?.removeEventListener('mouseover', setMouseHover);
+                socialElement.current?.removeEventListener('mouseleave', unsetMouseHover);
+            };
+        }
+    }, []);
+
     return (
         <a
             className={styles['LinkElement']}
@@ -17,9 +38,8 @@ const SocialItemLink = (componentProps: SocialItemLinkProps): JSX.Element => {
                 backgroundColor: hover ? componentProps.hoverColor : '',
                 borderColor: hover ? componentProps.hoverColor : '',
             }}
-            onPointerOver={() => setHover(true)}
-            onPointerOut={() => setHover(false)}
             href={componentProps.link}
+            ref={socialElement}
         >
             <IconExtension
                 name={componentProps.icon as IconName}
