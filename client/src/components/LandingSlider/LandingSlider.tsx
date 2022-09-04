@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { IsMobileContext } from '../../pages/OrchiWebsite';
+import { IsMobileContext, PageSizeContext } from '../../pages/OrchiWebsite';
 
 import LandingSliderProps from './ILandingSliderProps';
 
@@ -23,8 +23,11 @@ const DEFAULT_DESCRIPTION_TITLE_MIN_SIZE = 10;
 const DEFAULT_SWITCH_TIMER_DESKTOP = 13000;
 const DEFAULT_SWITCH_TIMER_MOBILE = 12500;
 
+const DEFAULT_REST_IMAGE_POSITION_ON_LEAVE = true;
+
 const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     const [currentSlider, setCurrentSlider] = useState<number>(-1);
+    const [overImages, setOverImages] = useState<boolean>(false);
 
     const imageElementDescriptionTexts = useRef<HTMLParagraphElement[]>([]);
     const imageElementDescriptionTitles = useRef<HTMLHeadingElement[]>([]);
@@ -40,22 +43,36 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     });
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
+    const pageSize: number = useContext<number>(PageSizeContext);
 
     const setSlider = (index: number): void => {
         if (currentSlider !== index) setCurrentSlider(index);
     };
 
     useEffect(() => {
+        const mouseEnter = () => {
+            setOverImages(true);
+        };
+        const mouseLeave = () => {
+            setOverImages(false);
+
+            if (DEFAULT_REST_IMAGE_POSITION_ON_LEAVE) {
+                if (!window.matchMedia('(pointer: coarse)').matches) {
+                    if (imageForegroundElementWrappers && imageForegroundElementWrappers.current) {
+                        imageForegroundElementWrappers.current.forEach((image) => {
+                            image.style.transform = 'translate(0px, 0px)';
+                            image.style.transition = 'transform 1000ms ease-in-out';
+                        });
+                    }
+                }
+            }
+        };
+
         const imageParallax = (event: MouseEvent): void => {
             if (!window.matchMedia('(pointer: coarse)').matches) {
-                if (
-                    imagesWrapper &&
-                    imagesWrapper.current &&
-                    imageForegroundElementWrappers &&
-                    imageForegroundElementWrappers.current
-                ) {
+                if (imageForegroundElementWrappers && imageForegroundElementWrappers.current) {
                     imageForegroundElementWrappers.current.forEach((image) => {
-                        if ((event.target as HTMLElement) === imagesWrapper.current) {
+                        if (overImages) {
                             const x: number =
                                 (document.documentElement.clientWidth - event.pageX) / 70;
                             const y: number =
@@ -63,12 +80,40 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
 
                             image.style.transform = `translate(${x}px, ${y}px)`;
                             image.style.transition = '';
-                        } else {
-                            image.style.transform = 'translate(0px, 0px)';
-                            image.style.transition = 'transform 1000ms ease-in-out';
                         }
                     });
                 }
+            }
+        };
+
+        setCurrentSlider(0);
+
+        if (imagesWrapper && imagesWrapper.current) {
+            imagesWrapper.current.addEventListener('mouseenter', mouseEnter);
+            imagesWrapper.current.addEventListener('mousemove', imageParallax);
+            imagesWrapper.current.addEventListener('mouseleave', mouseLeave);
+        }
+
+        return () => {
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.removeEventListener('mouseenter', mouseEnter);
+                imagesWrapper.current.removeEventListener('mousemove', imageParallax);
+                imagesWrapper.current.removeEventListener('mouseleave', mouseLeave);
+            }
+        };
+    }, [overImages]);
+
+    useEffect(() => {
+        const resizeSlider = () => {
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.style.transition = 'none';
+                clearTimeout(resizeTimeout.current);
+                resizeTimeout.current = setTimeout(() => {
+                    if (imagesWrapper && imagesWrapper.current)
+                        imagesWrapper.current.style.transition = `left ${
+                            isMobile ? '500ms' : '1000ms'
+                        } ease-in-out`;
+                }, 100);
             }
         };
 
@@ -123,44 +168,12 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             }
         };
 
-        setCurrentSlider(0);
-        resizeTextInRange();
-
-        window.addEventListener('mousemove', imageParallax);
-        window.addEventListener('resize', resizeTextInRange);
-
-        return () => {
-            window.removeEventListener('mousemove', imageParallax);
-            window.removeEventListener('resize', resizeTextInRange);
-        };
-    }, []);
-
-    useEffect(() => {
-        const resizeSlider = () => {
-            if (imagesWrapper && imagesWrapper.current) {
-                imagesWrapper.current.style.transition = 'none';
-                clearTimeout(resizeTimeout.current);
-                resizeTimeout.current = setTimeout(() => {
-                    if (imagesWrapper && imagesWrapper.current)
-                        imagesWrapper.current.style.transition = `left ${
-                            isMobile ? '500ms' : '1000ms'
-                        } ease-in-out`;
-                }, 100);
-            }
-        };
-
         resizeSlider();
-
-        window.addEventListener('resize', resizeSlider);
-
-        return () => {
-            window.removeEventListener('resize', resizeSlider);
-        };
-    }, [isMobile]);
+        resizeTextInRange();
+    }, [isMobile, pageSize]);
 
     useEffect(() => {
         const swipeGesture = () => {
-            console.log('Test');
             if (touch.current.end.x - touch.current.start.x < -50) {
                 const prevIndex: number =
                     currentSlider !== 0 ? currentSlider - 1 : componentProps.sliders.length - 1;

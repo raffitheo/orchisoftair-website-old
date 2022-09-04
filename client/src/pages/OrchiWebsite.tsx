@@ -31,12 +31,15 @@ const DEFAUTL_MOBILE_MAX_SIZE = 767;
 const DEFAUTL_MOBILE_MIN_SIZE = 319;
 
 export const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
+export const PageSizeContext: React.Context<number> = createContext<number>(0);
+export const ScrollSizeContext: React.Context<number> = createContext<number>(0);
 
 const OrchiWebsite = (): JSX.Element => {
     const [dataState, setDataState] = useState<DataState>(DataState.INITIALIZED);
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [pageWidth, setPageWidth] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(0);
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
+    const [scrollSize, setScrollSize] = useState<number>(0);
     const [showLoader, setShowLoader] = useState<boolean>(true);
 
     const pageContent = useRef<HTMLDivElement>(null);
@@ -83,13 +86,17 @@ const OrchiWebsite = (): JSX.Element => {
     };
 
     useEffect(() => {
+        const handleScroll = (): void => {
+            setScrollSize(window.pageYOffset);
+        };
+
         const handleResize = (): void => {
             const width: number = document.documentElement.clientWidth;
             const mobile: boolean =
                 width > DEFAUTL_MOBILE_MAX_SIZE || width < DEFAUTL_MOBILE_MIN_SIZE ? false : true;
 
             setIsMobile(mobile);
-            setPageWidth(width);
+            setPageSize(width);
 
             if (!mobile) onMobileMenuChange(false);
 
@@ -97,6 +104,7 @@ const OrchiWebsite = (): JSX.Element => {
                 pageContent.current.style.marginTop = `${navbarHeight}px)`;
         };
 
+        handleScroll();
         handleResize();
 
         setDataState(DataState.LOADING);
@@ -109,9 +117,11 @@ const OrchiWebsite = (): JSX.Element => {
             }, 500);
         }, 5000);
 
+        window.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
 
         return () => {
+            window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', handleResize);
         };
     }, []);
@@ -120,7 +130,7 @@ const OrchiWebsite = (): JSX.Element => {
         const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
 
         if (navbar) setNavbarHeight(navbar.offsetHeight);
-    }, [pageWidth]);
+    }, [pageSize]);
 
     return (
         <>
@@ -146,36 +156,40 @@ const OrchiWebsite = (): JSX.Element => {
 
             {dataState === DataState.LOADED ? (
                 <IsMobileContext.Provider value={isMobile}>
-                    <Router>
-                        <Navbar
-                            contacts={getContactData()}
-                            navigation={getNavbarData()}
-                            socials={getSocialData()}
-                            onMobileMenuChange={onMobileMenuChange}
-                        />
-
-                        <BackToTop minVisibleSize={114} />
-
-                        <div
-                            id={styles['PageContent']}
-                            ref={pageContent}
-                            style={{
-                                marginTop: `${navbarHeight}px`,
-                            }}
-                        >
-                            <Routes>
-                                <Route
-                                    element={
-                                        <HomePage
-                                            navbarHeight={navbarHeight}
-                                            sliders={getSliderData()}
-                                        />
-                                    }
-                                    path={getBaseURL}
+                    <PageSizeContext.Provider value={pageSize}>
+                        <ScrollSizeContext.Provider value={scrollSize}>
+                            <Router>
+                                <Navbar
+                                    contacts={getContactData()}
+                                    navigation={getNavbarData()}
+                                    socials={getSocialData()}
+                                    onMobileMenuChange={onMobileMenuChange}
                                 />
-                            </Routes>
-                        </div>
-                    </Router>
+
+                                <BackToTop minVisibleSize={114} />
+
+                                <div
+                                    id={styles['PageContent']}
+                                    ref={pageContent}
+                                    style={{
+                                        marginTop: `${navbarHeight}px`,
+                                    }}
+                                >
+                                    <Routes>
+                                        <Route
+                                            element={
+                                                <HomePage
+                                                    navbarHeight={navbarHeight}
+                                                    sliders={getSliderData()}
+                                                />
+                                            }
+                                            path={getBaseURL}
+                                        />
+                                    </Routes>
+                                </div>
+                            </Router>
+                        </ScrollSizeContext.Provider>
+                    </PageSizeContext.Provider>
                 </IsMobileContext.Provider>
             ) : (
                 <></>
