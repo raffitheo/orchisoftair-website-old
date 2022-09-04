@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import BackToTopProps from './IBackToTopProps';
-
 import IconExtension from '../IconExtension/IconExtension';
+
+import { ScrollSizeContext } from '../../pages/OrchiWebsite';
 
 import styles from './BackToTop.module.scss';
 
 const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
     const [visible, setVisible] = useState<boolean>(false);
 
-    // const backToTop =
-    //     (): ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) =>
-    //     (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-
-    //         window.scrollTo({
-    //             top: 0,
-    //             behavior: 'smooth',
-    //         });
-    //     };
+    const scrollSize: number = useContext<number>(ScrollSizeContext);
 
     const backToTop = (): void => {
         window.scrollTo({
@@ -28,22 +21,16 @@ const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
 
     useEffect(() => {
         const handleVisibility = (): void => {
-            if (window.pageYOffset > componentProps.minVisibleSize) {
+            if (scrollSize > componentProps.minVisibleSize) {
                 if (componentProps.maxVisibleSize) {
-                    if (window.pageYOffset < componentProps.maxVisibleSize) setVisible(true);
+                    if (scrollSize < componentProps.maxVisibleSize) setVisible(true);
                     else setVisible(false);
                 } else setVisible(true);
             } else setVisible(false);
         };
 
         handleVisibility();
-
-        window.addEventListener('scroll', handleVisibility);
-
-        return () => {
-            window.removeEventListener('scroll', handleVisibility);
-        };
-    }, []);
+    }, [scrollSize]);
 
     return (
         <div

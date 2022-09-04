@@ -12,7 +12,7 @@ import SearchBar from './SearchBar/SearchBar';
 import Socials from './Socials/Socials';
 import Contacts from './Contacts/Contacts';
 
-import { IsMobileContext } from '../../pages/OrchiWebsite';
+import { IsMobileContext, ScrollSizeContext } from '../../pages/OrchiWebsite';
 
 import styles from './Navbar.module.scss';
 
@@ -26,6 +26,7 @@ const Navbar = (componentProps: NavbarProps): JSX.Element => {
     const navbarWrapper = useRef<HTMLDivElement>(null);
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
+    const scrollSize: number = useContext<number>(ScrollSizeContext);
 
     useEffect(() => {
         const url: string = window.location.toString();
@@ -67,11 +68,10 @@ const Navbar = (componentProps: NavbarProps): JSX.Element => {
                 navbarWrapper &&
                 navbarWrapper.current
             ) {
-                const pageScroll: number = window.pageYOffset;
                 const desktopContactsHeight: number = desktopContacts.current.offsetHeight;
 
                 if (!isMobile) {
-                    if (pageScroll > 114) {
+                    if (scrollSize > 114) {
                         navbarWrapper.current.style.top = `-${desktopContactsHeight + 7}px`;
                         navbarWrapper.current.style.position = 'fixed';
                     } else {
@@ -83,13 +83,7 @@ const Navbar = (componentProps: NavbarProps): JSX.Element => {
         };
 
         handleScroll();
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [isMobile]);
+    }, [isMobile, scrollSize]);
 
     useEffect(() => {
         if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false);
