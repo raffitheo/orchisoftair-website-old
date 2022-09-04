@@ -31,12 +31,13 @@ const DEFAUTL_MOBILE_MAX_SIZE = 767;
 const DEFAUTL_MOBILE_MIN_SIZE = 319;
 
 export const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
+export const PageSizeContext: React.Context<number> = createContext<number>(0);
 export const ScrollSizeContext: React.Context<number> = createContext<number>(0);
 
 const OrchiWebsite = (): JSX.Element => {
     const [dataState, setDataState] = useState<DataState>(DataState.INITIALIZED);
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [pageWidth, setPageWidth] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(0);
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
     const [scrollSize, setScrollSize] = useState<number>(0);
     const [showLoader, setShowLoader] = useState<boolean>(true);
@@ -95,7 +96,7 @@ const OrchiWebsite = (): JSX.Element => {
                 width > DEFAUTL_MOBILE_MAX_SIZE || width < DEFAUTL_MOBILE_MIN_SIZE ? false : true;
 
             setIsMobile(mobile);
-            setPageWidth(width);
+            setPageSize(width);
 
             if (!mobile) onMobileMenuChange(false);
 
@@ -103,6 +104,7 @@ const OrchiWebsite = (): JSX.Element => {
                 pageContent.current.style.marginTop = `${navbarHeight}px)`;
         };
 
+        handleScroll();
         handleResize();
 
         setDataState(DataState.LOADING);
@@ -128,7 +130,7 @@ const OrchiWebsite = (): JSX.Element => {
         const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
 
         if (navbar) setNavbarHeight(navbar.offsetHeight);
-    }, [pageWidth]);
+    }, [pageSize]);
 
     return (
         <>
@@ -154,38 +156,40 @@ const OrchiWebsite = (): JSX.Element => {
 
             {dataState === DataState.LOADED ? (
                 <IsMobileContext.Provider value={isMobile}>
-                    <ScrollSizeContext.Provider value={scrollSize}>
-                        <Router>
-                            <Navbar
-                                contacts={getContactData()}
-                                navigation={getNavbarData()}
-                                socials={getSocialData()}
-                                onMobileMenuChange={onMobileMenuChange}
-                            />
+                    <PageSizeContext.Provider value={pageSize}>
+                        <ScrollSizeContext.Provider value={scrollSize}>
+                            <Router>
+                                <Navbar
+                                    contacts={getContactData()}
+                                    navigation={getNavbarData()}
+                                    socials={getSocialData()}
+                                    onMobileMenuChange={onMobileMenuChange}
+                                />
 
-                            <BackToTop minVisibleSize={114} />
+                                <BackToTop minVisibleSize={114} />
 
-                            <div
-                                id={styles['PageContent']}
-                                ref={pageContent}
-                                style={{
-                                    marginTop: `${navbarHeight}px`,
-                                }}
-                            >
-                                <Routes>
-                                    <Route
-                                        element={
-                                            <HomePage
-                                                navbarHeight={navbarHeight}
-                                                sliders={getSliderData()}
-                                            />
-                                        }
-                                        path={getBaseURL}
-                                    />
-                                </Routes>
-                            </div>
-                        </Router>
-                    </ScrollSizeContext.Provider>
+                                <div
+                                    id={styles['PageContent']}
+                                    ref={pageContent}
+                                    style={{
+                                        marginTop: `${navbarHeight}px`,
+                                    }}
+                                >
+                                    <Routes>
+                                        <Route
+                                            element={
+                                                <HomePage
+                                                    navbarHeight={navbarHeight}
+                                                    sliders={getSliderData()}
+                                                />
+                                            }
+                                            path={getBaseURL}
+                                        />
+                                    </Routes>
+                                </div>
+                            </Router>
+                        </ScrollSizeContext.Provider>
+                    </PageSizeContext.Provider>
                 </IsMobileContext.Provider>
             ) : (
                 <></>

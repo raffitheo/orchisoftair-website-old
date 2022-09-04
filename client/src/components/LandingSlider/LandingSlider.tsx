@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { IsMobileContext } from '../../pages/OrchiWebsite';
+import { IsMobileContext, PageSizeContext } from '../../pages/OrchiWebsite';
 
 import LandingSliderProps from './ILandingSliderProps';
 
@@ -40,6 +40,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     });
 
     const isMobile: boolean = useContext<boolean>(IsMobileContext);
+    const pageSize: number = useContext<number>(PageSizeContext);
 
     const setSlider = (index: number): void => {
         if (currentSlider !== index) setCurrentSlider(index);
@@ -69,6 +70,29 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
                         }
                     });
                 }
+            }
+        };
+
+        setCurrentSlider(0);
+
+        window.addEventListener('mousemove', imageParallax);
+
+        return () => {
+            window.removeEventListener('mousemove', imageParallax);
+        };
+    }, []);
+
+    useEffect(() => {
+        const resizeSlider = () => {
+            if (imagesWrapper && imagesWrapper.current) {
+                imagesWrapper.current.style.transition = 'none';
+                clearTimeout(resizeTimeout.current);
+                resizeTimeout.current = setTimeout(() => {
+                    if (imagesWrapper && imagesWrapper.current)
+                        imagesWrapper.current.style.transition = `left ${
+                            isMobile ? '500ms' : '1000ms'
+                        } ease-in-out`;
+                }, 100);
             }
         };
 
@@ -123,44 +147,12 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             }
         };
 
-        setCurrentSlider(0);
-        resizeTextInRange();
-
-        window.addEventListener('mousemove', imageParallax);
-        window.addEventListener('resize', resizeTextInRange);
-
-        return () => {
-            window.removeEventListener('mousemove', imageParallax);
-            window.removeEventListener('resize', resizeTextInRange);
-        };
-    }, []);
-
-    useEffect(() => {
-        const resizeSlider = () => {
-            if (imagesWrapper && imagesWrapper.current) {
-                imagesWrapper.current.style.transition = 'none';
-                clearTimeout(resizeTimeout.current);
-                resizeTimeout.current = setTimeout(() => {
-                    if (imagesWrapper && imagesWrapper.current)
-                        imagesWrapper.current.style.transition = `left ${
-                            isMobile ? '500ms' : '1000ms'
-                        } ease-in-out`;
-                }, 100);
-            }
-        };
-
         resizeSlider();
-
-        window.addEventListener('resize', resizeSlider);
-
-        return () => {
-            window.removeEventListener('resize', resizeSlider);
-        };
-    }, [isMobile]);
+        resizeTextInRange();
+    }, [isMobile, pageSize]);
 
     useEffect(() => {
         const swipeGesture = () => {
-            console.log('Test');
             if (touch.current.end.x - touch.current.start.x < -50) {
                 const prevIndex: number =
                     currentSlider !== 0 ? currentSlider - 1 : componentProps.sliders.length - 1;
