@@ -35,6 +35,7 @@ export const PageSizeContext: React.Context<number> = createContext<number>(0);
 export const ScrollSizeContext: React.Context<number> = createContext<number>(0);
 
 const OrchiWebsite = (): JSX.Element => {
+    const [canRender, setCanRender] = useState<boolean>(false);
     const [dataState, setDataState] = useState<DataState>(DataState.INITIALIZED);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [pageSize, setPageSize] = useState<number>(0);
@@ -86,6 +87,19 @@ const OrchiWebsite = (): JSX.Element => {
     };
 
     useEffect(() => {
+        setDataState(DataState.LOADING);
+
+        setTimeout(() => {
+            setDataState(DataState.LOADED);
+            setCanRender(true);
+
+            setTimeout(() => {
+                setShowLoader(false);
+            }, 500);
+        }, 5000);
+    }, []);
+
+    useEffect(() => {
         const handleScroll = (): void => {
             setScrollSize(window.pageYOffset);
         };
@@ -104,27 +118,21 @@ const OrchiWebsite = (): JSX.Element => {
                 pageContent.current.style.marginTop = `${navbarHeight}px)`;
         };
 
-        handleScroll();
-        handleResize();
+        if (canRender) {
+            handleScroll();
+            handleResize();
 
-        setDataState(DataState.LOADING);
-
-        setTimeout(() => {
-            setDataState(DataState.LOADED);
-
-            setTimeout(() => {
-                setShowLoader(false);
-            }, 500);
-        }, 5000);
-
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleResize);
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleResize);
+        }
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleResize);
+            if (canRender) {
+                window.removeEventListener('scroll', handleScroll);
+                window.removeEventListener('resize', handleResize);
+            }
         };
-    }, []);
+    }, [canRender]);
 
     useEffect(() => {
         const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
