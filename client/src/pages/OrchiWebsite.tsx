@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -39,6 +39,8 @@ const OrchiWebsite = (): JSX.Element => {
     const [navbarHeight, setNavbarHeight] = useState<number>(0);
     const [showLoader, setShowLoader] = useState<boolean>(true);
 
+    const pageContent = useRef<HTMLDivElement>(null);
+
     const getBaseURL: string =
         window.location.href.indexOf('github') !== -1 ||
         window.location.href.indexOf('localhost') !== -1
@@ -61,25 +63,21 @@ const OrchiWebsite = (): JSX.Element => {
         return JSON.parse(JSON.stringify(SocialData)) as Social[];
     };
 
-    const getPageContentRef = (): HTMLElement => {
-        return document.querySelector(`[id='${styles['PageContent']}']`) as HTMLElement;
-    };
-
     const onMobileMenuChange = (newValue: boolean): void => {
         const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
         const navbarMobile: HTMLElement = document.querySelector(
             '[id*="MobileMenuWrapper"]',
         ) as HTMLElement;
 
-        if (navbar && navbarMobile && getPageContentRef()) {
+        if (navbar && navbarMobile && pageContent && pageContent.current) {
             if (newValue) {
                 navbar.style.transform = 'translateX(250px)';
                 navbarMobile.style.transform = 'translateX(250px)';
-                getPageContentRef().style.paddingLeft = '250px';
+                pageContent.current.style.paddingLeft = '250px';
             } else {
                 navbar.style.transform = 'translateX(0)';
                 navbarMobile.style.transform = 'translateX(0)';
-                getPageContentRef().style.paddingLeft = '0';
+                pageContent.current.style.paddingLeft = '0';
             }
         }
     };
@@ -95,9 +93,8 @@ const OrchiWebsite = (): JSX.Element => {
 
             if (!mobile) onMobileMenuChange(false);
 
-            if (getPageContentRef()) {
-                getPageContentRef().style.marginTop = `${navbarHeight}px)`;
-            }
+            if (pageContent && pageContent.current)
+                pageContent.current.style.marginTop = `${navbarHeight}px)`;
         };
 
         handleResize();
@@ -161,6 +158,7 @@ const OrchiWebsite = (): JSX.Element => {
 
                         <div
                             id={styles['PageContent']}
+                            ref={pageContent}
                             style={{
                                 marginTop: `${navbarHeight}px`,
                             }}
