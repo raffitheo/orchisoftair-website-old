@@ -50,6 +50,10 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     };
 
     useEffect(() => {
+        setCurrentSlider(0);
+    }, []);
+
+    useEffect(() => {
         const mouseEnter = () => {
             setOverImages(true);
         };
@@ -85,8 +89,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
                 }
             }
         };
-
-        setCurrentSlider(0);
 
         if (imagesWrapper && imagesWrapper.current) {
             imagesWrapper.current.addEventListener('mouseenter', mouseEnter);
