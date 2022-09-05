@@ -254,78 +254,75 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     }, [currentSlider]);
 
     return (
-        <div
-            id={styles['SliderElement']}
-            style={{
-                height: `calc(100vh - ${componentProps.navbarHeight}px)`,
-            }}
-        >
-            <div
-                id={styles['ImagesWrapper']}
-                ref={imagesWrapper}
-                style={{
-                    left: `-${currentSlider * 100}vw`,
-                    width: `${componentProps.sliders.length * 100}vw`,
-                }}
-            >
-                {componentProps.sliders.map((slider, index) => {
-                    return (
-                        <div
-                            className={`${styles['ImageElementContainer']}${
-                                currentSlider === index ? ` ${styles['Active']}` : ''
-                            }`}
-                            key={`LandingImageElement${index}`}
-                        >
+        <div id={styles['SliderElementWrapper']}>
+            <div id={styles['SliderElementContainer']}>
+                <div
+                    id={styles['ImagesWrapper']}
+                    ref={imagesWrapper}
+                    style={{
+                        left: `-${currentSlider * 100}vw`,
+                        width: `${componentProps.sliders.length * 100}vw`,
+                    }}
+                >
+                    {componentProps.sliders.map((slider, index) => {
+                        return (
                             <div
-                                className={styles['ImageBackgroundElement']}
-                                style={{
-                                    backgroundImage: `url(data:image/png;base64,${slider.backgroundImage})`,
-                                }}
-                            />
-
-                            <div
-                                className={styles['ImageColorElement']}
-                                style={{
-                                    backgroundColor: slider.color,
-                                }}
-                            />
-
-                            <div className={styles['ImageDescriptionElement']}>
-                                <h2
-                                    ref={(element) =>
-                                        (imageElementDescriptionTitles.current[index] =
-                                            element as HTMLHeadingElement)
-                                    }
-                                >
-                                    {slider.title.replace(/<nbs>/g, '\u00A0')}
-                                </h2>
-                                <p
-                                    ref={(element) =>
-                                        (imageElementDescriptionTexts.current[index] =
-                                            element as HTMLParagraphElement)
-                                    }
-                                >
-                                    {slider.text.replace(/<nbs>/g, '\u00A0')}
-                                </p>
-                            </div>
-
-                            <div
-                                className={styles['ImageForegroundElementWrapper']}
-                                ref={(element) =>
-                                    (imageForegroundElementWrappers.current[index] =
-                                        element as HTMLDivElement)
-                                }
+                                className={`${styles['ImageElementContainer']}${
+                                    currentSlider === index ? ` ${styles['Active']}` : ''
+                                }`}
+                                key={`LandingImageElement${index}`}
                             >
                                 <div
-                                    className={styles['ImageForegroundElement']}
+                                    className={styles['ImageBackgroundElement']}
                                     style={{
-                                        backgroundImage: `url(data:image/png;base64,${slider.foregroundImage})`,
+                                        backgroundImage: `url(data:image/png;base64,${slider.backgroundImage})`,
                                     }}
                                 />
+
+                                <div
+                                    className={styles['ImageColorElement']}
+                                    style={{
+                                        backgroundColor: slider.color,
+                                    }}
+                                />
+
+                                <div className={styles['ImageDescriptionElement']}>
+                                    <h2
+                                        ref={(element) =>
+                                            (imageElementDescriptionTitles.current[index] =
+                                                element as HTMLHeadingElement)
+                                        }
+                                    >
+                                        {slider.title.replace(/<nbs>/g, '\u00A0')}
+                                    </h2>
+                                    <p
+                                        ref={(element) =>
+                                            (imageElementDescriptionTexts.current[index] =
+                                                element as HTMLParagraphElement)
+                                        }
+                                    >
+                                        {slider.text.replace(/<nbs>/g, '\u00A0')}
+                                    </p>
+                                </div>
+
+                                <div
+                                    className={styles['ImageForegroundElementWrapper']}
+                                    ref={(element) =>
+                                        (imageForegroundElementWrappers.current[index] =
+                                            element as HTMLDivElement)
+                                    }
+                                >
+                                    <div
+                                        className={styles['ImageForegroundElement']}
+                                        style={{
+                                            backgroundImage: `url(data:image/png;base64,${slider.foregroundImage})`,
+                                        }}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
 
             {!isMobile && (
