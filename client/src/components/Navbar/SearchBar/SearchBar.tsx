@@ -6,7 +6,7 @@ import IconExtension from '../../IconExtension/IconExtension';
 
 import styles from './SearchBar.module.scss';
 
-const SearchBar = (componentProps: SearchbarProps): JSX.Element => {
+const SearchBar = (componentProps: SearchbarProps) => {
     const [searchActive, setSearchActive] = useState<boolean>(
         componentProps.openOnStart ? true : false,
     );
@@ -23,6 +23,7 @@ const SearchBar = (componentProps: SearchbarProps): JSX.Element => {
                         placeholder='Cerca nel sito...'
                         type='search'
                     />
+
                     <button
                         className={`${styles['SearchbarButton']}${
                             searchActive ? ` ${styles['Active']}` : ''

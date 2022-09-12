@@ -7,24 +7,22 @@ import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
 import styles from './ContactElement.module.scss';
 
-const ContactElement = (componentProps: ContactElementProps): JSX.Element => {
-    return (
-        <div className={styles['ContactElement']}>
-            <IconExtension
-                name={componentProps.icon as IconName}
-                size={16}
-                style={{
-                    left: '8px',
-                    position: 'absolute',
-                    top: '-3px',
-                }}
-            />
+const ContactElement = (componentProps: ContactElementProps) => (
+    <div className={styles['ContactElement']}>
+        <IconExtension
+            name={componentProps.icon as IconName}
+            size={16}
+            style={{
+                left: '8px',
+                position: 'absolute',
+                top: '-3px',
+            }}
+        />
 
-            <h4 className={styles['ContactTitle']}>{componentProps.title}</h4>
+        <h4 className={styles['ContactTitle']}>{componentProps.title}</h4>
 
-            <h2 className={styles['ContactInfo']}>{componentProps.info}</h2>
-        </div>
-    );
-};
+        <h2 className={styles['ContactInfo']}>{componentProps.info}</h2>
+    </div>
+);
 
 export default ContactElement;

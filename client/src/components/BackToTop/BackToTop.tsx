@@ -7,16 +7,16 @@ import { ScrollSizeContext } from '../../pages/OrchiWebsite';
 
 import styles from './BackToTop.module.scss';
 
-const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
+const BackToTop = (componentProps: BackToTopProps) => {
     const [overrideVisible, setOverrideVisible] = useState<boolean>(true);
     const [visible, setVisible] = useState<boolean>(false);
 
-    const scrollSize: number = useContext<number>(ScrollSizeContext);
+    const scrollSize = useContext<number>(ScrollSizeContext);
 
-    const backToTop = (): void => {
+    const backToTop = () => {
         const scrollTo = (offset: number, callback: () => void): void => {
             const fixedOffset = offset.toFixed();
-            const onScroll = function () {
+            const onScroll = (): void => {
                 if (window.pageYOffset.toFixed() === fixedOffset) {
                     window.removeEventListener('scroll', onScroll);
                     callback();
@@ -33,13 +33,11 @@ const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
 
         setOverrideVisible(false);
 
-        scrollTo(0, () => {
-            setOverrideVisible(true);
-        });
+        scrollTo(0, () => setOverrideVisible(true));
     };
 
     useEffect(() => {
-        const handleVisibility = (): void => {
+        const handleVisibility = () => {
             if (overrideVisible) {
                 if (scrollSize > componentProps.minVisibleSize) {
                     if (componentProps.maxVisibleSize) {
