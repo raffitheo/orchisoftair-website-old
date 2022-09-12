@@ -7,18 +7,14 @@ import { IconName } from '../../../IconExtension/IIconExtensionProps';
 
 import styles from './SocialItemLink.module.scss';
 
-const SocialItemLink = (componentProps: SocialItemLinkProps): JSX.Element => {
+const SocialItemLink = (componentProps: SocialItemLinkProps) => {
     const [hover, setHover] = useState<boolean>(false);
 
     const socialElement = useRef<HTMLAnchorElement>(null);
 
     useEffect(() => {
-        const setMouseHover = (): void => {
-            setHover(true);
-        };
-        const unsetMouseHover = (): void => {
-            setHover(false);
-        };
+        const setMouseHover = () => setHover(true);
+        const unsetMouseHover = () => setHover(false);
 
         if (socialElement && socialElement.current) {
             socialElement.current.addEventListener('mouseover', setMouseHover);

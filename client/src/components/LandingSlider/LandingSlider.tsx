@@ -25,7 +25,7 @@ const DEFAULT_SWITCH_TIMER_MOBILE = 12500;
 
 const DEFAULT_REST_IMAGE_POSITION_ON_LEAVE = true;
 
-const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
+const LandingSlider = (componentProps: LandingSliderProps) => {
     const [currentSlider, setCurrentSlider] = useState<number>(-1);
     const [overImages, setOverImages] = useState<boolean>(false);
 
@@ -33,26 +33,24 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     const imageElementDescriptionTitles = useRef<HTMLHeadingElement[]>([]);
     const imageForegroundElementWrappers = useRef<HTMLDivElement[]>([]);
     const imagesWrapper = useRef<HTMLDivElement>(null);
-    const switchTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
-        useRef<NodeJS.Timeout>();
-    const resizeTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
-        useRef<NodeJS.Timeout>();
+    const switchTimeout = useRef<NodeJS.Timeout>();
+    const resizeTimeout = useRef<NodeJS.Timeout>();
     const touch = useRef<TouchInput>({
         start: { x: 0, y: 0 },
         end: { x: 0, y: 0 },
     });
 
-    const isMobile: boolean = useContext<boolean>(IsMobileContext);
-    const pageSize: number = useContext<number>(PageSizeContext);
+    const isMobile = useContext<boolean>(IsMobileContext);
+    const pageSize = useContext<number>(PageSizeContext);
 
-    const setSlider = (index: number): void => {
+    const setSlider = (index: number) => {
         if (currentSlider !== index) setCurrentSlider(index);
     };
 
+    useEffect(() => setCurrentSlider(0), []);
+
     useEffect(() => {
-        const mouseEnter = () => {
-            setOverImages(true);
-        };
+        const mouseEnter = () => setOverImages(true);
         const mouseLeave = () => {
             setOverImages(false);
 
@@ -86,8 +84,6 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             }
         };
 
-        setCurrentSlider(0);
-
         if (imagesWrapper && imagesWrapper.current) {
             imagesWrapper.current.addEventListener('mouseenter', mouseEnter);
             imagesWrapper.current.addEventListener('mousemove', imageParallax);
@@ -117,11 +113,9 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             }
         };
 
-        const inRange = (x: number, min: number, max: number): number => {
-            return Math.min(Math.max(x, min), max);
-        };
+        const inRange = (x: number, min: number, max: number) => Math.min(Math.max(x, min), max);
 
-        const resizeTextInRange = (): void => {
+        const resizeTextInRange = () => {
             let maxSize = 0;
             let maxTextSize = 0;
             let minSize = 0;
@@ -175,35 +169,35 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     useEffect(() => {
         const swipeGesture = () => {
             if (touch.current.end.x - touch.current.start.x < -50) {
-                const prevIndex: number =
+                const prevIndex =
                     currentSlider !== 0 ? currentSlider - 1 : componentProps.sliders.length - 1;
 
                 setCurrentSlider(prevIndex);
             }
 
             if (touch.current.end.x - touch.current.start.x > 50) {
-                const nextIndex: number =
+                const nextIndex =
                     currentSlider !== componentProps.sliders.length - 1 ? currentSlider + 1 : 0;
 
                 setCurrentSlider(nextIndex);
             }
         };
 
-        const mouseDown = (event: MouseEvent): void => {
+        const mouseDown = (event: MouseEvent) => {
             touch.current.start = {
                 x: event.clientX,
                 y: event.clientY,
             };
         };
 
-        const touchStart = (event: TouchEvent): void => {
+        const touchStart = (event: TouchEvent) => {
             touch.current.start = {
                 x: event.changedTouches[0].clientX,
                 y: event.changedTouches[0].clientY,
             };
         };
 
-        const mouseUp = (event: MouseEvent): void => {
+        const mouseUp = (event: MouseEvent) => {
             touch.current.end = {
                 x: event.clientX,
                 y: event.clientY,
@@ -212,7 +206,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             swipeGesture();
         };
 
-        const touchEnd = (event: TouchEvent): void => {
+        const touchEnd = (event: TouchEvent) => {
             touch.current.end = {
                 x: event.changedTouches[0].clientX,
                 y: event.changedTouches[0].clientY,
@@ -232,7 +226,7 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
             clearTimeout(switchTimeout.current);
             switchTimeout.current = setTimeout(
                 () => {
-                    const nextIndex: number =
+                    const nextIndex =
                         currentSlider !== componentProps.sliders.length - 1 ? currentSlider + 1 : 0;
 
                     setCurrentSlider(nextIndex);
@@ -252,22 +246,17 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
     }, [currentSlider]);
 
     return (
-        <div
-            id={styles['SliderElement']}
-            style={{
-                height: `calc(100vh - ${componentProps.navbarHeight}px)`,
-            }}
-        >
-            <div
-                id={styles['ImagesWrapper']}
-                ref={imagesWrapper}
-                style={{
-                    left: `-${currentSlider * 100}vw`,
-                    width: `${componentProps.sliders.length * 100}vw`,
-                }}
-            >
-                {componentProps.sliders.map((slider, index) => {
-                    return (
+        <div id={styles['SliderElementWrapper']}>
+            <div id={styles['SliderElementContainer']}>
+                <div
+                    id={styles['ImagesWrapper']}
+                    ref={imagesWrapper}
+                    style={{
+                        left: `-${currentSlider * 100}vw`,
+                        width: `${componentProps.sliders.length * 100}vw`,
+                    }}
+                >
+                    {componentProps.sliders.map((slider, index) => (
                         <div
                             className={`${styles['ImageElementContainer']}${
                                 currentSlider === index ? ` ${styles['Active']}` : ''
@@ -322,25 +311,23 @@ const LandingSlider = (componentProps: LandingSliderProps): JSX.Element => {
                                 />
                             </div>
                         </div>
-                    );
-                })}
+                    ))}
+                </div>
             </div>
 
             {!isMobile && (
                 <div id={styles['AdvancePillsWrapper']}>
-                    {componentProps.sliders.map((_, index) => {
-                        return (
-                            <div
-                                className={`${styles['AdvancePillElement']}${
-                                    currentSlider === index ? ` ${styles['Active']}` : ''
-                                }`}
-                                key={`LandingPill${index}`}
-                                onClick={() => setSlider(index)}
-                            >
-                                <div className={styles['AdvancePillElementText']}>{index + 1}</div>
-                            </div>
-                        );
-                    })}
+                    {componentProps.sliders.map((_, index) => (
+                        <div
+                            className={`${styles['AdvancePillElement']}${
+                                currentSlider === index ? ` ${styles['Active']}` : ''
+                            }`}
+                            key={`LandingPill${index}`}
+                            onClick={() => setSlider(index)}
+                        >
+                            <div className={styles['AdvancePillElementText']}>{index + 1}</div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

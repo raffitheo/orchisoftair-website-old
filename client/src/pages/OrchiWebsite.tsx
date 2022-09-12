@@ -30,11 +30,12 @@ enum DataState {
 const DEFAUTL_MOBILE_MAX_SIZE = 767;
 const DEFAUTL_MOBILE_MIN_SIZE = 319;
 
-export const IsMobileContext: React.Context<boolean> = createContext<boolean>(false);
-export const PageSizeContext: React.Context<number> = createContext<number>(0);
-export const ScrollSizeContext: React.Context<number> = createContext<number>(0);
+export const IsMobileContext = createContext<boolean>(false);
+export const PageSizeContext = createContext<number>(0);
+export const ScrollSizeContext = createContext<number>(0);
 
-const OrchiWebsite = (): JSX.Element => {
+const OrchiWebsite = () => {
+    const [canRender, setCanRender] = useState<boolean>(false);
     const [dataState, setDataState] = useState<DataState>(DataState.INITIALIZED);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [pageSize, setPageSize] = useState<number>(0);
@@ -44,33 +45,20 @@ const OrchiWebsite = (): JSX.Element => {
 
     const pageContent = useRef<HTMLDivElement>(null);
 
-    const getBaseURL: string =
+    const getBaseURL =
         window.location.href.indexOf('github') !== -1 ||
         window.location.href.indexOf('localhost') !== -1
             ? '/orchisoftair-website'
             : '/';
 
-    const getContactData = (): Contact[] => {
-        return JSON.parse(JSON.stringify(ContactData)) as Contact[];
-    };
+    const getContactData = JSON.parse(JSON.stringify(ContactData)) as Contact[];
+    const getNavbarData = JSON.parse(JSON.stringify(NavbarData)) as Navigation[];
+    const getSliderData = JSON.parse(JSON.stringify(SliderData)) as Slider[];
+    const getSocialData = JSON.parse(JSON.stringify(SocialData)) as Social[];
 
-    const getNavbarData = (): Navigation[] => {
-        return JSON.parse(JSON.stringify(NavbarData)) as Navigation[];
-    };
-
-    const getSliderData = (): Slider[] => {
-        return JSON.parse(JSON.stringify(SliderData)) as Slider[];
-    };
-
-    const getSocialData = (): Social[] => {
-        return JSON.parse(JSON.stringify(SocialData)) as Social[];
-    };
-
-    const onMobileMenuChange = (newValue: boolean): void => {
-        const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
-        const navbarMobile: HTMLElement = document.querySelector(
-            '[id*="MobileMenuWrapper"]',
-        ) as HTMLElement;
+    const onMobileMenuChange = (newValue: boolean) => {
+        const navbar = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
+        const navbarMobile = document.querySelector('[id*="MobileMenuWrapper"]') as HTMLElement;
 
         if (navbar && navbarMobile && pageContent && pageContent.current) {
             if (newValue) {
@@ -86,13 +74,22 @@ const OrchiWebsite = (): JSX.Element => {
     };
 
     useEffect(() => {
-        const handleScroll = (): void => {
-            setScrollSize(window.pageYOffset);
-        };
+        setDataState(DataState.LOADING);
 
-        const handleResize = (): void => {
-            const width: number = document.documentElement.clientWidth;
-            const mobile: boolean =
+        setTimeout(() => {
+            setDataState(DataState.LOADED);
+            setCanRender(true);
+
+            setTimeout(() => setShowLoader(false), 500);
+        }, 5000);
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => setScrollSize(window.pageYOffset);
+
+        const handleResize = () => {
+            const width = document.documentElement.clientWidth;
+            const mobile =
                 width > DEFAUTL_MOBILE_MAX_SIZE || width < DEFAUTL_MOBILE_MIN_SIZE ? false : true;
 
             setIsMobile(mobile);
@@ -104,30 +101,24 @@ const OrchiWebsite = (): JSX.Element => {
                 pageContent.current.style.marginTop = `${navbarHeight}px)`;
         };
 
-        handleScroll();
-        handleResize();
+        if (canRender) {
+            handleScroll();
+            handleResize();
 
-        setDataState(DataState.LOADING);
-
-        setTimeout(() => {
-            setDataState(DataState.LOADED);
-
-            setTimeout(() => {
-                setShowLoader(false);
-            }, 500);
-        }, 5000);
-
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleResize);
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleResize);
+        }
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleResize);
+            if (canRender) {
+                window.removeEventListener('scroll', handleScroll);
+                window.removeEventListener('resize', handleResize);
+            }
         };
-    }, []);
+    }, [canRender]);
 
     useEffect(() => {
-        const navbar: HTMLElement = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
+        const navbar = document.querySelector('[id*="NavbarWrapper"]') as HTMLElement;
 
         if (navbar) setNavbarHeight(navbar.offsetHeight);
     }, [pageSize]);
@@ -160,9 +151,9 @@ const OrchiWebsite = (): JSX.Element => {
                         <ScrollSizeContext.Provider value={scrollSize}>
                             <Router>
                                 <Navbar
-                                    contacts={getContactData()}
-                                    navigation={getNavbarData()}
-                                    socials={getSocialData()}
+                                    contacts={getContactData}
+                                    navigation={getNavbarData}
+                                    socials={getSocialData}
                                     onMobileMenuChange={onMobileMenuChange}
                                 />
 
@@ -180,7 +171,7 @@ const OrchiWebsite = (): JSX.Element => {
                                             element={
                                                 <HomePage
                                                     navbarHeight={navbarHeight}
-                                                    sliders={getSliderData()}
+                                                    sliders={getSliderData}
                                                 />
                                             }
                                             path={getBaseURL}

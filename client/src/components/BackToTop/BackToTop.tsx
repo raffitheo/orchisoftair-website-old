@@ -7,30 +7,49 @@ import { ScrollSizeContext } from '../../pages/OrchiWebsite';
 
 import styles from './BackToTop.module.scss';
 
-const BackToTop = (componentProps: BackToTopProps): JSX.Element => {
+const BackToTop = (componentProps: BackToTopProps) => {
+    const [overrideVisible, setOverrideVisible] = useState<boolean>(true);
     const [visible, setVisible] = useState<boolean>(false);
 
-    const scrollSize: number = useContext<number>(ScrollSizeContext);
+    const scrollSize = useContext<number>(ScrollSizeContext);
 
-    const backToTop = (): void => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+    const backToTop = () => {
+        const scrollTo = (offset: number, callback: () => void): void => {
+            const fixedOffset = offset.toFixed();
+            const onScroll = (): void => {
+                if (window.pageYOffset.toFixed() === fixedOffset) {
+                    window.removeEventListener('scroll', onScroll);
+                    callback();
+                }
+            };
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth',
+            });
+        };
+
+        setOverrideVisible(false);
+
+        scrollTo(0, () => setOverrideVisible(true));
     };
 
     useEffect(() => {
-        const handleVisibility = (): void => {
-            if (scrollSize > componentProps.minVisibleSize) {
-                if (componentProps.maxVisibleSize) {
-                    if (scrollSize < componentProps.maxVisibleSize) setVisible(true);
-                    else setVisible(false);
-                } else setVisible(true);
+        const handleVisibility = () => {
+            if (overrideVisible) {
+                if (scrollSize > componentProps.minVisibleSize) {
+                    if (componentProps.maxVisibleSize) {
+                        if (scrollSize < componentProps.maxVisibleSize) setVisible(true);
+                        else setVisible(false);
+                    } else setVisible(true);
+                } else setVisible(false);
             } else setVisible(false);
         };
 
         handleVisibility();
-    }, [scrollSize]);
+    }, [overrideVisible, scrollSize]);
 
     return (
         <div
