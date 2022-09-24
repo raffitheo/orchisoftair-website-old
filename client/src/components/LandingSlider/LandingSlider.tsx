@@ -140,7 +140,7 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
                     out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
                     normalizedOut = inRange(out, minTextSize, maxTextSize);
 
-                    (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+                    if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
                 });
             }
 
@@ -157,7 +157,7 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
                     out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
                     normalizedOut = inRange(out, minTextSize, maxTextSize);
 
-                    (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
+                    if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
                 });
             }
         };
@@ -263,11 +263,11 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
                             }`}
                             key={`LandingImageElement${index}`}
                         >
-                            <div
+                            <img
                                 className={styles['ImageBackgroundElement']}
-                                style={{
-                                    backgroundImage: `url(data:image/png;base64,${slider.backgroundImage})`,
-                                }}
+                                height='auto'
+                                src={`data:image/png;base64,${slider.backgroundImage}`}
+                                width='100%'
                             />
 
                             <div
@@ -303,11 +303,11 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
                                         element as HTMLDivElement)
                                 }
                             >
-                                <div
+                                <img
                                     className={styles['ImageForegroundElement']}
-                                    style={{
-                                        backgroundImage: `url(data:image/png;base64,${slider.foregroundImage})`,
-                                    }}
+                                    height='auto'
+                                    src={`data:image/png;base64,${slider.foregroundImage}`}
+                                    width='100%'
                                 />
                             </div>
                         </div>
