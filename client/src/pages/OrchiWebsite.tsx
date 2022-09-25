@@ -88,7 +88,7 @@ const OrchiWebsite = () => {
         const handleScroll = () => setScrollSize(window.pageYOffset);
 
         const handleResize = () => {
-            const width = document.documentElement.clientWidth;
+            const width = window.innerWidth;
             const mobile =
                 width > DEFAUTL_MOBILE_MAX_SIZE || width < DEFAUTL_MOBILE_MIN_SIZE ? false : true;
 
