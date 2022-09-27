@@ -117,9 +117,9 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
 
         const resizeTextInRange = () => {
             let maxSize = 0;
-            let maxTextSize = 0;
+            let maxElementSize = 0;
             let minSize = 0;
-            let minTextSize = 0;
+            let minElementSize = 0;
 
             let difW = 0;
             let difT = 0;
@@ -130,15 +130,15 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
             if (imageElementDescriptionTexts && imageElementDescriptionTexts.current) {
                 imageElementDescriptionTexts.current.forEach((text) => {
                     maxSize = DEFAULT_DESCRIPTION_TEXT_MAX_SCREEN_SIZE;
-                    maxTextSize = DEFAULT_DESCRIPTION_TEXT_MAX_SIZE;
+                    maxElementSize = DEFAULT_DESCRIPTION_TEXT_MAX_SIZE;
                     minSize = DEFAULT_DESCRIPTION_TEXT_MIN_SCREEN_SIZE;
-                    minTextSize = DEFAULT_DESCRIPTION_TEXT_MIN_SIZE;
+                    minElementSize = DEFAULT_DESCRIPTION_TEXT_MIN_SIZE;
 
                     difW = maxSize - minSize;
-                    difT = maxTextSize - minTextSize;
+                    difT = maxElementSize - minElementSize;
                     rapW = document.documentElement.clientWidth - minSize;
-                    out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
-                    normalizedOut = inRange(out, minTextSize, maxTextSize);
+                    out = (difT / 100) * (rapW / (difW / 100)) + minElementSize;
+                    normalizedOut = inRange(out, minElementSize, maxElementSize);
 
                     if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
                 });
@@ -147,15 +147,15 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
             if (imageElementDescriptionTitles && imageElementDescriptionTitles.current) {
                 imageElementDescriptionTitles.current.forEach((text) => {
                     maxSize = DEFAULT_DESCRIPTION_TITLE_MAX_SCREEN_SIZE;
-                    maxTextSize = DEFAULT_DESCRIPTION_TITLE_MAX_SIZE;
+                    maxElementSize = DEFAULT_DESCRIPTION_TITLE_MAX_SIZE;
                     minSize = DEFAULT_DESCRIPTION_TITLE_MIN_SCREEN_SIZE;
-                    minTextSize = DEFAULT_DESCRIPTION_TITLE_MIN_SIZE;
+                    minElementSize = DEFAULT_DESCRIPTION_TITLE_MIN_SIZE;
 
                     difW = maxSize - minSize;
-                    difT = maxTextSize - minTextSize;
+                    difT = maxElementSize - minElementSize;
                     rapW = document.documentElement.clientWidth - minSize;
-                    out = (difT / 100) * (rapW / (difW / 100)) + minTextSize;
-                    normalizedOut = inRange(out, minTextSize, maxTextSize);
+                    out = (difT / 100) * (rapW / (difW / 100)) + minElementSize;
+                    normalizedOut = inRange(out, minElementSize, maxElementSize);
 
                     if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`;
                 });
@@ -268,13 +268,6 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
                                 height='auto'
                                 src={`data:image/png;base64,${slider.backgroundImage}`}
                                 width='100%'
-                            />
-
-                            <div
-                                className={styles['ImageColorElement']}
-                                style={{
-                                    backgroundColor: slider.color,
-                                }}
                             />
 
                             <div className={styles['ImageDescriptionElement']}>
