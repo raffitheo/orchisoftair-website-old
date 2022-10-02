@@ -2,8 +2,8 @@ import React from 'react';
 
 import HomePageProps from './IHomePageProps';
 
-import LandingSlider from '../../components/LandingSlider/LandingSlider';
-import LandingCards from '../../components/LandingCards/LandingCards';
+import LandingSlider from '@components/LandingSlider/LandingSlider';
+import LandingCards from '@components/LandingCards/LandingCards';
 
 import styles from './HomePage.module.scss';
 

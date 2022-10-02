@@ -1,6 +1,6 @@
-import { Contact } from '../../interfaces/IContact';
-import { Navigation } from '../../interfaces/INavigation';
-import { Social } from '../../interfaces/ISocial';
+import { Contact } from '@interfaces/IContact';
+import { Navigation } from '@interfaces/INavigation';
+import { Social } from '@interfaces/ISocial';
 
 type NavbarProps = {
     contacts: Contact[];

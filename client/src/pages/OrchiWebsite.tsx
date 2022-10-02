@@ -2,14 +2,14 @@ import React, { createContext, useEffect, useRef, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import BackToTop from '../components/BackToTop/BackToTop';
-import Loader from '../components/Loader/Loader';
-import Navbar from '../components/Navbar/Navbar';
+import BackToTop from '@components/BackToTop/BackToTop';
+import Loader from '@components/Loader/Loader';
+import Navbar from '@components/Navbar/Navbar';
 
-import { Contact } from '../interfaces/IContact';
-import { Navigation } from '../interfaces/INavigation';
-import { Slider } from '../interfaces/ISlider';
-import { Social } from '../interfaces/ISocial';
+import { Contact } from '@interfaces/IContact';
+import { Navigation } from '@interfaces/INavigation';
+import { Slider } from '@interfaces/ISlider';
+import { Social } from '@interfaces/ISocial';
 
 import ContactData from '../mock/ContactData.json';
 import NavbarData from '../mock/NavbarData.json';
@@ -47,7 +47,7 @@ const OrchiWebsite = () => {
 
     const getBaseURL =
         window.location.href.indexOf('github') !== -1 ||
-        window.location.href.indexOf('localhost') === -1
+        window.location.href.indexOf('localhost') !== -1
             ? '/orchisoftair-website'
             : '/';
 

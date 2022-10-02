@@ -1,4 +1,4 @@
-import { Navigation } from '../../../interfaces/INavigation';
+import { Navigation } from '@interfaces/INavigation';
 
 type MobileMenuProps = {
     currentlySelected: number;

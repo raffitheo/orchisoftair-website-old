@@ -1,4 +1,4 @@
-import { Contact } from '../../../interfaces/IContact';
+import { Contact } from '@interfaces/IContact';
 
 type ContactsProps = {
     contacts: Contact[];
