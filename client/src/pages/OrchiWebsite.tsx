@@ -47,7 +47,7 @@ const OrchiWebsite = () => {
 
     const getBaseURL =
         window.location.href.indexOf('github') !== -1 ||
-        window.location.href.indexOf('localhost') !== -1
+        window.location.href.indexOf('localhost') === -1
             ? '/orchisoftair-website'
             : '/';
 
