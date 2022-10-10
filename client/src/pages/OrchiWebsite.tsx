@@ -81,7 +81,7 @@ const OrchiWebsite = () => {
             setCanRender(true);
 
             setTimeout(() => setShowLoader(false), 500);
-        }, 5000);
+        }, Math.floor(Math.random() * (2500 - 1000 + 1)) + 1000);
     }, []);
 
     useEffect(() => {
