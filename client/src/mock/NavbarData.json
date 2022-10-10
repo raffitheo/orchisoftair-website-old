@@ -1,22 +1,22 @@
 [
     {
         "text": "Home",
-        "link": "#home"
+        "link": "/#home"
     },
     {
         "text": "Chi siamo",
         "subMenu": [
             {
                 "text": "L'associazione",
-                "link": "#chi-siamo-l-associazione"
+                "link": "/#the-aassotiation"
             },
             {
                 "text": "Il team",
-                "link": "#chi-siamo-il-team"
+                "link": "/#the-team"
             },
             {
                 "text": "Dove giochiamo",
-                "link": "#chi-siamo-dove-giochiamo"
+                "link": "/#where-do-we-play"
             }
         ]
     },
@@ -25,20 +25,29 @@
         "subMenu": [
             {
                 "text": "In arrivo",
-                "link": "#eventi-in-arrivo"
+                "link": "/events/coming-up"
             },
             {
                 "text": "Storico",
-                "link": "#eventi-storico"
+                "link": "/events/history"
+            }
+        ]
+    },
+    {
+        "text": "Progetti",
+        "subMenu": [
+            {
+                "text": "DIY NVG",
+                "link": "/projects/diy-nvg"
             }
         ]
     },
     {
         "text": "Contatti",
-        "link": "#contatti"
+        "link": "/#contacts"
     },
     {
         "text": "Area riservata",
-        "link": "area-riservata"
+        "link": "/private-area"
     }
 ]

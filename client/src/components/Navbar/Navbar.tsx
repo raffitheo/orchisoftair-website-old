@@ -12,7 +12,7 @@ import SearchBar from './SearchBar/SearchBar';
 import Socials from './Socials/Socials';
 import Contacts from './Contacts/Contacts';
 
-import { IsMobileContext, ScrollSizeContext } from '../../pages/OrchiWebsite';
+import { BaseURL, IsMobileContext, ScrollSizeContext } from '../../pages/OrchiWebsite';
 
 import styles from './Navbar.module.scss';
 
@@ -25,6 +25,7 @@ const Navbar = (componentProps: NavbarProps) => {
     const desktopContacts = useRef<HTMLDivElement>(null);
     const navbarWrapper = useRef<HTMLDivElement>(null);
 
+    const baseURL = useContext<string>(BaseURL);
     const isMobile = useContext<boolean>(IsMobileContext);
     const scrollSize = useContext<number>(ScrollSizeContext);
 
@@ -202,7 +203,7 @@ const Navbar = (componentProps: NavbarProps) => {
                                                                 setCurrentlySelectedSubMenu(0);
                                                             }
                                                         }}
-                                                        to={element.link}
+                                                        to={`${baseURL}${element.link}`}
                                                     >
                                                         {element.text}
                                                     </Link>
@@ -300,7 +301,7 @@ const Navbar = (componentProps: NavbarProps) => {
                                                                                     );
                                                                                 }
                                                                             }}
-                                                                            to={subMenuElement.link}
+                                                                            to={`${baseURL}${subMenuElement.link}`}
                                                                         >
                                                                             {subMenuElement.text}
                                                                         </Link>

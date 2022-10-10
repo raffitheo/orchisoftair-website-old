@@ -30,6 +30,7 @@ enum DataState {
 const DEFAUTL_MOBILE_MAX_SIZE = 767;
 const DEFAUTL_MOBILE_MIN_SIZE = 319;
 
+export const BaseURL = createContext<string>('');
 export const IsMobileContext = createContext<boolean>(false);
 export const PageSizeContext = createContext<number>(0);
 export const ScrollSizeContext = createContext<number>(0);
@@ -146,42 +147,44 @@ const OrchiWebsite = () => {
             )}
 
             {dataState === DataState.LOADED ? (
-                <IsMobileContext.Provider value={isMobile}>
-                    <PageSizeContext.Provider value={pageSize}>
-                        <ScrollSizeContext.Provider value={scrollSize}>
-                            <Router>
-                                <Navbar
-                                    contacts={getContactData}
-                                    navigation={getNavbarData}
-                                    socials={getSocialData}
-                                    onMobileMenuChange={onMobileMenuChange}
-                                />
+                <BaseURL.Provider value={getBaseURL}>
+                    <IsMobileContext.Provider value={isMobile}>
+                        <PageSizeContext.Provider value={pageSize}>
+                            <ScrollSizeContext.Provider value={scrollSize}>
+                                <Router>
+                                    <Navbar
+                                        contacts={getContactData}
+                                        navigation={getNavbarData}
+                                        socials={getSocialData}
+                                        onMobileMenuChange={onMobileMenuChange}
+                                    />
 
-                                <BackToTop minVisibleSize={114} />
+                                    <BackToTop minVisibleSize={114} />
 
-                                <div
-                                    id={styles['PageContent']}
-                                    ref={pageContent}
-                                    style={{
-                                        marginTop: `${navbarHeight}px`,
-                                    }}
-                                >
-                                    <Routes>
-                                        <Route
-                                            element={
-                                                <HomePage
-                                                    navbarHeight={navbarHeight}
-                                                    sliders={getSliderData}
-                                                />
-                                            }
-                                            path={getBaseURL}
-                                        />
-                                    </Routes>
-                                </div>
-                            </Router>
-                        </ScrollSizeContext.Provider>
-                    </PageSizeContext.Provider>
-                </IsMobileContext.Provider>
+                                    <div
+                                        id={styles['PageContent']}
+                                        ref={pageContent}
+                                        style={{
+                                            marginTop: `${navbarHeight}px`,
+                                        }}
+                                    >
+                                        <Routes>
+                                            <Route
+                                                element={
+                                                    <HomePage
+                                                        navbarHeight={navbarHeight}
+                                                        sliders={getSliderData}
+                                                    />
+                                                }
+                                                path={getBaseURL}
+                                            />
+                                        </Routes>
+                                    </div>
+                                </Router>
+                            </ScrollSizeContext.Provider>
+                        </PageSizeContext.Provider>
+                    </IsMobileContext.Provider>
+                </BaseURL.Provider>
             ) : (
                 <></>
             )}
