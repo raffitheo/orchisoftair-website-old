@@ -1,11 +1,11 @@
 {
-	"recommendations": [
-		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode",
-		"formulahendry.auto-rename-tag",
-		"mkaufman.htmlhint",
-		"ritwickdey.liveserver",
-		"syler.sass-indented",
-		"tabnine.tabnine-vscode"
-	]
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "htmlhint.vscode-htmlhint",
+        "ritwickdey.liveserver",
+        "syler.sass-indented",
+        "tabnine.tabnine-vscode"
+    ]
 }
