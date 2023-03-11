@@ -1,10 +1,6 @@
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, lazy, Suspense, useEffect, useRef, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-import BackToTop from '@components/BackToTop/BackToTop';
-import Loader from '@components/Loader/Loader';
-import Navbar from '@components/Navbar/Navbar';
 
 import { Contact } from '@interfaces/IContact';
 import { Navigation } from '@interfaces/INavigation';
@@ -16,9 +12,13 @@ import NavbarData from '../mock/NavbarData.json';
 import SliderData from '../mock/SliderData.json';
 import SocialData from '../mock/SocialData.json';
 
-import HomePage from '../pages/HomePage/HomePage';
-
 import styles from './OrchiWebsite.module.scss';
+
+const BackToTop = lazy(() => import('@components/BackToTop/BackToTop'));
+const Loader = lazy(() => import('@components/Loader/Loader'));
+const Navbar = lazy(() => import('@components/Navbar/Navbar'));
+
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 
 enum DataState {
     ERROR = -1,
@@ -125,7 +125,25 @@ const OrchiWebsite = () => {
     }, [pageSize]);
 
     return (
-        <>
+        <Suspense
+            fallback={
+                <div
+                    className={`${dataState === DataState.LOADED ? `${styles['FadeOut']}` : ''}`}
+                    id={`${styles['MainLoader']}`}
+                >
+                    <div
+                        style={{
+                            left: '50%',
+                            position: 'absolute',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <Loader fadeOut={dataState === DataState.LOADED} />
+                    </div>
+                </div>
+            }
+        >
             {showLoader ? (
                 <div
                     className={`${dataState === DataState.LOADED ? `${styles['FadeOut']}` : ''}`}
@@ -188,7 +206,7 @@ const OrchiWebsite = () => {
             ) : (
                 <></>
             )}
-        </>
+        </Suspense>
     );
 };
 
