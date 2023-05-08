@@ -1,0 +1,53 @@
+[
+    {
+        "text": "Home",
+        "link": "/#home"
+    },
+    {
+        "text": "Chi siamo",
+        "subMenu": [
+            {
+                "text": "L'associazione",
+                "link": "/#the-aassotiation"
+            },
+            {
+                "text": "Il team",
+                "link": "/#the-team"
+            },
+            {
+                "text": "Dove giochiamo",
+                "link": "/#where-do-we-play"
+            }
+        ]
+    },
+    {
+        "text": "Eventi",
+        "subMenu": [
+            {
+                "text": "In arrivo",
+                "link": "/events/coming-up"
+            },
+            {
+                "text": "Storico",
+                "link": "/events/history"
+            }
+        ]
+    },
+    {
+        "text": "Progetti",
+        "subMenu": [
+            {
+                "text": "DIY NVG",
+                "link": "/projects/diy-nvg"
+            }
+        ]
+    },
+    {
+        "text": "Contatti",
+        "link": "/#contacts"
+    },
+    {
+        "text": "Area riservata",
+        "link": "/private-area"
+    }
+]

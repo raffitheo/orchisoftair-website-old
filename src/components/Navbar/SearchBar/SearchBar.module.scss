@@ -1,0 +1,65 @@
+.SearchbarWrapper {
+	min-height: 1px;
+	padding: 0 15px;
+	position: relative;
+
+	@media (min-width: 768px) {
+		float: left;
+		width: 25%;
+	}
+
+	.SearchbarContainer {
+		float: right;
+		overflow: hidden;
+		padding: 20px 0 19px;
+		position: relative;
+		text-align: right;
+		width: 180px;
+	}
+
+	.SearchbarForm {
+		display: block;
+		margin-top: 0em;
+
+		.SearchbarInput {
+			background-color: transparent;
+			border: none;
+			border-bottom: 1px solid var(--text-primary);
+			color: var(--text-primary);
+			visibility: hidden;
+			margin-right: 20px;
+			opacity: 0;
+			position: relative;
+			transition: all var(--animation-fast) ease-in-out;
+			width: 50%;
+			-webkit-appearance: none;
+
+			&::placeholder {
+				color: var(--text-primary);
+			}
+
+			&.Active {
+				visibility: visible;
+				opacity: 1;
+				width: calc(100% - 20px);
+			}
+		}
+
+		.SearchbarButton {
+			background-color: transparent;
+			border: none;
+			color: var(--text-primary);
+			cursor: pointer;
+			font-size: 19px;
+			position: absolute;
+			right: 0;
+			top: 20px;
+			transition: all var(--animation-fast) ease-in-out;
+
+			&:hover:not(.no-interaction),
+			&.Active:not(.no-interaction) {
+				color: var(--text-secondary);
+			}
+		}
+	}
+}

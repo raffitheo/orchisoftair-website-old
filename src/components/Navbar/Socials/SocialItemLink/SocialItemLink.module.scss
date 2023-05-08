@@ -1,0 +1,26 @@
+.LinkElement {
+	align-items: center;
+	border: 2px solid var(--text-primary);
+	border-radius: 50%;
+	display: inline-flex;
+	height: 40px;
+	justify-content: center;
+	line-height: 1;
+	margin-right: 10px;
+	text-align: center;
+	transition: background-color var(--animation-fast) ease-in-out,
+		border-color var(--animation-fast) ease-in-out;
+	width: 40px;
+
+	&:last-of-type {
+		margin-right: 0;
+	}
+
+	&:hover {
+		color: white;
+	}
+
+	svg {
+		transition: color var(--animation-fast) ease-in-out;
+	}
+}

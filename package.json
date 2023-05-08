@@ -1,6 +1,6 @@
 {
     "name": "orchisoftair-website",
-    "version": "0.1.5-alpha.1",
+    "version": "0.3.9-alpha.6",
     "description": "Official website for the italian softair team A.S.D. \"Gli Orchi Softair\"",
     "keywords": [
         "airsoft",
@@ -19,7 +19,7 @@
     "homepage": "http://raffitheo.github.io/orchisoftair-website",
     "license": "MIT",
     "author": {
-        "email": "raffaele-valenti@libero.it",
+        "email": "raffaele-valenti@tutamail.com",
         "name": "Raffaele Valenti"
     },
     "main": "src/index.tsx",
@@ -29,33 +29,51 @@
     },
     "private": true,
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "deploy": "gh-pages -d build"
+        "build": "eslint src && tsc && vite build",
+        "deduplicate": "npx yarn-deduplicate && yarn",
+        "deploy": "gh-pages -d dist",
+        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
+        "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
+        "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\"",
+        "preview": "vite preview",
+        "start": "vite",
+        "test": "react-scripts test"
     },
     "dependencies": {
-        "@testing-library/jest-dom": "^5.16.4",
-        "@testing-library/react": "^13.3.0",
-        "@testing-library/user-event": "^14.2.0",
-        "react": "^18.1.0",
-        "react-dom": "^18.1.0",
-        "react-feather": "^2.0.9",
-        "react-router-dom": "^6.3.0",
-        "react-scripts": "5.0.1",
-        "styled-components": "^5.3.5",
-        "web-vitals": "^2.1.4"
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/user-event": "^14.4.3",
+        "axios": "^1.4.0",
+        "dayjs": "^1.11.7",
+        "gh-pages": "^5.0.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-feather": "^2.0.10",
+        "react-router-dom": "^6.11.1",
+        "web-vitals": "^3.3.1"
     },
     "devDependencies": {
-        "@types/jest": "^27.5.1",
-        "@types/node": "^17.0.36",
-        "@types/react": "^18.0.9",
-        "@types/react-dom": "^18.0.5",
+        "@types/jest": "^29.5.1",
+        "@types/node": "^20.1.1",
+        "@types/react": "^18.2.6",
+        "@types/react-dom": "^18.2.4",
+        "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
-        "@types/styled-components": "^5.1.25",
-        "gh-pages": "^4.0.0",
-        "typescript": "^4.7.2"
+        "@typescript-eslint/eslint-plugin": "^5.59.5",
+        "@typescript-eslint/parser": "^5.59.5",
+        "@vitejs/plugin-react": "^4.0.0",
+        "@vitejs/plugin-react-refresh": "^1.3.6",
+        "eslint": "^8.40.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-import-resolver-typescript": "^3.5.5",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "prettier": "^2.8.8",
+        "sass": "^1.62.1",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.5"
     },
     "eslintConfig": {
         "extends": [

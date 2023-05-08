@@ -1,11 +1,13 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 import * as icons from 'react-feather';
 
 export type IconName = keyof typeof icons;
 
-export interface IconExtensionProps extends SVGAttributes<SVGElement> {
+type IconExtensionProps = {
     name: IconName;
     color?: string;
     size?: string | number;
-}
+} & SVGAttributes<SVGElement>;
+
+export default IconExtensionProps;
