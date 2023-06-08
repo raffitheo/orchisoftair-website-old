@@ -5,7 +5,7 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
 
   "javascript.suggest.autoImports": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -16,7 +16,18 @@
   "prettier.singleQuote": true,
   "prettier.useTabs": true,
 
+  "typescript.suggest.autoImports": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
   "[css]": {
     "editor.suggest.insertMode": "replace"
+  },
+
+  "[javascript]": {
+    "editor.rulers": [120]
+  },
+
+  "[typescript]": {
+    "editor.rulers": [120]
   }
 }
