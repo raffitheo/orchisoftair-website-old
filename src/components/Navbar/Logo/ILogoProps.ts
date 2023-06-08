@@ -1,9 +1,9 @@
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react"
 
 type LogoProps = {
-    image: string;
+  image: string
 
-    style?: CSSProperties;
-};
+  style?: CSSProperties
+}
 
-export default LogoProps;
+export default LogoProps

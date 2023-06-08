@@ -1,221 +1,152 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react"
+import { Link } from "react-router-dom"
 
-import MobileMenuProps from './IMobileMenuProps';
+import MobileMenuProps from "./IMobileMenuProps"
 
-import IconExtension from '../../IconExtension/IconExtension';
+import IconExtension from "../../IconExtension/IconExtension"
 
-import { BaseURL } from '../../../pages/OrchiWebsite';
+import { BaseURL } from "../../../pages/OrchiWebsite"
 
-import Logo from '../Logo/Logo';
-import SearchBar from '../SearchBar/SearchBar';
+import Logo from "../Logo/Logo"
+import SearchBar from "../SearchBar/SearchBar"
 
-import styles from './MobileMenu.module.scss';
+import styles from "./MobileMenu.module.scss"
 
 const MobileMenu = (componentProps: MobileMenuProps) => {
-    const baseURL = useContext<string>(BaseURL);
+  const baseURL = useContext<string>(BaseURL)
 
-    return (
-        <section id={styles['MobileMenuWrapper']}>
-            <div id={styles['MobileMenuContainer']}>
-                <div className={styles['MobileMenuRow']}>
-                    <Logo image={componentProps.logo} />
-                </div>
+  return (
+    <section id={styles["MobileMenuWrapper"]}>
+      <div id={styles["MobileMenuContainer"]}>
+        <div className={styles["MobileMenuRow"]}>
+          <Logo image={componentProps.logo} />
+        </div>
 
-                <div className={styles['MobileMenuRow']}>
-                    <div id={styles['NavigationWrapper']}>
-                        <div id={styles['NavigationContainer']}>
-                            <SearchBar openOnStart={true} preventCollapse={true} />
+        <div className={styles["MobileMenuRow"]}>
+          <div id={styles["NavigationWrapper"]}>
+            <div id={styles["NavigationContainer"]}>
+              <SearchBar openOnStart={true} preventCollapse={true} />
 
-                            <ul id={styles['NavigationList']}>
-                                {componentProps.navigation.map((element, elementIndex) => (
-                                    <li
-                                        className={`${styles['NavigationListElement']}${
-                                            componentProps.currentlySelected === elementIndex
-                                                ? ` ${styles['Active']}`
-                                                : ''
-                                        }`}
-                                        key={`ListElement${elementIndex}`}
-                                    >
-                                        {'link' in element ? (
-                                            element.link.startsWith('#') ? (
-                                                <a
-                                                    className={styles['NavigationListElementLink']}
-                                                    href={element.link}
-                                                    onClick={(event) => {
-                                                        const pressedElement: HTMLElement =
-                                                            event.target as HTMLElement;
+              <ul id={styles["NavigationList"]}>
+                {componentProps.navigation.map((element, elementIndex) => (
+                  <li
+                    className={`${styles["NavigationListElement"]}${
+                      componentProps.currentlySelected === elementIndex ? ` ${styles["Active"]}` : ""
+                    }`}
+                    key={`ListElement${elementIndex}`}
+                  >
+                    {"link" in element ? (
+                      element.link.startsWith("#") ? (
+                        <a
+                          className={styles["NavigationListElementLink"]}
+                          href={element.link}
+                          onClick={(event) => {
+                            const pressedElement: HTMLElement = event.target as HTMLElement
 
-                                                        if (
-                                                            pressedElement &&
-                                                            pressedElement?.classList.contains(
-                                                                styles['NavigationListElementLink'],
-                                                            )
-                                                        )
-                                                            componentProps.onClickElement(
-                                                                elementIndex,
-                                                                0,
-                                                            );
-                                                    }}
-                                                >
-                                                    {element.text}
-                                                </a>
-                                            ) : (
-                                                <Link
-                                                    className={styles['NavigationListElementLink']}
-                                                    onClick={(event) => {
-                                                        const pressedElement: HTMLElement =
-                                                            event.target as HTMLElement;
+                            if (
+                              pressedElement &&
+                              pressedElement?.classList.contains(styles["NavigationListElementLink"])
+                            )
+                              componentProps.onClickElement(elementIndex, 0)
+                          }}
+                        >
+                          {element.text}
+                        </a>
+                      ) : (
+                        <Link
+                          className={styles["NavigationListElementLink"]}
+                          onClick={(event) => {
+                            const pressedElement: HTMLElement = event.target as HTMLElement
 
-                                                        if (
-                                                            pressedElement &&
-                                                            pressedElement?.classList.contains(
-                                                                styles['NavigationListElementLink'],
-                                                            )
-                                                        )
-                                                            componentProps.onClickElement(
-                                                                elementIndex,
-                                                                0,
-                                                            );
-                                                    }}
-                                                    to={`${baseURL}${element.link}`}
-                                                >
-                                                    {element.text}
-                                                </Link>
-                                            )
-                                        ) : 'subMenu' in element ? (
-                                            <>
-                                                <span
-                                                    className={styles['NavigationListElementLink']}
-                                                >
-                                                    {element.text}
-                                                </span>
+                            if (
+                              pressedElement &&
+                              pressedElement?.classList.contains(styles["NavigationListElementLink"])
+                            )
+                              componentProps.onClickElement(elementIndex, 0)
+                          }}
+                          to={`${baseURL}${element.link}`}
+                        >
+                          {element.text}
+                        </Link>
+                      )
+                    ) : "subMenu" in element ? (
+                      <>
+                        <span className={styles["NavigationListElementLink"]}>{element.text}</span>
 
-                                                <ul
-                                                    className={`${styles['NavigationSubMenuList']}${
-                                                        componentProps.mobileSubMenuOpen ===
-                                                        elementIndex
-                                                            ? ` ${styles['Visible']}`
-                                                            : ''
-                                                    }`}
-                                                >
-                                                    {element.subMenu.map(
-                                                        (subMenuElement, subMenuElementIndex) => (
-                                                            <li
-                                                                className={`${
-                                                                    styles[
-                                                                        'NavigationSubMenuListElement'
-                                                                    ]
-                                                                }${
-                                                                    componentProps.currentlySelected ===
-                                                                        elementIndex &&
-                                                                    componentProps.currentlySelectedSubMenu ===
-                                                                        subMenuElementIndex
-                                                                        ? ` ${styles['Active']}`
-                                                                        : ''
-                                                                }${
-                                                                    subMenuElementIndex + 1 ===
-                                                                    element.subMenu?.length
-                                                                        ? ` ${styles['LastChild']}`
-                                                                        : ''
-                                                                }`}
-                                                                key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
-                                                            >
-                                                                {subMenuElement.link.startsWith(
-                                                                    '#',
-                                                                ) ? (
-                                                                    <a
-                                                                        className={
-                                                                            styles[
-                                                                                'NavigationSubMenuListElementLink'
-                                                                            ]
-                                                                        }
-                                                                        href={subMenuElement.link}
-                                                                        onClick={(event) => {
-                                                                            const pressedElement: HTMLElement =
-                                                                                event.target as HTMLElement;
+                        <ul
+                          className={`${styles["NavigationSubMenuList"]}${
+                            componentProps.mobileSubMenuOpen === elementIndex ? ` ${styles["Visible"]}` : ""
+                          }`}
+                        >
+                          {element.subMenu.map((subMenuElement, subMenuElementIndex) => (
+                            <li
+                              className={`${styles["NavigationSubMenuListElement"]}${
+                                componentProps.currentlySelected === elementIndex &&
+                                componentProps.currentlySelectedSubMenu === subMenuElementIndex
+                                  ? ` ${styles["Active"]}`
+                                  : ""
+                              }${subMenuElementIndex + 1 === element.subMenu?.length ? ` ${styles["LastChild"]}` : ""}`}
+                              key={`List${elementIndex}SubMenuElement${subMenuElementIndex}`}
+                            >
+                              {subMenuElement.link.startsWith("#") ? (
+                                <a
+                                  className={styles["NavigationSubMenuListElementLink"]}
+                                  href={subMenuElement.link}
+                                  onClick={(event) => {
+                                    const pressedElement: HTMLElement = event.target as HTMLElement
 
-                                                                            if (
-                                                                                pressedElement &&
-                                                                                pressedElement?.classList.contains(
-                                                                                    styles[
-                                                                                        'NavigationSubMenuListElementLink'
-                                                                                    ],
-                                                                                )
-                                                                            )
-                                                                                componentProps.onClickElement(
-                                                                                    elementIndex,
-                                                                                    subMenuElementIndex,
-                                                                                );
-                                                                        }}
-                                                                    >
-                                                                        {subMenuElement.text}
-                                                                    </a>
-                                                                ) : (
-                                                                    <Link
-                                                                        className={
-                                                                            styles[
-                                                                                'NavigationSubMenuListElementLink'
-                                                                            ]
-                                                                        }
-                                                                        onClick={(event) => {
-                                                                            const pressedElement: HTMLElement =
-                                                                                event.target as HTMLElement;
+                                    if (
+                                      pressedElement &&
+                                      pressedElement?.classList.contains(styles["NavigationSubMenuListElementLink"])
+                                    )
+                                      componentProps.onClickElement(elementIndex, subMenuElementIndex)
+                                  }}
+                                >
+                                  {subMenuElement.text}
+                                </a>
+                              ) : (
+                                <Link
+                                  className={styles["NavigationSubMenuListElementLink"]}
+                                  onClick={(event) => {
+                                    const pressedElement: HTMLElement = event.target as HTMLElement
 
-                                                                            if (
-                                                                                pressedElement &&
-                                                                                pressedElement?.classList.contains(
-                                                                                    styles[
-                                                                                        'NavigationSubMenuListElementLink'
-                                                                                    ],
-                                                                                )
-                                                                            )
-                                                                                componentProps.onClickElement(
-                                                                                    elementIndex,
-                                                                                    subMenuElementIndex,
-                                                                                );
-                                                                        }}
-                                                                        to={`${baseURL}${subMenuElement.link}`}
-                                                                    >
-                                                                        {subMenuElement.text}
-                                                                    </Link>
-                                                                )}
-                                                            </li>
-                                                        ),
-                                                    )}
-                                                </ul>
+                                    if (
+                                      pressedElement &&
+                                      pressedElement?.classList.contains(styles["NavigationSubMenuListElementLink"])
+                                    )
+                                      componentProps.onClickElement(elementIndex, subMenuElementIndex)
+                                  }}
+                                  to={`${baseURL}${subMenuElement.link}`}
+                                >
+                                  {subMenuElement.text}
+                                </Link>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
 
-                                                <div
-                                                    className={
-                                                        styles['NavigationSubMenuListExpand']
-                                                    }
-                                                >
-                                                    <IconExtension
-                                                        name={
-                                                            componentProps.mobileSubMenuOpen ===
-                                                            elementIndex
-                                                                ? 'Minus'
-                                                                : 'Plus'
-                                                        }
-                                                        onClick={() => {
-                                                            componentProps.onDismiss(elementIndex);
-                                                        }}
-                                                        size={16}
-                                                    />
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
+                        <div className={styles["NavigationSubMenuListExpand"]}>
+                          <IconExtension
+                            name={componentProps.mobileSubMenuOpen === elementIndex ? "Minus" : "Plus"}
+                            onClick={() => {
+                              componentProps.onDismiss(elementIndex)
+                            }}
+                            size={16}
+                          />
                         </div>
-                    </div>
-                </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
-        </section>
-    );
-};
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-export default MobileMenu;
+export default MobileMenu

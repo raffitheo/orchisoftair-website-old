@@ -1,8 +1,8 @@
-import { Slider } from '@interfaces/ISlider';
+import { Slider } from "@interfaces/ISlider"
 
 type HomePageProps = {
-    navbarHeight: number;
-    sliders: Slider[];
-};
+  navbarHeight: number
+  sliders: Slider[]
+}
 
-export default HomePageProps;
+export default HomePageProps

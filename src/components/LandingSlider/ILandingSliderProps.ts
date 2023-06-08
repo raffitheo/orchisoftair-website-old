@@ -1,8 +1,8 @@
-import { Slider } from '@interfaces/ISlider';
+import { Slider } from "@interfaces/ISlider"
 
 type LandingSliderProps = {
-    navbarHeight: number;
-    sliders: Slider[];
-};
+  navbarHeight: number
+  sliders: Slider[]
+}
 
-export default LandingSliderProps;
+export default LandingSliderProps
