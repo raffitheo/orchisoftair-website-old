@@ -1,7 +1,7 @@
-import { Social } from '@interfaces/ISocial';
+import { Social } from "@interfaces/ISocial"
 
 type SocialsProps = {
-    socials: Social[];
-};
+  socials: Social[]
+}
 
-export default SocialsProps;
+export default SocialsProps

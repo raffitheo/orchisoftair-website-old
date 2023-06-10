@@ -1,12 +1,15 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "formulahendry.auto-rename-tag",
-    "htmlhint.vscode-htmlhint",
-    "meganrogge.template-string-converter",
-    "ritwickdey.liveserver",
-    "syler.sass-indented",
-    "tabnine.tabnine-vscode"
+    "aaron-bond.better-comments", // Better Comments
+    "adpyke.codesnap", // CodeSnap
+    "chakrounanas.turbo-console-log", // Turbo Console Log
+    "dbaeumer.vscode-eslint", // ESLint
+    "esbenp.prettier-vscode", // Prettier
+    "htmlhint.vscode-htmlhint", // HTMLHint
+    "meganrogge.template-string-converter", // Template String Converter
+    "ms-vscode.powershell", // PowerShell
+    "oderwat.indent-rainbow", // indent-rainbow
+    "tabnine.tabnine-vscode", // Tabnine AI Autocomplete for Javascript, Python, Typescript, PHP, Go, Java, Ruby & more
+    "wix.vscode-import-cost" // Import Cost
   ]
 }

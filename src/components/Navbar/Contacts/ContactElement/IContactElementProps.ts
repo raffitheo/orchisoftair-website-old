@@ -1,7 +1,7 @@
-import { Contact } from '@interfaces/IContact';
+import { Contact } from "@interfaces/IContact"
 
 type ContactElementProps = {
-    index: number;
-} & Contact;
+  index: number
+} & Contact
 
-export default ContactElementProps;
+export default ContactElementProps

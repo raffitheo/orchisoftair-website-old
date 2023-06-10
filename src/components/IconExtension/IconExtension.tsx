@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react"
 
-import IconExtensionProps from './IIconExtensionProps';
+import IconExtensionProps from "./IIconExtensionProps"
 
-import * as icons from 'react-feather';
+import * as icons from "react-feather"
 
 const IconExtension = (componentProps: IconExtensionProps) => {
-    const IconComponent = icons[componentProps.name];
+  const IconComponent = icons[componentProps.name]
 
-    return <IconComponent {...componentProps} />;
-};
+  return <IconComponent {...componentProps} />
+}
 
-export default IconExtension;
+export default IconExtension

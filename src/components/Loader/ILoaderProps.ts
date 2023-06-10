@@ -1,8 +1,8 @@
 type LoaderProps = {
-    className?: string;
-    id?: string;
-    fadeOut?: boolean;
-    style?: React.CSSProperties;
-};
+  className?: string
+  id?: string
+  fadeOut?: boolean
+  style?: React.CSSProperties
+}
 
-export default LoaderProps;
+export default LoaderProps

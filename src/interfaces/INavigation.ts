@@ -1,16 +1,16 @@
 type NavigationBase = {
-    text: string;
-};
+  text: string
+}
 
 type NavigationWithLink = {
-    link: string;
-} & NavigationBase;
+  link: string
+} & NavigationBase
 
 type NavigationWithSubmenu = {
-    subMenu: {
-        text: string;
-        link: string;
-    }[];
-} & NavigationBase;
+  subMenu: {
+    text: string
+    link: string
+  }[]
+} & NavigationBase
 
-export type Navigation = NavigationWithLink | NavigationWithSubmenu;
+export type Navigation = NavigationWithLink | NavigationWithSubmenu
