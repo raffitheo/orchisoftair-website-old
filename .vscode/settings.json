@@ -15,7 +15,13 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
   "editor.tabSize": 2,
+
+  "files.readonlyInclude": {
+    "dist/**": true,
+    "node_modules/**": true
+  },
 
   "javascript.suggest.autoImports": false,
   "javascript.updateImportsOnFileMove.enabled": "always",

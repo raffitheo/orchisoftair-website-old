@@ -5,7 +5,6 @@
     "chakrounanas.turbo-console-log", // Turbo Console Log
     "dbaeumer.vscode-eslint", // ESLint
     "esbenp.prettier-vscode", // Prettier
-    "formulahendry.auto-rename-tag", // Auto Rename Tag
     "htmlhint.vscode-htmlhint", // HTMLHint
     "meganrogge.template-string-converter", // Template String Converter
     "ms-vscode.powershell", // PowerShell
