@@ -1,10 +1,10 @@
 import React from "react"
 
-import LogoProps from "./ILogoProps"
+import LogoProps from "./LogoProps.types"
 
 import styles from "./Logo.module.scss"
 
-const Logo = (componentProps: LogoProps) => (
+const Logo: React.FC<LogoProps> = (componentProps: LogoProps) => (
   <div className={styles["LogoWrapper"]}>
     <div className={styles["LogoContainer"]}>
       <a href="#home">

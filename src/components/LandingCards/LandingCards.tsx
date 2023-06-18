@@ -2,7 +2,7 @@ import React from "react"
 
 import styles from "./LandingCards.module.scss"
 
-const LandingCards = () => (
+const LandingCards: React.FC = () => (
   <div id={styles["LandingCardsWrapper"]}>
     <div id={styles["LandingCardsContainer"]}>
       <div id={styles["LandingCardsRowWrapper"]}>

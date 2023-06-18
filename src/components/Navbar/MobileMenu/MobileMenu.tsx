@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 
-import MobileMenuProps from "./IMobileMenuProps"
+import MobileMenuProps from "./MobileMenuProps.types"
 
 import IconExtension from "../../IconExtension/IconExtension"
 
@@ -12,8 +12,8 @@ import SearchBar from "../SearchBar/SearchBar"
 
 import styles from "./MobileMenu.module.scss"
 
-const MobileMenu = (componentProps: MobileMenuProps) => {
-  const baseURL = useContext<string>(BaseURL)
+const MobileMenu: React.FC<MobileMenuProps> = (componentProps: MobileMenuProps) => {
+  const baseURL = useContext(BaseURL)
 
   return (
     <section id={styles["MobileMenuWrapper"]}>
@@ -41,13 +41,14 @@ const MobileMenu = (componentProps: MobileMenuProps) => {
                           className={styles["NavigationListElementLink"]}
                           href={element.link}
                           onClick={(event) => {
-                            const pressedElement: HTMLElement = event.target as HTMLElement
+                            const pressedElement = event.target as HTMLElement
 
                             if (
                               pressedElement &&
                               pressedElement?.classList.contains(styles["NavigationListElementLink"])
-                            )
+                            ) {
                               componentProps.onClickElement(elementIndex, 0)
+                            }
                           }}
                         >
                           {element.text}
@@ -56,13 +57,14 @@ const MobileMenu = (componentProps: MobileMenuProps) => {
                         <Link
                           className={styles["NavigationListElementLink"]}
                           onClick={(event) => {
-                            const pressedElement: HTMLElement = event.target as HTMLElement
+                            const pressedElement = event.target as HTMLElement
 
                             if (
                               pressedElement &&
                               pressedElement?.classList.contains(styles["NavigationListElementLink"])
-                            )
+                            ) {
                               componentProps.onClickElement(elementIndex, 0)
+                            }
                           }}
                           to={`${baseURL}${element.link}`}
                         >
@@ -93,13 +95,14 @@ const MobileMenu = (componentProps: MobileMenuProps) => {
                                   className={styles["NavigationSubMenuListElementLink"]}
                                   href={subMenuElement.link}
                                   onClick={(event) => {
-                                    const pressedElement: HTMLElement = event.target as HTMLElement
+                                    const pressedElement = event.target as HTMLElement
 
                                     if (
                                       pressedElement &&
                                       pressedElement?.classList.contains(styles["NavigationSubMenuListElementLink"])
-                                    )
+                                    ) {
                                       componentProps.onClickElement(elementIndex, subMenuElementIndex)
+                                    }
                                   }}
                                 >
                                   {subMenuElement.text}
@@ -108,13 +111,14 @@ const MobileMenu = (componentProps: MobileMenuProps) => {
                                 <Link
                                   className={styles["NavigationSubMenuListElementLink"]}
                                   onClick={(event) => {
-                                    const pressedElement: HTMLElement = event.target as HTMLElement
+                                    const pressedElement = event.target as HTMLElement
 
                                     if (
                                       pressedElement &&
                                       pressedElement?.classList.contains(styles["NavigationSubMenuListElementLink"])
-                                    )
+                                    ) {
                                       componentProps.onClickElement(elementIndex, subMenuElementIndex)
+                                    }
                                   }}
                                   to={`${baseURL}${subMenuElement.link}`}
                                 >

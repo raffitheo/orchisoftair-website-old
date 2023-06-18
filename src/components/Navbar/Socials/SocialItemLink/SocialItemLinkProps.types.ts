@@ -1,4 +1,4 @@
-import { Social } from "@interfaces/ISocial"
+import { Social } from "@interfaces/Social.types"
 
 type SocialItemLinkProps = {
   index: number

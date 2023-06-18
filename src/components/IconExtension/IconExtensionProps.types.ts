@@ -6,8 +6,8 @@ export type IconName = keyof typeof icons
 
 type IconExtensionProps = {
   name: IconName
-  color?: string
-  size?: string | number
+  color?: string | undefined
+  size?: number | string | undefined
 } & SVGAttributes<SVGElement>
 
 export default IconExtensionProps

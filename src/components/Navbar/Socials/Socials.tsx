@@ -1,12 +1,12 @@
 import React from "react"
 
-import SocialsProps from "./ISocialsProps"
+import SocialsProps from "./SocialsProps.types"
 
 import SocialItemLink from "./SocialItemLink/SocialItemLink"
 
 import styles from "./Socials.module.scss"
 
-const Socials = (componentProps: SocialsProps) => (
+const Socials: React.FC<SocialsProps> = (componentProps: SocialsProps) => (
   <div id={styles["SocialWrapper"]}>
     <div id={styles["SocialContainer"]}>
       {componentProps.socials.map((social, index) => (

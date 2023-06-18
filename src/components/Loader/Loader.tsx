@@ -1,10 +1,10 @@
 import React from "react"
 
-import LoaderProps from "./ILoaderProps"
+import LoaderProps from "./LoaderProps.types"
 
 import styles from "./Loader.module.scss"
 
-const Loader = (componentProps: LoaderProps) => (
+const Loader: React.FC<LoaderProps> = (componentProps: LoaderProps) => (
   <div
     className={`${styles["LoaderElement"]}${componentProps.fadeOut ? ` ${styles["FadeOut"]}` : ""}${
       componentProps.className ? ` ${componentProps.className}` : ""

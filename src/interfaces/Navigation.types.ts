@@ -7,10 +7,10 @@ type NavigationWithLink = {
 } & NavigationBase
 
 type NavigationWithSubmenu = {
-  subMenu: {
+  subMenu: Array<{
     text: string
     link: string
-  }[]
+  }>
 } & NavigationBase
 
 export type Navigation = NavigationWithLink | NavigationWithSubmenu

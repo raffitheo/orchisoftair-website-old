@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react"
 
-import SocialItemLinkProps from "./ISocialItemLinkProps"
+import SocialItemLinkProps from "./SocialItemLinkProps.types"
 
 import IconExtension from "../../../IconExtension/IconExtension"
-import { IconName } from "../../../IconExtension/IIconExtensionProps"
+import { IconName } from "../../../IconExtension/IconExtensionProps.types"
 
 import styles from "./SocialItemLink.module.scss"
 
-const SocialItemLink = (componentProps: SocialItemLinkProps) => {
-  const [hover, setHover] = useState<boolean>(false)
+const SocialItemLink: React.FC<SocialItemLinkProps> = (componentProps: SocialItemLinkProps) => {
+  const [hover, setHover] = useState(false)
 
   const socialElement = useRef<HTMLAnchorElement>(null)
 

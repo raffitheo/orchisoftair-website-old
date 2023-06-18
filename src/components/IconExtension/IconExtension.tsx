@@ -1,10 +1,10 @@
 import React from "react"
 
-import IconExtensionProps from "./IIconExtensionProps"
+import IconExtensionProps from "./IconExtensionProps.types"
 
 import * as icons from "react-feather"
 
-const IconExtension = (componentProps: IconExtensionProps) => {
+const IconExtension: React.FC<IconExtensionProps> = (componentProps: IconExtensionProps) => {
   const IconComponent = icons[componentProps.name]
 
   return <IconComponent {...componentProps} />
