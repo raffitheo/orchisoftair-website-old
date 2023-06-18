@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from "react"
 
-import BackToTopProps from "./IBackToTopProps"
+import BackToTopProps from "./BackToTopProps.types"
 import IconExtension from "../IconExtension/IconExtension"
 
 import { ScrollSizeContext } from "../../pages/OrchiWebsite"
 
 import styles from "./BackToTop.module.scss"
 
-const BackToTop = (componentProps: BackToTopProps) => {
-  const [overrideVisible, setOverrideVisible] = useState<boolean>(true)
-  const [visible, setVisible] = useState<boolean>(false)
+const BackToTop: React.FC<BackToTopProps> = (componentProps: BackToTopProps) => {
+  const [overrideVisible, setOverrideVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
 
-  const scrollSize = useContext<number>(ScrollSizeContext)
+  const scrollSize = useContext(ScrollSizeContext)
 
   const backToTop = () => {
-    const scrollTo = (offset: number, callback: () => void): void => {
+    const scrollTo = (offset: number, callback: () => void) => {
       const fixedOffset = offset.toFixed()
-      const onScroll = (): void => {
+      const onScroll = () => {
         if (window.pageYOffset.toFixed() === fixedOffset) {
           window.removeEventListener("scroll", onScroll)
           callback()
@@ -41,11 +41,20 @@ const BackToTop = (componentProps: BackToTopProps) => {
       if (overrideVisible) {
         if (scrollSize > componentProps.minVisibleSize) {
           if (componentProps.maxVisibleSize) {
-            if (scrollSize < componentProps.maxVisibleSize) setVisible(true)
-            else setVisible(false)
-          } else setVisible(true)
-        } else setVisible(false)
-      } else setVisible(false)
+            if (scrollSize < componentProps.maxVisibleSize) {
+              setVisible(true)
+            } else {
+              setVisible(false)
+            }
+          } else {
+            setVisible(true)
+          }
+        } else {
+          setVisible(false)
+        }
+      } else {
+        setVisible(false)
+      }
     }
 
     handleVisibility()

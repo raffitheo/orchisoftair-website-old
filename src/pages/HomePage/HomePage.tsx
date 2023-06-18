@@ -1,13 +1,13 @@
 import React from "react"
 
-import HomePageProps from "./IHomePageProps"
+import HomePageProps from "./HomePageProps.types"
 
 import LandingSlider from "@components/LandingSlider/LandingSlider"
 import LandingCards from "@components/LandingCards/LandingCards"
 
 import styles from "./HomePage.module.scss"
 
-const HomePage = (componentProps: HomePageProps) => (
+const HomePage: React.FC<HomePageProps> = (componentProps: HomePageProps) => (
   <>
     <div
       id={styles["HomeWrapper"]}

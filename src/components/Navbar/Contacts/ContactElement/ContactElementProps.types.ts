@@ -1,4 +1,4 @@
-import { Contact } from "@interfaces/IContact"
+import { Contact } from "@interfaces/Contact.types"
 
 type ContactElementProps = {
   index: number

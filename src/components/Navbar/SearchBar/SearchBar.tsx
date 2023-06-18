@@ -1,13 +1,13 @@
 import React, { useState } from "react"
 
-import SearchbarProps from "./ISearchBarProps"
+import SearchbarProps from "./SearchBarProps.types"
 
 import IconExtension from "../../IconExtension/IconExtension"
 
 import styles from "./SearchBar.module.scss"
 
-const SearchBar = (componentProps: SearchbarProps) => {
-  const [searchActive, setSearchActive] = useState<boolean>(componentProps.openOnStart ? true : false)
+const SearchBar: React.FC<SearchbarProps> = (componentProps: SearchbarProps) => {
+  const [searchActive, setSearchActive] = useState(componentProps.openOnStart)
 
   return (
     <div className={styles["SearchbarWrapper"]}>
@@ -24,7 +24,9 @@ const SearchBar = (componentProps: SearchbarProps) => {
             className={`${styles["SearchbarButton"]}${searchActive ? ` ${styles["Active"]}` : ""}`}
             type="button"
             onClick={() => {
-              if (!componentProps.preventCollapse) setSearchActive(!searchActive)
+              if (!componentProps.preventCollapse) {
+                setSearchActive(!searchActive)
+              }
             }}
           >
             <IconExtension

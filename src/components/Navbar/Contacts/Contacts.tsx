@@ -1,12 +1,12 @@
 import React from "react"
 
-import ContactsProps from "./IContactsProps"
+import ContactsProps from "./ContactsProps.types"
 
 import ContactElement from "./ContactElement/ContactElement"
 
 import styles from "./Contacts.module.scss"
 
-const Contacts = (componentProps: ContactsProps) => (
+const Contacts: React.FC<ContactsProps> = (componentProps: ContactsProps) => (
   <div id={styles["ContactsWrapper"]}>
     <div id={styles["ContactsContainer"]}>
       {componentProps.contacts.map((contact, index) => (

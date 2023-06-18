@@ -5,7 +5,7 @@ import reactRefresh from "@vitejs/plugin-react-refresh"
 
 import * as tsconfig from "./tsconfig.paths.json"
 
-const readAliasFromTsConfig = (): Alias[] => {
+const readAliasFromTsConfig = () => {
   const pathReplaceRegex = new RegExp(/\/\*$/, "")
 
   return Object.entries(tsconfig.compilerOptions.paths).reduce((aliases, [fromPaths, toPaths]) => {
@@ -14,7 +14,7 @@ const readAliasFromTsConfig = (): Alias[] => {
     const replacement = path.resolve(__dirname, toPath)
     aliases.push({ find, replacement })
     return aliases
-  }, [] as Alias[])
+  }, [] as Array<Alias>)
 }
 
 export default defineConfig({

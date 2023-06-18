@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { IsMobileContext, PageSizeContext } from "../../pages/OrchiWebsite"
 
-import LandingSliderProps from "./ILandingSliderProps"
+import LandingSliderProps from "./LandingSliderProps.types"
 
 import styles from "./LandingSlider.module.scss"
 
@@ -25,13 +25,13 @@ const DEFAULT_SWITCH_TIMER_MOBILE = 12500
 
 const DEFAULT_REST_IMAGE_POSITION_ON_LEAVE = true
 
-const LandingSlider = (componentProps: LandingSliderProps) => {
-  const [currentSlider, setCurrentSlider] = useState<number>(-1)
-  const [overImages, setOverImages] = useState<boolean>(false)
+const LandingSlider: React.FC<LandingSliderProps> = (componentProps: LandingSliderProps) => {
+  const [currentSlider, setCurrentSlider] = useState(-1)
+  const [overImages, setOverImages] = useState(false)
 
-  const imageElementDescriptionTexts = useRef<HTMLParagraphElement[]>([])
-  const imageElementDescriptionTitles = useRef<HTMLHeadingElement[]>([])
-  const imageForegroundElementWrappers = useRef<HTMLDivElement[]>([])
+  const imageElementDescriptionTexts = useRef<Array<HTMLParagraphElement>>([])
+  const imageElementDescriptionTitles = useRef<Array<HTMLHeadingElement>>([])
+  const imageForegroundElementWrappers = useRef<Array<HTMLDivElement>>([])
   const imagesWrapper = useRef<HTMLDivElement>(null)
   const switchTimeout = useRef<NodeJS.Timeout>()
   const resizeTimeout = useRef<NodeJS.Timeout>()
@@ -40,11 +40,13 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
     end: { x: 0, y: 0 }
   })
 
-  const isMobile = useContext<boolean>(IsMobileContext)
-  const pageSize = useContext<number>(PageSizeContext)
+  const isMobile = useContext(IsMobileContext)
+  const pageSize = useContext(PageSizeContext)
 
   const setSlider = (index: number) => {
-    if (currentSlider !== index) setCurrentSlider(index)
+    if (currentSlider !== index) {
+      setCurrentSlider(index)
+    }
   }
 
   useEffect(() => setCurrentSlider(0), [])
@@ -66,13 +68,13 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
       }
     }
 
-    const imageParallax = (event: MouseEvent): void => {
+    const imageParallax = (event: MouseEvent) => {
       if (!window.matchMedia("(pointer: coarse)").matches) {
         if (imageForegroundElementWrappers && imageForegroundElementWrappers.current) {
           imageForegroundElementWrappers.current.forEach((image) => {
             if (overImages) {
-              const x: number = (document.documentElement.clientWidth - event.pageX) / 70
-              const y: number = (document.documentElement.clientHeight - event.pageY) / 70
+              const x = (document.documentElement.clientWidth - event.pageX) / 70
+              const y = (document.documentElement.clientHeight - event.pageY) / 70
 
               image.style.transform = `translate(${x}px, ${y}px)`
               image.style.transition = ""
@@ -103,8 +105,9 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
         imagesWrapper.current.style.transition = "none"
         clearTimeout(resizeTimeout.current)
         resizeTimeout.current = setTimeout(() => {
-          if (imagesWrapper && imagesWrapper.current)
+          if (imagesWrapper && imagesWrapper.current) {
             imagesWrapper.current.style.transition = `left ${isMobile ? "500ms" : "1000ms"} ease-in-out`
+          }
         }, 100)
       }
     }
@@ -136,7 +139,9 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
           out = (difT / 100) * (rapW / (difW / 100)) + minElementSize
           normalizedOut = inRange(out, minElementSize, maxElementSize)
 
-          if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`
+          if (text) {
+            (text as HTMLElement).style.fontSize = `${normalizedOut}px`
+          }
         })
       }
 
@@ -153,7 +158,9 @@ const LandingSlider = (componentProps: LandingSliderProps) => {
           out = (difT / 100) * (rapW / (difW / 100)) + minElementSize
           normalizedOut = inRange(out, minElementSize, maxElementSize)
 
-          if (text) (text as HTMLElement).style.fontSize = `${normalizedOut}px`
+          if (text) {
+            (text as HTMLElement).style.fontSize = `${normalizedOut}px`
+          }
         })
       }
     }

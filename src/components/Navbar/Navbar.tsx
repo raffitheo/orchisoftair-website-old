@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react"
 
 import { Link } from "react-router-dom"
 
-import NavbarProps from "./INavbarProps"
+import NavbarProps from "./NavbarProps.types"
 
 import logo from "../../assets/images/logo.png"
 
@@ -16,18 +16,18 @@ import { BaseURL, IsMobileContext, ScrollSizeContext } from "../../pages/OrchiWe
 
 import styles from "./Navbar.module.scss"
 
-const Navbar = (componentProps: NavbarProps) => {
-  const [currentlySelected, setCurrentlySelected] = useState<number>(-1)
-  const [currentlySelectedSubMenu, setCurrentlySelectedSubMenu] = useState<number>(-1)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
-  const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<number>(-1)
+const Navbar: React.FC<NavbarProps> = (componentProps: NavbarProps) => {
+  const [currentlySelected, setCurrentlySelected] = useState(-1)
+  const [currentlySelectedSubMenu, setCurrentlySelectedSubMenu] = useState(-1)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState(-1)
 
   const desktopContacts = useRef<HTMLDivElement>(null)
   const navbarWrapper = useRef<HTMLDivElement>(null)
 
-  const baseURL = useContext<string>(BaseURL)
-  const isMobile = useContext<boolean>(IsMobileContext)
-  const scrollSize = useContext<number>(ScrollSizeContext)
+  const baseURL = useContext(BaseURL)
+  const isMobile = useContext(IsMobileContext)
+  const scrollSize = useContext(ScrollSizeContext)
 
   useEffect(() => {
     const url = window.location.toString()
@@ -37,8 +37,9 @@ const Navbar = (componentProps: NavbarProps) => {
 
       if (selection) {
         componentProps.navigation.forEach((element, index) => {
-          if ("link" in element && `#${selection}` === element.link) setCurrentlySelected(index)
-          else {
+          if ("link" in element && `#${selection}` === element.link) {
+            setCurrentlySelected(index)
+          } else {
             if ("subMenu" in element && element.subMenu && element.subMenu.length >= 1) {
               element.subMenu.forEach((subElement, subIndex) => {
                 if (`#${selection}` === subElement.link) {
@@ -69,7 +70,9 @@ const Navbar = (componentProps: NavbarProps) => {
             navbarWrapper.current.style.top = "0"
             navbarWrapper.current.style.position = "absolute"
           }
-        } else navbarWrapper.current.style.position = "fixed"
+        } else {
+          navbarWrapper.current.style.position = "fixed"
+        }
       }
     }
 
@@ -77,7 +80,9 @@ const Navbar = (componentProps: NavbarProps) => {
   }, [isMobile, scrollSize])
 
   useEffect(() => {
-    if (!isMobile && isMobileMenuOpen) setIsMobileMenuOpen(false)
+    if (!isMobile && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false)
+    }
   }, [isMobile, isMobileMenuOpen])
 
   return (
@@ -147,7 +152,7 @@ const Navbar = (componentProps: NavbarProps) => {
                             className={styles["NavigationListElementLink"]}
                             href={element.link}
                             onClick={(event) => {
-                              const pressedElement: HTMLElement = event.target as HTMLElement
+                              const pressedElement = event.target as HTMLElement
 
                               if (
                                 pressedElement &&
@@ -164,7 +169,7 @@ const Navbar = (componentProps: NavbarProps) => {
                           <Link
                             className={styles["NavigationListElementLink"]}
                             onClick={(event) => {
-                              const pressedElement: HTMLElement = event.target as HTMLElement
+                              const pressedElement = event.target as HTMLElement
 
                               if (
                                 pressedElement &&
@@ -198,7 +203,7 @@ const Navbar = (componentProps: NavbarProps) => {
                                     className={styles["NavigationSubMenuListElementLink"]}
                                     href={subMenuElement.link}
                                     onClick={(event) => {
-                                      const pressedElement: HTMLElement = event.target as HTMLElement
+                                      const pressedElement = event.target as HTMLElement
 
                                       if (
                                         pressedElement &&
@@ -215,7 +220,7 @@ const Navbar = (componentProps: NavbarProps) => {
                                   <Link
                                     className={styles["NavigationSubMenuListElementLink"]}
                                     onClick={(event) => {
-                                      const pressedElement: HTMLElement = event.target as HTMLElement
+                                      const pressedElement = event.target as HTMLElement
 
                                       if (
                                         pressedElement &&

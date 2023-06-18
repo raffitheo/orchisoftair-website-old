@@ -1,13 +1,13 @@
 import React from "react"
 
-import ContactElementProps from "./IContactElementProps"
+import ContactElementProps from "./ContactElementProps.types"
 
 import IconExtension from "../../../IconExtension/IconExtension"
-import { IconName } from "../../../IconExtension/IIconExtensionProps"
+import { IconName } from "../../../IconExtension/IconExtensionProps.types"
 
 import styles from "./ContactElement.module.scss"
 
-const ContactElement = (componentProps: ContactElementProps) => (
+const ContactElement: React.FC<ContactElementProps> = (componentProps: ContactElementProps) => (
   <div className={styles["ContactElement"]}>
     <IconExtension
       name={componentProps.icon as IconName}
